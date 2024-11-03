@@ -8,9 +8,9 @@
                 <a href="./index.html"><img src="img/logo.png" alt="" /></a>
               </div>
               <ul>
-                <li>Address: 60-49 Road 11378 New York</li>
-                <li>Phone: +65 11.188.888</li>
-                <li>Email: hello@colorlib.com</li>
+                <li>Địa chỉ: 65 Huỳnh Thúc Kháng, P.Bến Nghé, Q.1, Tp.HCM</li>
+                <li>Phone: 028 38 212 868</li>
+                <li>Email: ktcaothang@caothang.edu.vn</li>
               </ul>
             </div>
           </div>
@@ -79,3 +79,14 @@
       </div>
     </footer>
     <!-- Footer Section End -->
+    <!-- Js Plugins -->
+   <script src="../public/js/jquery-3.3.1.min.js"></script>
+    <script src="../public/js/bootstrap.min.js"></script>
+    <script src="../public/js/jquery.nice-select.min.js"></script>
+    <script src="../public/js/jquery-ui.min.js"></script>
+    <script src="../public/js/jquery.slicknav.js"></script>
+    <script src="../public/js/mixitup.min.js"></script>
+    <script src="../public/js/owl.carousel.min.js"></script>
+    <script src="../public/js/main.js"></script>
+  </body>
+</html>
