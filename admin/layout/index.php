@@ -93,8 +93,8 @@
               </li>
               <li>
                 <a href="widgets.html"
-                  ><i class="fa fa-clock-o orange_color"></i>
-                  <span>Widgets</span></a
+                  ><i class="fa fa-cube orange_color"></i>
+                  <span>Nhập hàng</span></a
                 >
               </li>
               <li>
@@ -103,7 +103,7 @@
                   data-toggle="collapse"
                   aria-expanded="false"
                   class="dropdown-toggle"
-                  ><i class="fa fa-table purple_color"></i> <span>Bảng</span></a
+                  ><i class="fa fa-table purple_color"></i> <span>Quản lý</span></a
                 >
                 <ul class="collapse list-unstyled" id="element">
                   <li>
@@ -111,6 +111,9 @@
                   </li>
                   <li>
                     <a href="media_gallery.html">> <span>Loại</span></a>
+                  </li>
+                  <li>
+                    <a href="invoice.php">> <span>Màu sắc</span></a>
                   </li>
                   <li>
                     <a href="">> <span>Thương hiệu</span></a>
@@ -122,8 +125,8 @@
               </li>
               <li>
                 <a href="tables.html"
-                  ><i class="fa fa-table purple_color2"></i>
-                  <span>Tables</span></a
+                  ><i class="fa fa-inbox purple_color2"></i>
+                  <span>Kho hàng</span></a
                 >
               </li>
               <li>
@@ -152,7 +155,7 @@
               <li>
                 <a href="price.html"
                   ><i class="fa fa-briefcase blue1_color"></i>
-                  <span>Pricing Tables</span></a
+                  <span>Bình luận </span></a
                 >
               </li>
               <li>
@@ -184,11 +187,6 @@
                     <a href="404_error.html">> <span>404 Error</span></a>
                   </li>
                 </ul>
-              </li>
-              <li>
-                <a href="map.html"
-                  ><i class="fa fa-map purple_color2"></i> <span>Map</span></a
-                >
               </li>
               <li>
                 <a href="charts.html"
