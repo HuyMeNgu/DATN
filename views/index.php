@@ -292,8 +292,8 @@
     </div>
     <!-- Banner End -->
 
-    <!-- Latest Product Section Begin -->
-    <section class="latest-product spad">
+    <!-- Latest Product Section Bgin -->
+    <section class="latest-producet spad">
       <div class="container">
         <div class="row">
           <div class="col-lg-4 col-md-6">
@@ -563,12 +563,12 @@
           </div>
         </div>
       </div>
-    </section>
-    <!-- Blog Section End -->
+  </section>
+<!-- Blog Section End -->
 
-    <!-- //FOOTER -->
-    <?php
-    require_once("footer.php")
-     ?>
+<!-- //FOOTER -->
+<?php
+  require_once("footer.php")
+?>
 
  

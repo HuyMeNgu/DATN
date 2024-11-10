@@ -1,16 +1,16 @@
 <div class="midde_cont">
-                  <div class="container-fluid">
-                     <div class="row column_title">
-                        <div class="col-md-12">
-                           <div class="page_title">
-                              <h2>Invoice <small>( user invoice design )</small></h2>
-                           </div>
-                        </div>
+      <div class="container-fluid">
+         <div class="row column_title">
+               <div class="col-md-12">
+                     <div class="page_title">
+                           <h2>Invoice <small>( user invoice design )</small></h2>
                      </div>
-                     <!-- row -->
-                     <div class="row">
-                        <!-- invoice section -->
-                        <div class="col-md-12">
+               </div>
+         </div>
+         <!-- row -->
+         <div class="row">
+         <!-- invoice section -->
+            <div class="col-md-12">
                            <div class="white_shd full margin_bottom_30">
                               <div class="full graph_head">
                                  <div class="heading1 margin_0">

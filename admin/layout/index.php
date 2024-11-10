@@ -69,33 +69,16 @@
           <div class="sidebar_blog_2">
             <h4>General</h4>
             <ul class="list-unstyled components">
-              <li class="active">
-                <a
-                  href="#dashboard"
-                  data-toggle="collapse"
-                  aria-expanded="false"
-                  class="dropdown-toggle"
-                  ><i class="fa fa-dashboard yellow_color"></i>
-                  <span>Dashboard</span></a
-                >
-                <ul class="collapse list-unstyled" id="dashboard">
-                  <li>
-                    <a href="dashboard.html"
-                      >> <span>Default Dashboard</span></a
-                    >
-                  </li>
-                  <li>
-                    <a href="dashboard_2.html"
-                      >> <span>Dashboard style 2</span></a
-                    >
-                  </li>
-                </ul>
+            <li>
+                <a href="?action=body"
+                  ><i class="fa fa-home yellow_color"></i>
+                  <span>Trang chủ</span></a>
+              </li>
               </li>
               <li>
-                <a href="widgets.html"
+                <a href="?action=import_inv"
                   ><i class="fa fa-cube orange_color"></i>
-                  <span>Nhập hàng</span></a
-                >
+                  <span>Nhập hàng</span></a>
               </li>
               <li>
                 <a
@@ -107,97 +90,44 @@
                 >
                 <ul class="collapse list-unstyled" id="element">
                   <li>
-                    <a href="general_elements.html">> <span>Sản phẩm</span></a>
+                    <a href="?action=product">> <span>Sản phẩm</span></a>
                   </li>
                   <li>
-                    <a href="media_gallery.html">> <span>Loại</span></a>
+                    <a href="?action=category">> <span>Loại</span></a>
                   </li>
                   <li>
-                    <a href="invoice.php">> <span>Màu sắc</span></a>
+                    <a href="?action=color">> <span>Màu sắc</span></a>
                   </li>
                   <li>
-                    <a href="">> <span>Thương hiệu</span></a>
+                    <a href="?action=brand">> <span>Thương hiệu</span></a>
                   </li>
                   <li>
-                    <a href="invoice.php">> <span>Nhà cung cấp</span></a>
+                    <a href="?action=supplier">> <span>Nhà cung cấp</span></a>
                   </li>
                 </ul>
               </li>
               <li>
-                <a href="tables.html"
+                <a href="tables.php"
                   ><i class="fa fa-inbox purple_color2"></i>
                   <span>Kho hàng</span></a
                 >
               </li>
               <li>
-                <a
-                  href="#apps"
-                  data-toggle="collapse"
-                  aria-expanded="false"
-                  class="dropdown-toggle"
-                  ><i class="fa fa-object-group blue2_color"></i>
-                  <span>Apps</span></a
-                >
-                <ul class="collapse list-unstyled" id="apps">
-                  <li>
-                    <a href="email.html">> <span>Email</span></a>
-                  </li>
-                  <li>
-                    <a href="calendar.html">> <span>Calendar</span></a>
-                  </li>
-                  <li>
-                    <a href="media_gallery.html"
-                      >> <span>Media Gallery</span></a
-                    >
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href="price.html"
+                <a href="?action=comment"
                   ><i class="fa fa-briefcase blue1_color"></i>
                   <span>Bình luận </span></a
                 >
               </li>
               <li>
-                <a href="contact.html">
-                  <i class="fa fa-paper-plane red_color"></i>
-                  <span>Contact</span></a
+                <a href="?action=invoice">
+                  <i class="fa fa-file red_color"></i>
+                  <span>Đơn hàng</span></a
                 >
-              </li>
-              <li class="active">
-                <a
-                  href="#additional_page"
-                  data-toggle="collapse"
-                  aria-expanded="false"
-                  class="dropdown-toggle"
-                  ><i class="fa fa-clone yellow_color"></i>
-                  <span>Additional Pages</span></a
-                >
-                <ul class="collapse list-unstyled" id="additional_page">
-                  <li>
-                    <a href="profile.html">> <span>Profile</span></a>
-                  </li>
-                  <li>
-                    <a href="project.html">> <span>Projects</span></a>
-                  </li>
-                  <li>
-                    <a href="login.html">> <span>Login</span></a>
-                  </li>
-                  <li>
-                    <a href="404_error.html">> <span>404 Error</span></a>
-                  </li>
-                </ul>
               </li>
               <li>
                 <a href="charts.html"
                   ><i class="fa fa-bar-chart-o green_color"></i>
                   <span>Charts</span></a
-                >
-              </li>
-              <li>
-                <a href="settings.html"
-                  ><i class="fa fa-cog yellow_color"></i>
-                  <span>Settings</span></a
                 >
               </li>
             </ul>
@@ -258,7 +188,7 @@
           <!-- end topbar -->
           <!-- dashboard inner -->
           <?php
-          require_once('project.php');
+          include('main.php');
           ?>
           <!-- end dashboard inner -->
         </div>
