@@ -1,6 +1,6 @@
 <?php
-   $sql = "SELECT * FROM categories";
-   $listCate = $mysqli->query($sql);
+   $sql = "SELECT * FROM suppliers";
+   $listSupplier = $mysqli->query($sql);
 ?>
 
 <div class="midde_cont">
@@ -8,7 +8,7 @@
       <div class="row column_title">
          <div class="col-md-12">
             <div class="page_title">
-               <h2>LOẠI SẢN PHẨM</h2>
+               <h2>NHÀ CUNG CẤP</h2>
             </div>
          </div>
       </div>
@@ -28,24 +28,32 @@
                      <table class="table table-striped projects">
                         <thead class="thead-dark">
                            <tr>
-                              <th style="width: 10%">STT</th>
-                              <th style="width: 30%">Tên loại</th>
-                              <th>Trạng thái</th>
+                              <th style="width: 1%">STT</th>
+                              <th style="width: 40%">Tên nhà cung cấp</th>
+                              <th style="width: 60%">Địa chỉ</th>
+                              <th>SĐT</th>
+                              <th style="width: 1%">Email</th>
                               <th>Sửa</th>
                               <th>Xóa</th>
                            </tr>
                         </thead>
                         <tbody>
                            <?php 
-                              foreach($listCate as $item){
+                              foreach($listSupplier as $item){
                            ?>
                               <tr>
-                                 <td><?= $item['category_id'] ?></td>
+                                 <td><?= $item['id'] ?></td>
                                  <td>
-                                    <a><?= $item['name']?></a>
+                                    <?= $item['supplier_name']?>
                                  </td>
                                  <td>
-                                    <button type="button" class="btn btn-success btn-xs">Success</button>
+                                    <?= $item['address']?>
+                                 </td>
+                                 <td>
+                                    <?= $item['phone']?>
+                                 </td>
+                                 <td>
+                                    <?= $item['email']?>
                                  </td>
                                  <td>
                                     <a href="" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>

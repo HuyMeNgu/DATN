@@ -34,6 +34,9 @@
     <![endif]-->
   </head>
   <body class="dashboard dashboard_1">
+    <?php
+      require_once('../../config.php')
+    ?>
     <div class="full_container">
       <div class="inner_container">
         <!-- Sidebar  -->
@@ -67,7 +70,7 @@
             </div>
           </div>
           <div class="sidebar_blog_2">
-            <h4>General</h4>
+            <h4>DANH MỤC</h4>
             <ul class="list-unstyled components">
             <li>
                 <a href="?action=body"
@@ -168,14 +171,13 @@
                         >
                         <div class="dropdown-menu">
                           <a class="dropdown-item" href="profile.html"
-                            >My Profile</a
+                            >Hồ sơ</a
                           >
                           <a class="dropdown-item" href="settings.html"
                             >Settings</a
                           >
-                          <a class="dropdown-item" href="help.html">Help</a>
                           <a class="dropdown-item" href="#"
-                            ><span>Log Out</span> <i class="fa fa-sign-out"></i
+                            ><span>Đang xuất</span> <i class="fa fa-sign-out"></i
                           ></a>
                         </div>
                       </li>

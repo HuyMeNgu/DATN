@@ -3,7 +3,7 @@
       <div class="row column_title">
          <div class="col-md-12">
             <div class="page_title">
-               <h2>Loại sản phẩm</h2>
+               <h2>Danh sách sản phẩm</h2>
             </div>
          </div>
       </div>
@@ -13,7 +13,7 @@
          <div class="white_shd full margin_bottom_30">
             <div class="full graph_head">
                <div class="heading1 margin_0">
-                  <h2>Them moi <small>( Listing Design )</small></h2>
+                  <a href="" class="btn btn-success">Thêm mới</a>
                </div>
             </div>
          <div class="full price_table padding_infor_info">
@@ -23,9 +23,9 @@
                      <table class="table table-striped projects">
                         <thead class="thead-dark">
                            <tr>
-                              <th style="width: 2%">No</th>
-                              <th style="width: 30%">Project Title</th>
-                              <th>Members</th>
+                              <th style="width: 2%">STT</th>
+                              <th style="width: 20%">Hình ảnh</th>
+                              <th>Tên sản phẩm</th>
                               <th>Project Progress</th>
                               <th>Status</th>
                            </tr>

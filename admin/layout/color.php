@@ -1,6 +1,6 @@
 <?php
-   $sql = "SELECT * FROM categories";
-   $listCate = $mysqli->query($sql);
+   $sql = "SELECT * FROM colors";
+   $listColor = $mysqli->query($sql);
 ?>
 
 <div class="midde_cont">
@@ -8,7 +8,7 @@
       <div class="row column_title">
          <div class="col-md-12">
             <div class="page_title">
-               <h2>LOẠI SẢN PHẨM</h2>
+               <h2>MÀU SẮC</h2>
             </div>
          </div>
       </div>
@@ -18,7 +18,7 @@
          <div class="white_shd full margin_bottom_30">
             <div class="full graph_head">
                <div class="heading1 margin_0">
-                  <a href="" class="btn btn-success">Thêm mới</a>
+                  <a href="" class="btn btn-success">Thêm màu</a>
                </div>
             </div>
          <div class="full price_table padding_infor_info">
@@ -29,7 +29,7 @@
                         <thead class="thead-dark">
                            <tr>
                               <th style="width: 10%">STT</th>
-                              <th style="width: 30%">Tên loại</th>
+                              <th style="width: 30%">Màu</th>
                               <th>Trạng thái</th>
                               <th>Sửa</th>
                               <th>Xóa</th>
@@ -37,12 +37,12 @@
                         </thead>
                         <tbody>
                            <?php 
-                              foreach($listCate as $item){
+                              foreach($listColor as $item){
                            ?>
                               <tr>
-                                 <td><?= $item['category_id'] ?></td>
+                                 <td><?= $item['color_id'] ?></td>
                                  <td>
-                                    <a><?= $item['name']?></a>
+                                    <a><?= $item['color_name']?></a>
                                  </td>
                                  <td>
                                     <button type="button" class="btn btn-success btn-xs">Success</button>

@@ -23,6 +23,9 @@
         case 'invoice':
             include('invoice.php');
             break;
+        case 'supplier':
+            include('supplier.php');
+            break;
         default: 
             include('body.php');
     }
