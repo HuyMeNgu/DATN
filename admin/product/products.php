@@ -1,3 +1,28 @@
+<?php
+// Assuming you have a database connection established
+
+$productId = $_POST['productId'];
+$selectedColors = $_POST['selectedColors'];
+
+$sql = "SELECT pc.color_id, pc.img_path, pc.quantity
+        FROM productcolors pc
+        WHERE pc.product_id = ? AND pc.color_id IN (?)";
+
+$stmt = $conn->prepare($sql);
+$stmt->bind_param('is', $productId, implode(',', $selectedColors));
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+$data = array();
+while ($row = $result->fetch_assoc()) {
+    $data[$row['color_id']] = array(
+        'img_path' => $row['img_path'],
+        'quantity' => $row['quantity']
+    );
+}
+?>
+
 <div class="midde_cont">
    <div class="container-fluid">
       <div class="row column_title">
@@ -26,7 +51,8 @@
                               <th style="width: 2%">STT</th>
                               <th style="width: 20%">Hình ảnh</th>
                               <th>Tên sản phẩm</th>
-                              <th>Project Progress</th>
+                              <th>Loại</th>
+                              <th>Màu sắc</th>
                               <th>Status</th>
                            </tr>
                         </thead>
@@ -144,113 +170,7 @@
                                                    <td>
                                                       <button type="button" class="btn btn-success btn-xs">Success</button>
                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                   <td>5</td>
-                                                   <td>
-                                                      <a>At vero eos et accusamus et iusto odio dignissimos ducimus qui bland itiis praesentium</a>
-                                                   </td>
-                                                   <td>
-                                                      <ul class="list-inline">
-                                                         <li>
-                                                            <img width="40" src="images/layout_img/msg1.png" class="rounded-circle" alt="#">
-                                                         </li>
-                                                         <li>
-                                                            <img width="40" src="images/layout_img/msg2.png" class="rounded-circle" alt="#">
-                                                         </li>
-                                                      </ul>
-                                                   </td>
-                                                   <td class="project_progress">
-                                                      <div class="progress progress_sm">
-                                                         <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100" style="width: 63%;"></div>
-                                                      </div>
-                                                      <small>63% Complete</small>
-                                                   </td>
-                                                   <td>
-                                                      <button type="button" class="btn btn-success btn-xs">Success</button>
-                                                   </td>
-                                                </tr>
-                                                <tr>
-                                                   <td>6</td>
-                                                   <td>
-                                                      <a>On the other hand, we denounce with righteous</a>
-                                                      <br>
-                                                      <small>Created 25.july.2018</small>
-                                                   </td>
-                                                   <td>
-                                                      <ul class="list-inline">
-                                                         <li>
-                                                            <img width="40" src="images/layout_img/msg1.png" class="rounded-circle" alt="#">
-                                                         </li>
-                                                         <li>
-                                                            <img width="40" src="images/layout_img/msg2.png" class="rounded-circle" alt="#">
-                                                         </li>
-                                                         <li>
-                                                            <img width="40" src="images/layout_img/msg3.png" class="rounded-circle" alt="#">
-                                                         </li>
-                                                      </ul>
-                                                   </td>
-                                                   <td class="project_progress">
-                                                      <div class="progress progress_sm">
-                                                         <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" aria-valuenow="27" aria-valuemin="0" aria-valuemax="100" style="width: 27%;"></div>
-                                                      </div>
-                                                      <small>27% Complete</small>
-                                                   </td>
-                                                   <td>
-                                                      <button type="button" class="btn btn-success btn-xs">Success</button>
-                                                   </td>
-                                                </tr>
-                                                <tr>
-                                                   <td>7</td>
-                                                   <td>
-                                                      <a>Nam libero tempore, cum soluta nobis est eligendi..</a>
-                                                      <br>
-                                                      <small>Created 25.july.2018</small>
-                                                   </td>
-                                                   <td>
-                                                      <ul class="list-inline">
-                                                         <li>
-                                                            <img width="40" src="images/layout_img/msg4.png" class="rounded-circle" alt="#">
-                                                         </li>
-                                                         <li>
-                                                            <img width="40" src="images/layout_img/msg3.png" class="rounded-circle" alt="#">
-                                                         </li>
-                                                      </ul>
-                                                   </td>
-                                                   <td class="project_progress">
-                                                      <div class="progress progress_sm">
-                                                         <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%;"></div>
-                                                      </div>
-                                                      <small>85% Complete</small>
-                                                   </td>
-                                                   <td>
-                                                      <button type="button" class="btn btn-success btn-xs">Success</button>
-                                                   </td>
-                                                </tr>
-                                                <tr>
-                                                   <td>8</td>
-                                                   <td>
-                                                      <a>Nor again is there anyone who loves or pursues</a>
-                                                      <br>
-                                                      <small>Created 25.july.2018</small>
-                                                   </td>
-                                                   <td>
-                                                      <ul class="list-inline">
-                                                         <li>
-                                                            <img width="40" src="images/layout_img/msg1.png" class="rounded-circle" alt="#">
-                                                         </li>
-                                                      </ul>
-                                                   </td>
-                                                   <td class="project_progress">
-                                                      <div class="progress progress_sm">
-                                                         <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100" style="width: 18%;"></div>
-                                                      </div>
-                                                      <small>18% Complete</small>
-                                                   </td>
-                                                   <td>
-                                                      <button type="button" class="btn btn-success btn-xs">Success</button>
-                                                   </td>
-                                                </tr>
+                                                </tr>                                                                                    
                                              </tbody>
                                           </table>
                                        </div>
