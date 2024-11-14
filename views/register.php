@@ -10,12 +10,29 @@
 <?php
  require_once('../models/connectdb.php');
  require_once('../models/function.php');
+ require_once('../models/database.php');
 
  if(isPost()){
-    echo '<prev>';
-    print_r($_POST);
-    echo '</preve';
+    $filterAll =filter();
+    $errors=[];//mang chua cac loi
+    //validate ho va ten nguoi dung
+    if(empty($filterAll['fullname'])){
+        $errors['fullname']['required']='Vui Lòng Điền Đầy Đủ Họ Tên.';
+    }else{
+        if(strlen($filterAll['fullname'])<5){
+            $errors['fullname']['min']='Họ tên phải có ít nhất 5 kí tự';
+        }
+    }
  }
+
+//validate Email nhap tu nguoi dung
+if(empty($filterAll['email'])){
+    $errors['email']['required']='Vui Lòng Điền Đầy Đủ Thông Tin Email.';
+}else{
+    $email=$filterAll['email'];
+    $sql="SELECT customer_id FROM customers WHERE email='$email'";
+   
+}
 ?>  
 
 

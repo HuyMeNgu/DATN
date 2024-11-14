@@ -4,14 +4,17 @@ $username = 'root';
 $password = '';
 $dbname = 'balostore';
 
+   
+
 // Kết nối
-$conn = mysqli_connect($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname);
 
 // Kiểm tra kết nối
-if (!$conn) {
+if (!$conn->connect_error) {
     die("Kết nối thất bại: " . mysqli_connect_error());
 }
 // echo "Kết nối thành công!";
+
 ?>
 
 <?php
