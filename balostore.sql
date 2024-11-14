@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 13, 2024 lúc 04:23 PM
+-- Thời gian đã tạo: Th10 13, 2024 lúc 05:01 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -97,7 +97,10 @@ CREATE TABLE `colors` (
 
 INSERT INTO `colors` (`id`, `color_name`) VALUES
 (1, 'Trắng'),
-(2, 'Đen');
+(2, 'Đen'),
+(3, 'Xanh lá'),
+(4, 'Vàng'),
+(5, 'Xám');
 
 -- --------------------------------------------------------
 
@@ -107,8 +110,21 @@ INSERT INTO `colors` (`id`, `color_name`) VALUES
 
 CREATE TABLE `customers` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `address` mediumtext NOT NULL,
+  `create_at` datetime NOT NULL,
+  `update_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `customers`
+--
+
+INSERT INTO `customers` (`id`, `name`, `password`, `phone`, `email`, `address`, `create_at`, `update_at`) VALUES
+(1, 'the vinh', '12234', '083838388', 'vinh@gmail.com', 'Long An', '2024-11-13 16:58:33', '2024-11-13 16:58:33');
 
 -- --------------------------------------------------------
 
@@ -203,6 +219,20 @@ CREATE TABLE `productcolors` (
   `img_path` varchar(255) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `productcolors`
+--
+
+INSERT INTO `productcolors` (`product_id`, `color_id`, `img_path`, `quantity`) VALUES
+(1, 2, 'balo-natolib17-grey.png', 19),
+(1, 5, 'balo-natolib17-grey.png', 0),
+(1, 4, 'balo-natolib17-grey.png', 30),
+(2, 1, 'balo-mikkorkalino-black.png', 49),
+(2, 2, 'balo-mikkorkalino-navy.png', 0),
+(3, 2, 'balo-mikkor15-black.png', 0),
+(4, 2, 'balo-kmoreeliot-black.png', 0),
+(4, 2, 'balo-kmoreeliot-black.png', 12);
 
 -- --------------------------------------------------------
 
@@ -379,13 +409,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT cho bảng `colors`
 --
 ALTER TABLE `colors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `images`

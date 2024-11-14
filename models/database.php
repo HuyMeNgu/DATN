@@ -69,5 +69,4 @@ function countRows($sql){
      }
      return $numRows;
     }
-
 ?>

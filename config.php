@@ -1,8 +1,8 @@
-<?php 
-    $mysqli= new mysqli("localhost", "root", "", "balostore");
+ <?php 
+    // $mysqli= new mysqli("localhost", "root", "", "balostore");
     
-    if ($mysqli -> connect_errno){
-        echo "Connect Mysql Fail".$mysqli -> connect_errno;
-        exit();
-    }
-?>
+    // if ($mysqli -> connect_errno){
+    //     echo "Connect Mysql Fail".$mysqli -> connect_errno;
+    //     exit();
+    // }
+?> 
