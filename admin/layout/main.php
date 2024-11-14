@@ -3,28 +3,28 @@
    { $page = $_GET['action'];}else {$page = '';}
         switch($page){
         case 'category':
-            include('category.php');
+            include('../category/category.php');
             break;
         case 'product':
-            include('product.php');
+            include('../product/product.php');
             break;
         case 'color':
-            include('color.php');
+            include('../color/color.php');
             break;
         case 'brand':
-            include('brand.php');
+            include('../brand/brand.php');
             break;  
         case 'import_inv':
-            include('import_inv.php');
+            include('../import_inv/import_inv.php');
             break;
         case 'comment':
-            include('comment.php');
+            include('../comment/comment.php');
             break;
         case 'invoice':
-            include('invoice.php');
+            include('../invoice/invoice.php');
             break;
         case 'supplier':
-            include('supplier.php');
+            include('../supplier/supplier.php');
             break;
         default: 
             include('body.php');

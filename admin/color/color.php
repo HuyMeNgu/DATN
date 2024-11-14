@@ -1,6 +1,6 @@
 <?php
-   $sql = "SELECT * FROM suppliers";
-   $listSupplier = $mysqli->query($sql);
+   $sql = "SELECT * FROM colors";
+   $listColor = $mysqli->query($sql);
 ?>
 
 <div class="midde_cont">
@@ -8,7 +8,7 @@
       <div class="row column_title">
          <div class="col-md-12">
             <div class="page_title">
-               <h2>NHÀ CUNG CẤP</h2>
+               <h2>MÀU SẮC</h2>
             </div>
          </div>
       </div>
@@ -18,7 +18,7 @@
          <div class="white_shd full margin_bottom_30">
             <div class="full graph_head">
                <div class="heading1 margin_0">
-                  <a href="" class="btn btn-success">Thêm mới</a>
+                  <a href="" class="btn btn-success">Thêm màu</a>
                </div>
             </div>
          <div class="full price_table padding_infor_info">
@@ -28,32 +28,24 @@
                      <table class="table table-striped projects">
                         <thead class="thead-dark">
                            <tr>
-                              <th style="width: 1%">STT</th>
-                              <th style="width: 40%">Tên nhà cung cấp</th>
-                              <th style="width: 60%">Địa chỉ</th>
-                              <th>SĐT</th>
-                              <th style="width: 1%">Email</th>
+                              <th style="width: 10%">STT</th>
+                              <th style="width: 30%">Màu</th>
+                              <th>Trạng thái</th>
                               <th>Sửa</th>
                               <th>Xóa</th>
                            </tr>
                         </thead>
                         <tbody>
                            <?php 
-                              foreach($listSupplier as $item){
+                              foreach($listColor as $item){
                            ?>
                               <tr>
                                  <td><?= $item['id'] ?></td>
                                  <td>
-                                    <?= $item['supplier_name']?>
+                                    <a><?= $item['color_name']?></a>
                                  </td>
                                  <td>
-                                    <?= $item['address']?>
-                                 </td>
-                                 <td>
-                                    <?= $item['phone']?>
-                                 </td>
-                                 <td>
-                                    <?= $item['email']?>
+                                    <button type="button" class="btn btn-success btn-xs">Success</button>
                                  </td>
                                  <td>
                                     <a href="" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>

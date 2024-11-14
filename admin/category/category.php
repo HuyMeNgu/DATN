@@ -40,7 +40,7 @@
                               foreach($listCate as $item){
                            ?>
                               <tr>
-                                 <td><?= $item['category_id'] ?></td>
+                                 <td><?= $item['id'] ?></td>
                                  <td>
                                     <a><?= $item['name']?></a>
                                  </td>
