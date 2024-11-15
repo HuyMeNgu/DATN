@@ -91,7 +91,7 @@
       </div>
       <nav class="humberger__menu__nav mobile-menu">
         <ul>
-          <li class="active"><a href="./index.php">Home</a></li>
+          <li class="active"><a href="./index.php">Trang chủ</a></li>
           <li><a href="./shop-grid.php">Shop</a></li>
           <li>
             <a href="#">Pages</a>
@@ -143,15 +143,6 @@
                   <a href="#"><i class="fa fa-linkedin"></i></a>
                   <a href="#"><i class="fa fa-pinterest-p"></i></a>
                 </div>
-                <div class="header__top__right__language">
-                  <img src="img/language.png" alt="" />
-                  <div>English</div>
-                  <span class="arrow_carrot-down"></span>
-                  <ul>
-                    <li><a href="#">Spanis</a></li>
-                    <li><a href="#">English</a></li>
-                  </ul>
-                </div>
                 <div class="header__top__right__auth">
                   <a href="#"><i class="fa fa-user"></i> Login</a>
                 </div>
@@ -192,7 +183,7 @@
             <div class="header__cart">
               <ul>
                 <li>
-                  <a href="#"><i class="fa fa-heart"></i> <span>1</span></a>
+                  <h5>Giỏ hàng</h5>
                 </li>
                 <li>
                   <a href="#"
@@ -225,7 +216,7 @@
             <div class="hero__categories">
               <div class="hero__categories__all">
                 <i class="fa fa-bars"></i>
-                <span>Danh mục balo</span>
+                <span>Danh mục</span>
               </div>
               <ul>
                 <li><a href="#">Fresh Meat</a></li>
@@ -246,12 +237,8 @@
             <div class="hero__search">
               <div class="hero__search__form">
                 <form action="#">
-                  <div class="hero__search__categories">
-                    All Categories
-                    <span class="arrow_carrot-down"></span>
-                  </div>
-                  <input type="text" placeholder="What do yo u need?" />
-                  <button type="submit" class="site-btn">SEARCH</button>
+                  <input type="text" placeholder="Nhập từ khóa tìm kiếm?" />
+                  <button type="submit" class="site-btn">Tìm</button>
                 </form>
               </div>
               <div class="hero__search__phone">
