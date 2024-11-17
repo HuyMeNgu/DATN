@@ -44,7 +44,7 @@
                               <tr>
                                  <td><?= $item['id'] ?></td>
                                  <td>
-                                    <?= $item['supplier_name']?>
+                                    <?= $item['supp_name']?>
                                  </td>
                                  <td>
                                     <?= $item['address']?>

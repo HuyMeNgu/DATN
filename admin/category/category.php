@@ -42,7 +42,7 @@
                               <tr>
                                  <td><?= $item['id'] ?></td>
                                  <td>
-                                    <a><?= $item['name']?></a>
+                                    <a><?= $item['cate_name']?></a>
                                  </td>
                                  <td>
                                     <button type="button" class="btn btn-success btn-xs">Success</button>

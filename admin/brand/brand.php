@@ -1,5 +1,6 @@
 <?php
-   $sql = "SELECT * FROM brands"
+   $sql = "SELECT * FROM brands";
+   $listbrand = $mysqli->query($sql)
 ?>
 
 <div class="midde_cont">
@@ -35,10 +36,13 @@
                            </tr>
                         </thead>
                         <tbody>
+                           <?php
+                              foreach($listbrand as $item) {
+                           ?>
                            <tr>
-                              <td>1</td>
+                              <td><?= $item['id'] ?></td>
                               <td>
-                              <a>Sed ut perspiciatis unde omnis iste natus error sit volup tatem accus antium doloremque</a>
+                                 <?= $item['brand_name'] ?>
                               </td>
                               <td>
                                  <button type="button" class="btn btn-success btn-xs">Success</button>
@@ -50,77 +54,9 @@
                                  <a href="" onclick=" return confirm('Bạn chắc chắn muốn xóa?')" class="btn btn-danger  btn-sm"><i class="fa fa-trash"></i></a>
                               </td>
                            </tr>
-                           <tr>
-                              <td>2</td>
-                              <td>
-                                 <a>At vero eos et accusamus et iusto odio dignissimos ducimus qui bland itiis praesentium</a>
-                              </td> 
-                              <td>
-                                 <button type="button" class="btn btn-success btn-xs">Success</button>
-                              </td>
-                           </tr>
-                           <tr>
-                              <td>3</td>
-                              <td>
-                                 <a>Sed ut perspiciatis unde omnis iste natus error sit volup tatem accus antium doloremque</a>
-                              </td>
-                              <td>
-                                 <button type="button" class="btn btn-success btn-xs">Success</button>
-                              </td>
-                           </tr>
-                           <tr>
-                              <td>4</td>
-                              <td>
-                                 <a>The point of using Lorem Ipsum</a>
-                                 <br>
-                                 <small>Created 25.july.2018</small>
-                              </td>
-                              <td>
-                                 <button type="button" class="btn btn-success btn-xs">Success</button>
-                              </td>
-                           </tr>
-                           <tr>
-                              <td>5</td>
-                              <td>
-                                 <a>At vero eos et accusamus et iusto odio dignissimos ducimus qui bland itiis praesentium</a>
-                              </td>
-                              <td>
-                                 <button type="button" class="btn btn-success btn-xs">Success</button>
-                              </td>
-                           </tr>
-                           <tr>
-                              <td>6</td>
-                              <td>
-                                 <a>On the other hand, we denounce with righteous</a>
-                                 <br>
-                                 <small>Created 25.july.2018</small>
-                              </td>
-                              <td>
-                                 <button type="button" class="btn btn-success btn-xs">Success</button>
-                              </td>
-                           </tr>
-                           <tr>
-                              <td>7</td>
-                              <td>
-                                 <a>Nam libero tempore, cum soluta nobis est eligendi..</a>
-                              <br>
-                                 <small>Created 25.july.2018</small>
-                              </td>
-                              <td>
-                                 <button type="button" class="btn btn-success btn-xs">Success</button>
-                              </td>
-                           </tr>
-                           <tr>
-                              <td>8</td>
-                              <td>
-                                 <a>Nor again is there anyone who loves or pursues</a>
-                              <br>
-                                 <small>Created 25.july.2018</small>
-                              </td>
-                              <td>
-                                 <button type="button" class="btn btn-success btn-xs">Success</button>
-                              </td>
-                           </tr>
+                           <?php
+                              }
+                           ?>                                              
                         </tbody>
                      </table>
                   </div>
