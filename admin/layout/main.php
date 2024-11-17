@@ -6,7 +6,7 @@
             include('../category/category.php');
             break;
         case 'product':
-            include('../product/product.php');
+            include('../product/products.php');
             break;
         case 'color':
             include('../color/color.php');

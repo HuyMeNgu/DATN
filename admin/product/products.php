@@ -1,26 +1,10 @@
 <?php
-// Assuming you have a database connection established
-
-$productId = $_POST['productId'];
-$selectedColors = $_POST['selectedColors'];
-
-$sql = "SELECT pc.color_id, pc.img_path, pc.quantity
-        FROM productcolors pc
-        WHERE pc.product_id = ? AND pc.color_id IN (?)";
-
-$stmt = $conn->prepare($sql);
-$stmt->bind_param('is', $productId, implode(',', $selectedColors));
-$stmt->execute();
-
-$result = $stmt->get_result();
-
-$data = array();
-while ($row = $result->fetch_assoc()) {
-    $data[$row['color_id']] = array(
-        'img_path' => $row['img_path'],
-        'quantity' => $row['quantity']
-    );
-}
+   $sql = "SELECT DISTINCT products.*, categories.cate_name, colors.color_name FROM products
+   INNER JOIN categories ON products.category_id = categories.id
+   INNER JOIN productcolors ON products.id = productcolors.product_id
+   INNER JOIN colors ON productcolors.color_id = colors.id 
+   ";
+   $listPro = $mysqli->query($sql);
 ?>
 
 <div class="midde_cont">
@@ -49,136 +33,51 @@ while ($row = $result->fetch_assoc()) {
                         <thead class="thead-dark">
                            <tr>
                               <th style="width: 2%">STT</th>
-                              <th style="width: 20%">Hình ảnh</th>
+                              <th style="width: 10%">Hình ảnh</th>
                               <th>Tên sản phẩm</th>
                               <th>Loại</th>
                               <th>Màu sắc</th>
                               <th>Status</th>
+                              <th>Sửa</th>
+                              <th>Xóa</th>
                            </tr>
                         </thead>
                         <tbody>
+                           <?php 
+                              foreach ($listPro as $item){
+                           ?>
                            <tr>
-                              <td>1</td>
+                              <td><?= $item['id'] ?></td>
                               <td>
-                              <a>Sed ut perspiciatis unde omnis iste natus error sit volup tatem accus antium doloremque</a>
+                                 <img width="40" src="images/layout_img/msg2.png" class="rounded-circle" alt="#">
                               </td>
                               <td>
-                                 <ul class="list-inline">
-                                    <li>
-                                       <img width="40" src="images/layout_img/msg2.png" class="rounded-circle" alt="#">
-                                    </li>
-                                    <li>
-                                       <img width="40" src="images/layout_img/msg3.png" class="rounded-circle" alt="#">
-                                    </li>
-                                 </ul>
+                                 <?= $item['product_name'] ?>
                               </td>
                               <td class="project_progress">
-                                 <div class="progress progress_sm">
-                                    <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" aria-valuenow="97" aria-valuemin="0" aria-valuemax="100" style="width: 98%;"></div>
-                                 </div>
-                              <small>Almost Completed</small>
+                                 <?= $item['cate_name']?>
                               </td>
+                              <td> <?= $item['color_name']?></td>
                               <td>
                                  <button type="button" class="btn btn-success btn-xs">Success</button>
                               </td>
-                           </tr>
-                           <tr>
-                              <td>2</td>
                               <td>
-                                 <a>At vero eos et accusamus et iusto odio dignissimos ducimus qui bland itiis praesentium</a>
+                                 <a href="" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>
                               </td>
                               <td>
-                                 <ul class="list-inline">
-                                    <li>
-                                       <img width="40" src="images/layout_img/msg2.png" class="rounded-circle" alt="#">
-                                    </li>
-                                    <li>
-                                       <img width="40" src="images/layout_img/msg3.png" class="rounded-circle" alt="#">
-                                    </li>
-                                    <li>
-                                       <img width="40" src="images/layout_img/msg4.png" class="rounded-circle" alt="#">
-                                    </li>
-                                 </ul>
-                              </td>
-                              <td class="project_progress">
-                                 <div class="progress progress_sm">
-                                       <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
-                                 </div>
-                                    <small>25% Complete</small>
-                              </td>
-                              <td>
-                                 <button type="button" class="btn btn-success btn-xs">Success</button>
+                                 <a href="" onclick=" return confirm('Bạn chắc chắn muốn xóa?')" class="btn btn-danger  btn-sm"><i class="fa fa-trash"></i></a>
                               </td>
                            </tr>
-                           <tr>
-                            <td>3</td>
-                              <td>
-                                 <a>Sed ut perspiciatis unde omnis iste natus error sit volup tatem accus antium doloremque</a>
-                              </td>
-                              <td>
-                                 <ul class="list-inline">
-                                    <li>
-                                       <img width="40" src="images/layout_img/msg1.png" class="rounded-circle" alt="#">
-                                    </li>
-                                    <li>
-                                       <img width="40" src="images/layout_img/msg3.png" class="rounded-circle" alt="#">
-                                    </li>
-                                    <li>
-                                       <img width="40" src="images/layout_img/msg4.png" class="rounded-circle" alt="#">
-                                    </li>
-                                    <li>
-                                       <img width="40" src="images/layout_img/msg5.png" class="rounded-circle" alt="#">
-                                       </li>
-                                 </ul>
-                              </td>
-                                                   <td class="project_progress">
-                                                      <div class="progress progress_sm">
-                                                         <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" aria-valuenow="58" aria-valuemin="0" aria-valuemax="100" style="width: 58%;"></div>
-                                                      </div>
-                                                      <small>58% Complete</small>
-                                                   </td>
-                                                   <td>
-                                                      <button type="button" class="btn btn-success btn-xs">Success</button>
-                                                   </td>
-                                                </tr>
-                                                <tr>
-                                                   <td>4</td>
-                                                   <td>
-                                                      <a>The point of using Lorem Ipsum</a>
-                                                      <br>
-                                                      <small>Created 25.july.2018</small>
-                                                   </td>
-                                                   <td>
-                                                      <ul class="list-inline">
-                                                         <li>
-                                                            <img width="40" src="images/layout_img/msg4.png" class="rounded-circle" alt="#">
-                                                         </li>
-                                                         <li>
-                                                            <img width="40" src="images/layout_img/msg3.png" class="rounded-circle" alt="#">
-                                                         </li>
-                                                         <li>
-                                                            <img width="40" src="images/layout_img/msg1.png" class="rounded-circle" alt="#">
-                                                         </li>
-                                                      </ul>
-                                                   </td>
-                                                   <td class="project_progress">
-                                                      <div class="progress progress_sm">
-                                                         <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" aria-valuenow="47" aria-valuemin="0" aria-valuemax="100" style="width: 47%;"></div>
-                                                      </div>
-                                                      <small>47% Complete</small>
-                                                   </td>
-                                                   <td>
-                                                      <button type="button" class="btn btn-success btn-xs">Success</button>
-                                                   </td>
-                                                </tr>                                                                                    
-                                             </tbody>
-                                          </table>
-                                       </div>
-                                    </div>
-                                 </div>
+                           <?php
+                              }?>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
             </div>
          </div>
       </div>
+   </div>
    <!-- end row -->
    </div>
    <!-- footer -->
