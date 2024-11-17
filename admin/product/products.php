@@ -2,9 +2,21 @@
    $sql = "SELECT DISTINCT products.*, categories.cate_name, colors.color_name FROM products
    INNER JOIN categories ON products.category_id = categories.id
    INNER JOIN productcolors ON products.id = productcolors.product_id
-   INNER JOIN colors ON productcolors.color_id = colors.id 
-   ";
+   INNER JOIN colors ON productcolors.color_id = colors.id";
    $listPro = $mysqli->query($sql);
+   $products = [];
+   while ($row = mysqli_fetch_assoc($listPro)){
+      $productId = $row['id'];
+      if(!isset($products[$productId])){
+         $products[$productId] = [
+            'id' => $row['id'],
+            'product_name' => $row['product_name'],
+            'cate_name' => $row['cate_name'],
+            'colors' => [],
+         ];
+      }
+      $products[$productId]['colors'][] = $row['color_name'];
+   }
 ?>
 
 <div class="midde_cont">
@@ -44,7 +56,7 @@
                         </thead>
                         <tbody>
                            <?php 
-                              foreach ($listPro as $item){
+                              foreach ($products as $item){
                            ?>
                            <tr>
                               <td><?= $item['id'] ?></td>
@@ -57,7 +69,7 @@
                               <td class="project_progress">
                                  <?= $item['cate_name']?>
                               </td>
-                              <td> <?= $item['color_name']?></td>
+                              <td> <?= implode(", ",$item['colors'])?></td>
                               <td>
                                  <button type="button" class="btn btn-success btn-xs">Success</button>
                               </td>
