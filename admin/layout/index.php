@@ -122,7 +122,7 @@
                 >
               </li>
               <li>
-                <a href="?action=invoice">
+                <a href="?action=order">
                   <i class="fa fa-file red_color"></i>
                   <span>Đơn hàng</span></a
                 >
@@ -172,9 +172,6 @@
                         <div class="dropdown-menu">
                           <a class="dropdown-item" href="profile.html"
                             >Hồ sơ</a
-                          >
-                          <a class="dropdown-item" href="settings.html"
-                            >Settings</a
                           >
                           <a class="dropdown-item" href="#"
                             ><span>Đang xuất</span> <i class="fa fa-sign-out"></i
