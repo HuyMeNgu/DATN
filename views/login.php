@@ -10,23 +10,65 @@
 <body>
  
 <?php
- include('../models/connectdb.php');
+ require_once('../models/connectdb.php');
+ require_once('../models/function.php');
+ require_once('../models/database.php');
+ require_once('../models/session.php');
+
+ if(isPost()){
+    $filterAll=filter();
+    if(!empty(trim($filterAll['email'])) && !empty(trim($filterAll['password']))){
+        //kiem tra dang nhap
+        $email=$filterAll['email'];
+        $password=$filterAll['password'];
+
+        $userQuery = oneRaw("SELECT password FROM customers WHERE email = '$email' "); 
+        if(!empty($userQuery)){
+            $passwordHash=$userQuery['password'];
+            if(password_verify($password,$passwordHash)){
+                redirect();
+            }else{
+                setFlashData('msg','Mật khẩu không chính xác');
+                setFlashData('msg_type','danger');
+                redirect('login.php');
+            }
+        }else{
+            setFlashData('msg','Email chưa được đăng kí');
+            setFlashData('msg_type','danger');
+            redirect('login.php');
+        }
+
+    }else{
+        setFlashData('msg','Vui lòng nhập email và mật khẩu');
+        setFlashData('msg_type','danger');
+        redirect('login.php');
+    }
+ }
+ $msg = getFlashData('msg');
+ $msg_type=getFlashData('msg_type');
+
+
 ?>
 
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="card p-4 shadow" style="width: 400px;">
         <h3 class="text-center mb-4">Đăng Nhập</h3>
-        <form action="process_login.php" method="POST">
+        <?php
+        if(!empty($msg)){
+            getSmg($msg,$msg_type);
+        }
+        ?>
+        <form action="" method="POST">
             <!-- Tên Đăng Nhập -->
             <div class="form-group">
                 <label for="username">Tên Đăng Nhập</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="Nhập tên đăng nhập" required>
+                <input name="email"type="email" class="form-control" id="email"  placeholder="Nhập  Email " >
             </div>
 
             <!-- Mật Khẩu -->
             <div class="form-group">
                 <label for="password">Mật Khẩu</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu" required>
+                <input name="password" type="password" class="form-control" id="password"  placeholder="Nhập mật khẩu" >
             </div>
 
             <!-- Nút Đăng Nhập -->

@@ -30,6 +30,14 @@
 /* Template default CSS
 /*----------------------------------------*/
 
+/*CSS for register page*/
+.error{
+  color: red;
+  font-size: 90%;
+  font-style: italic;
+}
+/*END CSS for register page*/
+
 /*CSS products_item*/
 .product-card {
   border: 1px solid #ddd;
@@ -66,6 +74,7 @@
   margin: 0 3px;
   border: 1px solid #ddd;
 }
+
 /*End CSS products_item*/
 
 html,
@@ -896,7 +905,7 @@ ol {
 }
 
 .featured__item__pic {
-  height: 270px;
+  height: fit-content;
   position: relative;
   overflow: hidden;
   background-position: center center;

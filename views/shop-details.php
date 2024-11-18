@@ -1,7 +1,19 @@
     <!-- HEADER -->
     <?php 
     $is_homepage = false;
-      include('header.php')
+      include('header.php');
+      require_once('../models/connectdb.php');
+      require_once('../models/function.php');
+      require_once('../models/database.php');
+      require_once('../models/session.php');
+
+
+      if(isset($_GET['id']) && is_numeric($_GET['id'])){
+        $pro_id =$_GET['id'];
+      }
+
+      $sql=" SELECT * FROM products WHERE id = $pro_id";
+      $pro = query($sql)->fetch_assoc();
     ?>
 
 <!-- Breadcrumb Section Begin -->
@@ -15,8 +27,8 @@
             <div class="breadcrumb__text">
               <h2>Vegetable’s Package</h2>
               <div class="breadcrumb__option">
-                <a href="./index.html">Home</a>
-                <a href="./index.html">Vegetables</a>
+                <a href="./index.php">Home</a>
+                <a href="./index.php">Vegetables</a>
                 <span>Vegetable’s Package</span>
               </div>
             </div>
@@ -35,8 +47,8 @@
               <div class="product__details__pic__item">
                 <img
                   class="product__details__pic__item--large"
-                  src="../public/img/product/details/product-details-1.jpg"
-                  alt=""
+                  src="../public/img/product/hinhanh/<?=$pro['img'] ?>"
+                  alt="hinh anh san pham"
                 />
               </div>
               <div class="product__details__pic__slider owl-carousel">
@@ -65,16 +77,23 @@
           </div>
           <div class="col-lg-6 col-md-6">
             <div class="product__details__text">
-              <h3>Vetgetable’s Package</h3>
+              <h3><?= $pro['product_name'] ?></h3>
               <div class="product__details__rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-o"></i>
+                <?php
+                for($i =1 ;$i<=5;$i++){
+                  if($i <= $pro['rating']){
+                    echo'<i class="fa fa-star"></i>';
+                  }else{
+                    echo'<i class="fa fa-star-o"></i>';
+                  }
+                }
+        
+                
+                ?>
+          
                 <span>(18 reviews)</span>
               </div>
-              <div class="product__details__price">$50.00</div>
+              <div class="product__details__price"><?= number_format($pro['price'],0,',','.' ).' VND';?></div>
               <p>
                 Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
                 Vestibulum ac diam sit amet quam vehicula elementum sed sit amet
@@ -150,20 +169,7 @@
                   <div class="product__details__tab__desc">
                     <h6>Products Infomation</h6>
                     <p>
-                      Vestibulum ac diam sit amet quam vehicula elementum sed
-                      sit amet dui. Pellentesque in ipsum id orci porta dapibus.
-                      Proin eget tortor risus. Vivamus suscipit tortor eget
-                      felis porttitor volutpat. Vestibulum ac diam sit amet quam
-                      vehicula elementum sed sit amet dui. Donec rutrum congue
-                      leo eget malesuada. Vivamus suscipit tortor eget felis
-                      porttitor volutpat. Curabitur arcu erat, accumsan id
-                      imperdiet et, porttitor at sem. Praesent sapien massa,
-                      convallis a pellentesque nec, egestas non nisi. Vestibulum
-                      ac diam sit amet quam vehicula elementum sed sit amet dui.
-                      Vestibulum ante ipsum primis in faucibus orci luctus et
-                      ultrices posuere cubilia Curae; Donec velit neque, auctor
-                      sit amet aliquam vel, ullamcorper sit amet ligula. Proin
-                      eget tortor risus.
+                      <?=  $pro['description'];  ?>
                     </p>
                     <p>
                       Praesent sapien massa, convallis a pellentesque nec,

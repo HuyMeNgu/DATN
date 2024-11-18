@@ -7,16 +7,30 @@ function query($sql){
     $result = $conn -> query($sql);
     return $result;
 }
-//toi uu ham insert 
-function insert($table,$data){
-    $key=array_keys($data);
-    $value=array_values($data);
-    $feilds =  implode(',',$key);
-    $valuetb=  "'".implode(',',$value)."'";
 
-    $sql= 'INSERT INTO '. $table . '('.$feilds .')' . 'VALUES('. $valuetb . ')';
-    $result =query($sql);
-    return $result;
+// function insert($table,$data){
+//     $key=array_keys($data);
+//     $value=array_values($data);
+//     $feilds =  implode("`,`",$key);
+//     $valuetb=  "'" .implode("','",$value)."'";
+
+//    // $sql= 'INSERT INTO `'. $table . "`(`'.$feilds.'`)' . 'VALUES('. $valuetb . ')';
+//    $sql="INSERT INTO ` ".$table."`(`".$feilds."`) VALUES (" .$valuetb.")";
+
+//     $result =query($sql);
+//     return $result;
+// }
+//toi uu ham insert 
+ function insert($table, $data)
+{
+    $keys = array_keys($data);
+    $fields = implode("`,`", $keys);
+    $values = "'" . implode("','", array_values($data)) . "'";
+
+    $sql = "INSERT INTO `" . $table . "` (`" . $fields . "`) VALUES (" . $values . ")";
+    // echo ($sql);
+    // die();
+    return query($sql);
 }
 //toi uu ham update
 function update($table,$data,$condition=''){

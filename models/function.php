@@ -6,11 +6,54 @@ return $checkEmail;
 }
 //kiem tra so nguyen 
 function isNumberInt($number){
-    $checkNumber=filter_var($number,FILTER_VALIDATE_EMAIL);
+    $checkNumber=filter_var($number,FILTER_VALIDATE_INT);
     return $checkNumber;
     }
+//kiem tra so dien thoai
+function isPhone($phone){
+    $checkZero=false;
+    if($phone[0] == '0'){
+        $checkZero=true;
+        $phone=substr($phone,1);
+    }
+    $checkNumber=false;
+    if(isNumberInt($phone) && (strlen($phone)  == 9)){
+        $checkNumber=true;
+    }
 
+    if($checkNumber == true && $checkZero==true){
+        return true;
+    }else{
+        return false;
+    }
+    
+}
+//thong bao loi
+function getSmg($smg,$type='success'){
+        echo '<div class="alert alert-'.$type.'">'; 
+        echo $smg;
+        echo '</div>';
+}
 
+ function formError($filename, $beforeHtml = '', $afterHtml = '', $errors)
+{
+    return (!empty($errors[$filename])) ? '<span class="error">' . reset($errors[$filename]) . '</span>' : null;
+}
+//ham chuyen huong
+
+function redirect($path='index.php'){
+    header("Location: $path");
+    exit;
+}
+//ham chuyen trang co tham so
+function paramRedirect($path,$param=[]){
+    if(!empty($param) && is_array($param)){
+        $query_string=http_build_query($param);
+        $path.='?'.$query_string;
+    }
+    header("location: $path");
+    exit;
+}
 function isGet(){
     if($_SERVER['REQUEST_METHOD']=='GET'){
         return true;
