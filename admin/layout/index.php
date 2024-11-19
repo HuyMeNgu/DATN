@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="css/perfect-scrollbar.css" />
     <!-- custom css -->
     <link rel="stylesheet" href="css/custom.css" />
+
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -110,7 +111,7 @@
                 </ul>
               </li>
               <li>
-                <a href="tables.php"
+                <a href="?action=inventory"
                   ><i class="fa fa-inbox purple_color2"></i>
                   <span>Kho hàng</span></a
                 >
@@ -197,6 +198,13 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <!-- use cdn jquery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- use cdn ckeditor -->
+    <script src="//cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+    <script>
+      CKEDITOR.replace( 'description' );
+    </script>
     <!-- wow animation -->
     <script src="js/animate.js"></script>
     <!-- select country -->

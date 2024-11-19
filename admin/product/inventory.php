@@ -1,5 +1,5 @@
 <?php
-   $sql = "SELECT DISTINCT products.*, categories.cate_name, colors.color_name FROM products
+   $sql = "SELECT DISTINCT products.*, categories.cate_name, colors.color_name, productcolors.quantity FROM products
    INNER JOIN categories ON products.category_id = categories.id
    INNER JOIN productcolors ON products.id = productcolors.product_id
    INNER JOIN colors ON productcolors.color_id = colors.id";
@@ -11,6 +11,7 @@
          $products[$productId] = [
             'id' => $row['id'],
             'product_name' => $row['product_name'],
+            'quantity' => $row['quantity'],
             'cate_name' => $row['cate_name'],
             'colors' => [],
          ];
@@ -24,7 +25,7 @@
       <div class="row column_title">
          <div class="col-md-12">
             <div class="page_title">
-               <h2>Danh sách sản phẩm</h2>
+               <h2>KHO</h2>
             </div>
          </div>
       </div>
@@ -34,7 +35,7 @@
          <div class="white_shd full margin_bottom_30">
             <div class="full graph_head">
                <div class="heading1 margin_0">
-                  <a href="" class="btn btn-success">Thêm mới</a>
+                  <a href="" class="btn btn-success">Cập nhật</a>
                </div>
             </div>
          <div class="full price_table padding_infor_info">
@@ -46,12 +47,9 @@
                            <tr>
                               <th style="width: 2%">STT</th>
                               <th style="width: 10%">Hình ảnh</th>
-                              <th>Tên sản phẩm</th>
-                              <th>Loại</th>
-                              <th>Màu sắc</th>
-                              <th>Status</th>
-                              <th>Sửa</th>
-                              <th>Xóa</th>
+                              <th style="width: 30%">Tên sản phẩm</th>
+                              <th style="width: 20%">Loại</th>
+                              <th>Màu sắc & số lượng</th>
                            </tr>
                         </thead>
                         <tbody>
@@ -64,21 +62,21 @@
                                  <img width="40" src="images/layout_img/msg2.png" class="rounded-circle" alt="#">
                               </td>
                               <td>
-                                 <?= $item['product_name'] ?>
+                                <?= $item['product_name'] ?>
                               </td>
                               <td class="project_progress">
-                                 <?= $item['cate_name']?>
-                              </td>
-                              <td> <?= implode(", ",$item['colors'])?></td>
-                              <td>
-                                 <button type="button" class="btn btn-success btn-xs">Mở</button>
+                                <?= $item['cate_name']?>
                               </td>
                               <td>
-                                 <a href="" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>
-                              </td>
-                              <td>
-                                 <a href="" onclick=" return confirm('Bạn chắc chắn muốn xóa?')" class="btn btn-danger  btn-sm"><i class="fa fa-trash"></i></a>
-                              </td>
+                                <?php
+                                    $colorquanti =[];
+                                    foreach ($item['colors'] as $index => $color){
+                                        $quantity = $item['quantity'][$index];
+                                        $colorquanti[] = "$color ($quantity)";
+                                    }
+                                ?>
+                                <?= implode(", ",$colorquanti)?>
+                              </td>                                 
                            </tr>
                            <?php
                               }?>

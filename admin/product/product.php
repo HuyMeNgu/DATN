@@ -1,50 +1,103 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add New Product</title>
-</head>
-<body>
-    <h2>Add New Product</h2>
-    <form action="add_product.php" method="POST" enctype="multipart/form-data">
-        <label for="product_name">Product Name:</label>
-        <input type="text" id="product_name" name="product_name" required><br><br>
-        
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" required></textarea><br><br>
-        
-        <label for="price">Price:</label>
-        <input type="number" id="price" name="price" step="0.01" required><br><br>
-        
-        <label for="category_id">Category ID:</label>
-        <input type="number" id="category_id" name="category_id" required><br><br>
-        
-        <label for="brand_id">Brand ID:</label>
-        <input type="number" id="brand_id" name="brand_id" required><br><br>
-        
-        <label for="rating">Rating:</label>
-        <input type="number" id="rating" name="rating" step="0.1" max="5" required><br><br>
-        
-        <label for="is_active">Is Active:</label>
-        <input type="checkbox" id="is_active" name="is_active"><br><br>
-        
-        <label for="colors">Select Colors and Upload Images:</label><br>
-        <?php
-        // Connect to database to fetch available colors
-        $conn = new mysqli("localhost", "root", "", "balostore");
-        $query = "SELECT id, color_name FROM colors";
-        $result = $conn->query($query);
-        
-        while ($row = $result->fetch_assoc()) {
-            echo '<div>';
-            echo '<input type="checkbox" name="color_ids[]" value="' . $row['id'] . '">';
-            echo '<label>' . $row['color_name'] . '</label>';
-            echo '<input type="file" name="img_paths[' . $row['id'] . ']" accept="image/*" required>';
-            echo '</div>';
-        }
-        ?>
-        <br><br>
-        <button type="submit">Add Product</button>
-    </form>
-</body>
-</html>
+<?php
+   $sql = "SELECT DISTINCT products.*, categories.cate_name, colors.color_name FROM products
+   INNER JOIN categories ON products.category_id = categories.id
+   INNER JOIN productcolors ON products.id = productcolors.product_id
+   INNER JOIN colors ON productcolors.color_id = colors.id";
+   $listPro = $mysqli->query($sql);
+   $products = [];
+   while ($row = mysqli_fetch_assoc($listPro)){
+      $productId = $row['id'];
+      if(!isset($products[$productId])){
+         $products[$productId] = [
+            'id' => $row['id'],
+            'product_name' => $row['product_name'],
+            'cate_name' => $row['cate_name'],
+            'colors' => [],
+         ];
+      }
+      $products[$productId]['colors'][] = $row['color_name'];
+   }
+?>
+
+<div class="midde_cont">
+   <div class="container-fluid">
+      <div class="row column_title">
+         <div class="col-md-12">
+            <div class="page_title">
+               <h2>DANH SÁCH SẢN PHẨM</h2>
+            </div>
+         </div>
+      </div>
+   <!-- row -->
+   <div class="row column1">
+      <div class="col-md-12">
+         <div class="white_shd full margin_bottom_30">
+            <div class="full graph_head">
+               <div class="heading1 margin_0">
+                  <a href="?action=add_product" class="btn btn-success">Thêm mới</a>
+               </div>
+            </div>
+         <div class="full price_table padding_infor_info">
+            <div class="row">
+               <div class="col-lg-12">
+                  <div class="table-responsive-sm">
+                     <table class="table table-striped projects">
+                        <thead class="thead-dark">
+                           <tr>
+                              <th style="width: 2%">STT</th>
+                              <th style="width: 10%">Hình ảnh</th>
+                              <th>Tên sản phẩm</th>
+                              <th>Loại</th>
+                              <th>Màu sắc</th>
+                              <th>Status</th>
+                              <th>Sửa</th>
+                              <th>Xóa</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <?php 
+                              foreach ($products as $item){
+                           ?>
+                           <tr>
+                              <td><?= $item['id'] ?></td>
+                              <td>
+                                 <img width="40" src="images/layout_img/msg2.png" class="rounded-circle" alt="#">
+                              </td>
+                              <td>
+                                 <?= $item['product_name'] ?>
+                              </td>
+                              <td class="project_progress">
+                                 <?= $item['cate_name']?>
+                              </td>
+                              <td> <?= implode(", ",$item['colors'])?></td>
+                              <td>
+                                 <button type="button" class="btn btn-success btn-xs">Mở</button>
+                              </td>
+                              <td>
+                                 <a href="" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>
+                              </td>
+                              <td>
+                                 <a href="" onclick=" return confirm('Bạn chắc chắn muốn xóa?')" class="btn btn-danger  btn-sm"><i class="fa fa-trash"></i></a>
+                              </td>
+                           </tr>
+                           <?php
+                              }?>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- end row -->
+   </div>
+   <!-- footer -->
+   <div class="container-fluid">
+      <div class="row">
+         <div class="footer">
+            <p>Copyright © 2018 Designed by html.design. All rights reserved.</p>
+         </div>
+      </div>
+   </div>
+</div>

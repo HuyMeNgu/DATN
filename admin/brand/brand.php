@@ -18,7 +18,7 @@
          <div class="white_shd full margin_bottom_30">
             <div class="full graph_head">
                <div class="heading1 margin_0">
-                    <a href="" class="btn btn-success">Thêm mới</a>
+                    <a href="?action=add_brand" class="btn btn-success">Thêm mới</a>
                </div>
             </div>
          <div class="full price_table padding_infor_info">
