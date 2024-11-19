@@ -87,6 +87,14 @@
             </div>
           </div>
         </div>
+<script>
+  $(document).ready(function () {
+    $('[data-setbg]').each(function () {
+      var bg = $(this).data('setbg');
+      $(this).css('background-image', 'url(' + bg + ')');
+    });
+  });
+</script>
         <div class="row featured__filter">
           <?php
             foreach($listpro as $item){
@@ -95,8 +103,11 @@
             <div class="featured__item">
               <div
                 class="featured__item__pic set-bg"
-                data-setbg="../public/img/product/hinhanh/<?= $item['img']?>"
+                
               >
+              
+              <img  src="../public/img/product/hinhanh/<?= $item['img']?>" alt="">
+
                 <ul class="featured__item__pic__hover">
                   <li>
                     <a href="#"><i class="fa fa-shopping-cart"></i></a>

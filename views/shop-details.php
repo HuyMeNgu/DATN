@@ -12,8 +12,12 @@
         $pro_id =$_GET['id'];
       }
 
-      $sql=" SELECT * FROM products WHERE id = $pro_id";
-      $pro = query($sql)->fetch_assoc();
+      $sql= "SELECT * FROM products INNER JOIN productcolors ON products.id = productcolors.product_id WHERE products.id=$pro_id";
+      $getcolor="SELECT * FROM productcolors INNER JOIN colors ON productcolors.color_id = colors.id WHERE productcolors.product_id =$pro_id";
+      $pro_list=query($sql)->fetch_assoc();
+      $pro_color=query($getcolor)->fetch_assoc();
+      // $sql=" SELECT * FROM products WHERE id = $pro_id";
+      // $pro = query($sql)->fetch_assoc();
     ?>
 
 <!-- Breadcrumb Section Begin -->
@@ -47,16 +51,18 @@
               <div class="product__details__pic__item">
                 <img
                   class="product__details__pic__item--large"
-                  src="../public/img/product/hinhanh/<?=$pro['img'] ?>"
+                  src="../public/img/product/hinhanh/<?=$pro_list['img'] ?>"
                   alt="hinh anh san pham"
                 />
               </div>
               <div class="product__details__pic__slider owl-carousel">
+               <?php foreach($pro_list as $item){ ?>
                 <img
-                  data-imgbigurl="../public/img/product/details/product-details-2.jpg"
-                  src="../public/img/product/details/thumb-1.jpg"
+                  data-imgbigurl="../public/img/product/chitiet/<?=$pro_list['img_path'] ?>"
+                  src="../public/img/product/chitiet/<?=$pro_list['img_path'] ?>"
                   alt=""
                 />
+              <?php } ?>
                 <img
                   data-imgbigurl="../public/img/product/details/product-details-3.jpg"
                   src="../public/img/product/details/thumb-2.jpg"
@@ -77,11 +83,11 @@
           </div>
           <div class="col-lg-6 col-md-6">
             <div class="product__details__text">
-              <h3><?= $pro['product_name'] ?></h3>
+              <h3><?= $pro_list['product_name'] ?></h3>
               <div class="product__details__rating">
                 <?php
                 for($i =1 ;$i<=5;$i++){
-                  if($i <= $pro['rating']){
+                  if($i <= $pro_list['rating']){
                     echo'<i class="fa fa-star"></i>';
                   }else{
                     echo'<i class="fa fa-star-o"></i>';
@@ -93,7 +99,7 @@
           
                 <span>(18 reviews)</span>
               </div>
-              <div class="product__details__price"><?= number_format($pro['price'],0,',','.' ).' VND';?></div>
+              <div class="product__details__price"><?= number_format($pro_list['price'],0,',','.' ).' VND';?></div>
               <p>
                 Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
                 Vestibulum ac diam sit amet quam vehicula elementum sed sit amet

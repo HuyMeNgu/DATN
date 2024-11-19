@@ -38,6 +38,15 @@
 }
 /*END CSS for register page*/
 
+  div[data-setbg] {
+    background-size: cover;
+    background-position: center;
+    height: 100%; /* hoặc chiều cao cụ thể */
+    width: 100%; /* hoặc chiều rộng cụ thể */
+  }
+
+
+
 /*CSS products_item*/
 .product-card {
   border: 1px solid #ddd;
