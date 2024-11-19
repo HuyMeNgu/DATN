@@ -71,7 +71,7 @@
                               </td>
                               <td> <?= implode(", ",$item['colors'])?></td>
                               <td>
-                                 <button type="button" class="btn btn-success btn-xs">Success</button>
+                                 <button type="button" class="btn btn-success btn-xs">Mở</button>
                               </td>
                               <td>
                                  <a href="" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>

@@ -3,31 +3,31 @@
    { $page = $_GET['action'];}else {$page = '';}
         switch($page){
         case 'category':
-            include('../category/category.php');
+            require_once('../category/category.php');
             break;
         case 'product':
-            include('../product/products.php');
+            require_once('../product/products.php');
             break;
         case 'color':
-            include('../color/color.php');
+            require_once('../color/color.php');
             break;
         case 'brand':
-            include('../brand/brand.php');
+            require_once('../brand/brand.php');
             break;  
         case 'import_inv':
-            include('../import_inv/import_inv.php');
+            require_once('../import_inv/import_inv.php');
             break;
         case 'comment':
-            include('../comment/comment.php');
+            require_once('../comment/comment.php');
             break;
-        case 'invoice':
-            include('../invoice/invoice.php');
+        case 'order':
+            require_once('../order/order.php');
             break;
         case 'supplier':
-            include('../supplier/supplier.php');
+            require_once('../supplier/supplier.php');
             break;
         default: 
-            include('body.php');
+        require_once('body.php');
     }
     
     
