@@ -53,6 +53,43 @@
     <link rel="stylesheet" href="../public/css/style.css" type="text/css" />
   </head>
 
+  <?php
+   require_once('../models/connectdb.php');
+   require_once('../models/function.php');
+   require_once('../models/database.php');
+   require_once('../models/session.php');
+
+
+   
+  session_start();
+
+//kiem tra tinh trang dang nhap
+   $checklogin=false;
+  if(getSession('logintoken')){
+    $tokenlogin= getSession('logintoken');
+    
+    //kiem tra trong database
+    $querytoken = oneRaw("SELECT customer_id FROM login_token WHERE token= '$tokenlogin' ");
+    
+    if(!empty($querytoken)){
+      $checklogin=true;
+    }else{
+      removeSession('logintoken');
+    }
+  }
+
+  if(!$checklogin){
+    redirect('login.php');
+  }
+
+  if(getSession('logintoken')){
+    $customertoken=getSession('logintoken');
+    $sql="SELECT * FROM login_token INNER JOIN customers ON login_token.customer_id = customers.id WHERE token LIKE '$customertoken' ";
+    $customerData=query($sql)->fetch_assoc();
+  }
+
+  ?>
+
   <body>
     <!-- Page Preloder -->
     <div id="preloder">
@@ -144,7 +181,7 @@
                   <a href="#"><i class="fa fa-pinterest-p"></i></a>
                 </div>
                 <div class="header__top__right__auth">
-                  <a href="#"><i class="fa fa-user"></i> Login</a>
+                  <a href="#"><i class="fa fa-user"></i><?=$customerData['name'] ?></a>
                 </div>
               </div>
             </div>

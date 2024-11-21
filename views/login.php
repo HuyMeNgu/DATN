@@ -15,6 +15,28 @@
  require_once('../models/database.php');
  require_once('../models/session.php');
 
+session_start();
+
+//kiem tra tinh trang dang nhap
+$checklogin=false;
+if(getSession('logintoken')){
+  $tokenlogin= getSession('logintoken');
+  
+  //kiem tra trong database
+  $querytoken = oneRaw("SELECT customer_id FROM login_token WHERE token= '$tokenlogin' ");
+  
+  if(!empty($querytoken)){
+    $checklogin=true;
+  }else{
+    removeSession('logintoken');
+  }
+}
+
+if($checklogin){
+  redirect();
+}
+
+
  if(isPost()){
     $filterAll=filter();
     if(!empty(trim($filterAll['email'])) && !empty(trim($filterAll['password']))){
@@ -22,10 +44,29 @@
         $email=$filterAll['email'];
         $password=$filterAll['password'];
 
-        $userQuery = oneRaw("SELECT password FROM customers WHERE email = '$email' "); 
+        $userQuery = oneRaw("SELECT password,id FROM customers WHERE email = '$email' "); 
         if(!empty($userQuery)){
             $passwordHash=$userQuery['password'];
+            $customerID=$userQuery['id'];
             if(password_verify($password,$passwordHash)){
+             //tao token login
+             $tokenLogin = sha1(uniqid().time());
+             //insert vao db
+             $insertToken=[
+                'customer_id'=>$customerID,
+                'token'=>$tokenLogin,
+                'create_at'=>date('Y-m-d H:i:s')
+             ];
+             $insertStatus = insert('login_token',$insertToken);
+             if($insertStatus){
+                //insert thanh cong
+                //luu vao session
+                setSession('logintoken',$tokenLogin);
+             }else{
+                setFlashData('msg','Không thể đăng nhập,vui lòng thử lại trong giây lát');
+                setFlashData('msg_type','danger');
+             }
+
                 redirect();
             }else{
                 setFlashData('msg','Mật khẩu không chính xác');
