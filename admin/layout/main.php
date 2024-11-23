@@ -45,6 +45,9 @@
         case 'order':
             require_once('../order/order.php');
             break;
+        case 'edit_order':
+            require_once('../order/edit_order.php');
+            break;
         case 'supplier':
             require_once('../supplier/supplier.php');
             break;

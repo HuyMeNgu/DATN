@@ -4,6 +4,9 @@
    INNER JOIN productcolors ON products.id = productcolors.product_id
    INNER JOIN colors ON productcolors.color_id = colors.id";
    $listPro = $mysqli->query($sql);
+   
+   var_dump($listPro);
+   die;
    $products = [];
    while ($row = mysqli_fetch_assoc($listPro)){
       $productId = $row['id'];
