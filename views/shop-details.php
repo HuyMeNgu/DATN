@@ -7,18 +7,36 @@
       require_once('../models/database.php');
       require_once('../models/session.php');
 
-
+      
       if(isset($_GET['id']) && is_numeric($_GET['id'])){
         $pro_id =$_GET['id'];
       }
 
-      $sql= "SELECT * FROM products INNER JOIN productcolors ON products.id = productcolors.product_id WHERE products.id=$pro_id";
-      $getcolor="SELECT * FROM productcolors INNER JOIN colors ON productcolors.color_id = colors.id WHERE productcolors.product_id =$pro_id";
-      $pro_list=query($sql)->fetch_assoc();
-      $pro_color=query($getcolor)->fetch_assoc();
+
+      // $sql= "SELECT * FROM products INNER JOIN productcolors ON products.id = productcolors.product_id WHERE products.id=$pro_id";
+      // $getcolor="SELECT * FROM productcolors INNER JOIN colors ON productcolors.color_id = colors.id WHERE productcolors.product_id =$pro_id";
+      // $pro_list=query($sql)->fetch_assoc();
+      // $pro_color=query($getcolor)->fetch_assoc();
       // $sql=" SELECT * FROM products WHERE id = $pro_id";
       // $pro = query($sql)->fetch_assoc();
+      $quantity=1;
+      //chi tiet sp
+      $test1="SELECT * from products where id= $pro_id";
+      $pro_list=oneRaw($test1);
+      //LAY hinh nhieu mau
+      $test2="SELECT * from productcolors where product_id=$pro_id";
+      $pro_image=getRaw($test2);
+      //LAY  MAU theo san pham
+      $colors =$pro_list['colors'];
+      
+      $pro_color=explode(",", $colors);
+      
+      
+
+  
+      
     ?>
+
 
 <!-- Breadcrumb Section Begin -->
 <section
@@ -56,10 +74,10 @@
                 />
               </div>
               <div class="product__details__pic__slider owl-carousel">
-               <?php foreach($pro_list as $item){ ?>
+               <?php foreach($pro_image as $item){ ?>
                 <img
-                  data-imgbigurl="../public/img/product/chitiet/<?=$pro_list['img_path'] ?>"
-                  src="../public/img/product/chitiet/<?=$pro_list['img_path'] ?>"
+                  data-imgbigurl="../public/img/product/chitiet/<?=$item['img_path'] ?>"
+                  src="../public/img/product/chitiet/<?=$item['img_path'] ?>"
                   alt=""
                 />
               <?php } ?>
@@ -100,16 +118,34 @@
                 <span>(18 reviews)</span>
               </div>
               <div class="product__details__price"><?= number_format($pro_list['price'],0,',','.' ).' VND';?></div>
-              <p>
-                Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
-                Vestibulum ac diam sit amet quam vehicula elementum sed sit amet
-                dui. Sed porttitor lectus nibh. Vestibulum ac diam sit amet quam
-                vehicula elementum sed sit amet dui. Proin eget tortor risus.
-              </p>
+
+                <div class="container ">
+                <?php foreach($pro_color as $item):
+                  
+                  $color_item=oneRaw("SELECT * FROM colors WHERE id = $item ");
+
+                  ?>
+                 
+
+                <div class="form-check">
+                <input class="form-check-input" type="radio" name="color" id="<?= $color_item['id'] ?>" value="<?= $color_item['id'] ?>" >
+                <label class="form-check-label" for="<?= $color_item['id'] ?>">
+                  <?=
+                    $color_item['color_name'];
+                  ?>
+                </label>
+                </div>
+                <?php endforeach; ?>
+                
+                </div>
+                
+                </div>
+              
+
               <div class="product__details__quantity">
                 <div class="quantity">
                   <div class="pro-qty">
-                    <input type="text" value="1" />
+                    <input type="text" value=<?=$quantity?> />
                   </div>
                 </div>
               </div>
@@ -175,7 +211,7 @@
                   <div class="product__details__tab__desc">
                     <h6>Products Infomation</h6>
                     <p>
-                      <?=  $pro['description'];  ?>
+                      <?=  $pro_list['description'];  ?>
                     </p>
                     <p>
                       Praesent sapien massa, convallis a pellentesque nec,
@@ -362,7 +398,7 @@
       </div>
     </section>
     <!-- Related Product Section End -->
-
+<link rel="stylesheet" href="../public/css/mycss.css" type="text/css"  />
 <!-- FOOTER -->
 <?php 
   include('footer.php') 

@@ -15,6 +15,7 @@
     />
 
     <!-- Css Styles -->
+
     <link
       rel="stylesheet"
       href="../public/css/bootstrap.min.css"
@@ -223,8 +224,8 @@
                   <h5>Giỏ hàng</h5>
                 </li>
                 <li>
-                  <a href="#"
-                    ><i class="fa fa-shopping-bag"></i> <span>3</span></a
+                  <a href="../views/shoping-cart.php"
+                    ><i class="fa fa-shopping-bag"></i> <span>4</span></a
                   >
                 </li>
               </ul>

@@ -1,7 +1,14 @@
 <!-- HEADER -->
 <?php 
     $is_homepage = false;
-    require_once('header.php')
+    require_once('header.php');
+    require_once('../models/connectdb.php');
+    require_once('../models/function.php');
+    require_once('../models/database.php');
+    require_once('../models/session.php');
+
+
+    
     ?>
     
 
