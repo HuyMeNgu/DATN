@@ -15,6 +15,7 @@
     />
 
     <!-- Css Styles -->
+
     <link
       rel="stylesheet"
       href="../public/css/bootstrap.min.css"
@@ -58,7 +59,7 @@
    require_once('../models/function.php');
    require_once('../models/database.php');
    require_once('../models/session.php');
-
+    
 
    
   session_start();
@@ -88,7 +89,12 @@
   //   $customerData=query($sql)->fetch_assoc();
   // }
 
+<<<<<<< HEAD
   // ?>
+=======
+  $cartCount=0;
+  ?>
+>>>>>>> 068461ff357d5bc384cfac637ca78772bfbaac43
 
   <body>
     <!-- Page Preloder -->
@@ -223,8 +229,8 @@
                   <h5>Giỏ hàng</h5>
                 </li>
                 <li>
-                  <a href="#"
-                    ><i class="fa fa-shopping-bag"></i> <span>3</span></a
+                  <a href="../views/shoping-cart.php"
+                    ><i class="fa fa-shopping-bag"></i> <span><?= $cartCount ?></span></a
                   >
                 </li>
               </ul>
@@ -255,7 +261,7 @@
                 <i class="fa fa-bars"></i>
                 <span>Danh mục</span>
               </div>
-              <ul>
+              <!-- <ul>
                 <li><a href="#">Fresh Meat</a></li>
                 <li><a href="#">Vegetables</a></li>
                 <li><a href="#">Fruit & Nut Gifts</a></li>
@@ -267,7 +273,7 @@
                 <li><a href="#">Papayaya & Crisps</a></li>
                 <li><a href="#">Oatmeal</a></li>
                 <li><a href="#">Fresh Bananas</a></li>
-              </ul>
+              </ul> -->
             </div>
           </div>
           <div class="col-lg-9">

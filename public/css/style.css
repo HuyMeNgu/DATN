@@ -30,6 +30,7 @@
 /* Template default CSS
 /*----------------------------------------*/
 
+
 /*CSS for register page*/
 .error {
   color: red;
@@ -92,6 +93,12 @@ body {
   font-smoothing: antialiased;
 }
 
+
+br{
+  display: block ;
+  margin-bottom: 20px ;
+}
+
 h1,
 h2,
 h3,
@@ -132,7 +139,7 @@ p {
   font-size: 16px;
   font-family: "Cairo", sans-serif;
   color: #6f6f6f;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 26px;
   margin: 0 0 15px 0;
 }
