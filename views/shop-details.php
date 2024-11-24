@@ -30,11 +30,14 @@
       $colors =$pro_list['colors'];
       
       $pro_color=explode(",", $colors);
-      
+
+      $cate = $pro_list['category_id'];
+     
+      //lay san pham cung loai
+      $querySameCate="SELECT * FROM products WHERE category_id = $cate";
+      $sameCate=getRaw($querySameCate);
       
 
-  
-      
     ?>
 
 
@@ -81,21 +84,9 @@
                   alt=""
                 />
               <?php } ?>
-                <img
-                  data-imgbigurl="../public/img/product/details/product-details-3.jpg"
-                  src="../public/img/product/details/thumb-2.jpg"
-                  alt=""
-                />
-                <img
-                  data-imgbigurl="../public/img/product/details/product-details-5.jpg"
-                  src="../public/img/product/details/thumb-3.jpg"
-                  alt=""
-                />
-                <img
-                  data-imgbigurl="../public/img/product/details/product-details-4.jpg"
-                  src="../public/img/product/details/thumb-4.jpg"
-                  alt=""
-                />
+                
+                
+                
               </div>
             </div>
           </div>
@@ -214,18 +205,7 @@
                       <?=  $pro_list['description'];  ?>
                     </p>
                     <p>
-                      Praesent sapien massa, convallis a pellentesque nec,
-                      egestas non nisi. Lorem ipsum dolor sit amet, consectetur
-                      adipiscing elit. Mauris blandit aliquet elit, eget
-                      tincidunt nibh pulvinar a. Cras ultricies ligula sed magna
-                      dictum porta. Cras ultricies ligula sed magna dictum
-                      porta. Sed porttitor lectus nibh. Mauris blandit aliquet
-                      elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam
-                      sit amet quam vehicula elementum sed sit amet dui. Sed
-                      porttitor lectus nibh. Vestibulum ac diam sit amet quam
-                      vehicula elementum sed sit amet dui. Proin eget tortor
-                      risus.
-                    </p>
+                 
                   </div>
                 </div>
                 <div class="tab-pane" id="tabs-2" role="tabpanel">
@@ -293,17 +273,19 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="section-title related__product__title">
-              <h2>Related Product</h2>
+              <h2>Sản phẩm tương tự</h2>
             </div>
           </div>
         </div>
         <div class="row">
+
+          <?php foreach($sameCate as $item): ?>
           <div class="col-lg-3 col-md-4 col-sm-6">
             <div class="product__item">
               <div
-                class="product__item__pic set-bg"
-                data-setbg="../public/img/product/product-1.jpg"
+                class="product__item__pic set-bg "
               >
+                <img src="../public/img/product/hinhanh/<?= $item['img']?>"alt="">
                 <ul class="product__item__pic__hover">
                   <li>
                     <a href="#"><i class="fa fa-heart"></i></a>
@@ -317,83 +299,13 @@
                 </ul>
               </div>
               <div class="product__item__text">
-                <h6><a href="#">Crab Pool Security</a></h6>
-                <h5>$30.00</h5>
+                <h6><a href="#"><?= $item['product_name'] ?></a></h6>
+                <h5><?= number_format($item['price'],0,',','.' ).' VND';?></h5>
               </div>
+              
             </div>
           </div>
-          <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="product__item">
-              <div
-                class="product__item__pic set-bg"
-                data-setbg="../public/img/product/product-2.jpg"
-              >
-                <ul class="product__item__pic__hover">
-                  <li>
-                    <a href="#"><i class="fa fa-heart"></i></a>
-                  </li>
-                  <li>
-                    <a href="#"><i class="fa fa-retweet"></i></a>
-                  </li>
-                  <li>
-                    <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                  </li>
-                </ul>
-              </div>
-              <div class="product__item__text">
-                <h6><a href="#">Crab Pool Security</a></h6>
-                <h5>$30.00</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="product__item">
-              <div
-                class="product__item__pic set-bg"
-                data-setbg="../public/img/product/product-3.jpg"
-              >
-                <ul class="product__item__pic__hover">
-                  <li>
-                    <a href="#"><i class="fa fa-heart"></i></a>
-                  </li>
-                  <li>
-                    <a href="#"><i class="fa fa-retweet"></i></a>
-                  </li>
-                  <li>
-                    <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                  </li>
-                </ul>
-              </div>
-              <div class="product__item__text">
-                <h6><a href="#">Crab Pool Security</a></h6>
-                <h5>$30.00</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="product__item">
-              <div
-                class="product__item__pic set-bg"
-                data-setbg="../public/img/product/product-7.jpg"
-              >
-                <ul class="product__item__pic__hover">
-                  <li>
-                    <a href="#"><i class="fa fa-heart"></i></a>
-                  </li>
-                  <li>
-                    <a href="#"><i class="fa fa-retweet"></i></a>
-                  </li>
-                  <li>
-                    <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                  </li>
-                </ul>
-              </div>
-              <div class="product__item__text">
-                <h6><a href="#">Crab Pool Security</a></h6>
-                <h5>$30.00</h5>
-              </div>
-            </div>
-          </div>
+          <?php endforeach; ?>
         </div>
       </div>
     </section>

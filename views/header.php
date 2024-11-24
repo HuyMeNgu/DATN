@@ -59,29 +59,29 @@
    require_once('../models/function.php');
    require_once('../models/database.php');
    require_once('../models/session.php');
-
+    
 
    
   session_start();
 
 //kiem tra tinh trang dang nhap
-   $checklogin=false;
-  if(getSession('logintoken')){
-    $tokenlogin= getSession('logintoken');
+  //  $checklogin=false;
+  // if(getSession('logintoken')){
+  //   $tokenlogin= getSession('logintoken');
     
-    //kiem tra trong database
-    $querytoken = oneRaw("SELECT customer_id FROM login_token WHERE token= '$tokenlogin' ");
+  //   //kiem tra trong database
+  //   $querytoken = oneRaw("SELECT customer_id FROM login_token WHERE token= '$tokenlogin' ");
     
-    if(!empty($querytoken)){
-      $checklogin=true;
-    }else{
-      removeSession('logintoken');
-    }
-  }
+  //   if(!empty($querytoken)){
+  //     $checklogin=true;
+  //   }else{
+  //     removeSession('logintoken');
+  //   }
+  // }
 
-  if(!$checklogin){
-    redirect('login.php');
-  }
+  // if(!$checklogin){
+  //   redirect('login.php');
+  // }
 
   if(getSession('logintoken')){
     $customertoken=getSession('logintoken');
@@ -89,6 +89,7 @@
     $customerData=query($sql)->fetch_assoc();
   }
 
+  $cartCount=0;
   ?>
 
   <body>
@@ -225,7 +226,7 @@
                 </li>
                 <li>
                   <a href="../views/shoping-cart.php"
-                    ><i class="fa fa-shopping-bag"></i> <span>4</span></a
+                    ><i class="fa fa-shopping-bag"></i> <span><?= $cartCount ?></span></a
                   >
                 </li>
               </ul>
@@ -256,7 +257,7 @@
                 <i class="fa fa-bars"></i>
                 <span>Danh mục</span>
               </div>
-              <ul>
+              <!-- <ul>
                 <li><a href="#">Fresh Meat</a></li>
                 <li><a href="#">Vegetables</a></li>
                 <li><a href="#">Fruit & Nut Gifts</a></li>
@@ -268,7 +269,7 @@
                 <li><a href="#">Papayaya & Crisps</a></li>
                 <li><a href="#">Oatmeal</a></li>
                 <li><a href="#">Fresh Bananas</a></li>
-              </ul>
+              </ul> -->
             </div>
           </div>
           <div class="col-lg-9">
