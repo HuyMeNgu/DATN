@@ -49,7 +49,7 @@
                               <th>Tên sản phẩm</th>
                               <th>Loại</th>
                               <th>Màu sắc</th>
-                              <th>Status</th>
+                              <th>Trạng thái</th>
                               <th>Sửa</th>
                               <th>Xóa</th>
                            </tr>

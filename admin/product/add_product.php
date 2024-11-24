@@ -74,7 +74,7 @@
                         <input type="file" class="form-control" name="" id="" accept="">
                     </div>
                     <div class="form-group">
-                        <img id="" src="" alt="Demo" style="max-width: 100%; max-height: 100%; margin-top: 20px;">
+                        <img id="previewImage" src="" alt="Demo" style="max-width: 100%; max-height: 100%; margin-top: 20px;">
                     </div>
                </div>
             </div>

@@ -29,10 +29,9 @@
                         <thead class="thead-dark">
                            <tr>
                               <th style="width: 10%">STT</th>
-                              <th style="width: 30%">Màu</th>
-                              <th>Trạng thái</th>
-                              <th>Sửa</th>
-                              <th>Xóa</th>
+                              <th>Màu</th>
+                              <th style="width: 10%">Sửa</th>
+                              <th style="width: 10%">Xóa</th>
                            </tr>
                         </thead>
                         <tbody>
@@ -43,9 +42,6 @@
                                  <td><?= $item['id'] ?></td>
                                  <td>
                                     <a><?= $item['color_name']?></a>
-                                 </td>
-                                 <td>
-                                    <button type="button" class="btn btn-success btn-xs">Mở</button>
                                  </td>
                                  <td>
                                     <a href="" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>

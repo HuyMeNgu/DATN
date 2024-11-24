@@ -64,7 +64,7 @@
                   />
                 </div>
                 <div class="user_info">
-                  <h6>John David</h6>
+                  <h6>Admin</h6>
                   <p><span class="online_animation"></span> Online</p>
                 </div>
               </div>
