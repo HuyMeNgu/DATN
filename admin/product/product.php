@@ -2,7 +2,9 @@
    $sql = "SELECT DISTINCT products.*, categories.cate_name, colors.color_name FROM products
    INNER JOIN categories ON products.category_id = categories.id
    INNER JOIN productcolors ON products.id = productcolors.product_id
-   INNER JOIN colors ON productcolors.color_id = colors.id";
+   INNER JOIN colors ON productcolors.color_id = colors.id
+  
+   ";
    $listPro = $mysqli->query($sql);
    $products = [];
    while ($row = mysqli_fetch_assoc($listPro)){

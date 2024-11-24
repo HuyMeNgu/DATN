@@ -64,31 +64,31 @@
   session_start();
 
 //kiem tra tinh trang dang nhap
-   $checklogin=false;
-  if(getSession('logintoken')){
-    $tokenlogin= getSession('logintoken');
+  //  $checklogin=false;
+  // if(getSession('logintoken')){
+  //   $tokenlogin= getSession('logintoken');
     
-    //kiem tra trong database
-    $querytoken = oneRaw("SELECT customer_id FROM login_token WHERE token= '$tokenlogin' ");
+  //   //kiem tra trong database
+  //   $querytoken = oneRaw("SELECT customer_id FROM login_token WHERE token= '$tokenlogin' ");
     
-    if(!empty($querytoken)){
-      $checklogin=true;
-    }else{
-      removeSession('logintoken');
-    }
-  }
+  //   if(!empty($querytoken)){
+  //     $checklogin=true;
+  //   }else{
+  //     removeSession('logintoken');
+  //   }
+  // }
 
-  if(!$checklogin){
-    redirect('login.php');
-  }
+  // if(!$checklogin){
+  //   redirect('login.php');
+  // }
 
-  if(getSession('logintoken')){
-    $customertoken=getSession('logintoken');
-    $sql="SELECT * FROM login_token INNER JOIN customers ON login_token.customer_id = customers.id WHERE token LIKE '$customertoken' ";
-    $customerData=query($sql)->fetch_assoc();
-  }
+  // if(getSession('logintoken')){
+  //   $customertoken=getSession('logintoken');
+  //   $sql="SELECT * FROM login_token INNER JOIN customers ON login_token.customer_id = customers.id WHERE token LIKE '$customertoken' ";
+  //   $customerData=query($sql)->fetch_assoc();
+  // }
 
-  ?>
+  // ?>
 
   <body>
     <!-- Page Preloder -->

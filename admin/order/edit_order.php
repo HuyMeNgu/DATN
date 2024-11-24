@@ -46,7 +46,7 @@ if($func->isPOST() && isset($_POST['update'])|| isset($_POST['cancel']))
             ];
             // $mysqli->query('INSERT INTO order_step (order_id, admin_id, step_name,note, update_at) VALUES ($id, $f->trangthai($status_after),date('Y-m-d H:i:s'))');
         } else{
-
+            
         }
     }
 }

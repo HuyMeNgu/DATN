@@ -2,25 +2,31 @@
    $sql = "SELECT DISTINCT products.*, categories.cate_name, colors.color_name, productcolors.quantity FROM products
    INNER JOIN categories ON products.category_id = categories.id
    INNER JOIN productcolors ON products.id = productcolors.product_id
-   INNER JOIN colors ON productcolors.color_id = colors.id";
-   $listPro = $mysqli->query($sql);
+   INNER JOIN colors ON productcolors.color_id = colors.id
+   order by products.id, colors.id";
    
-   var_dump($listPro);
-   die;
+   $listPro = $mysqli->query($sql);
+   // $list = mysqli_fetch_all($listPro, MYSQLI_ASSOC);
+   // var_dump($list);
+   // die;
    $products = [];
    while ($row = mysqli_fetch_assoc($listPro)){
       $productId = $row['id'];
       if(!isset($products[$productId])){
          $products[$productId] = [
             'id' => $row['id'],
-            'product_name' => $row['product_name'],
-            'quantity' => $row['quantity'],
+            'product_name' => $row['product_name'],  
             'cate_name' => $row['cate_name'],
             'colors' => [],
          ];
       }
-      $products[$productId]['colors'][] = $row['color_name'];
+      $products[$productId]['colors'][] = [
+        'color'=> $row['color_name'], 
+        'quantity'=> $row['quantity']
+      ];
    }
+   // var_dump($products);
+   // die;
 ?>
 
 <div class="midde_cont">
@@ -71,14 +77,14 @@
                                 <?= $item['cate_name']?>
                               </td>
                               <td>
-                                <?php
-                                    $colorquanti =[];
-                                    foreach ($item['colors'] as $index => $color){
-                                        $quantity = $item['quantity'][$index];
-                                        $colorquanti[] = "$color ($quantity)";
-                                    }
-                                ?>
-                                <?= implode(", ",$colorquanti)?>
+                                 <?php
+                                 $colors_str = "";
+                                 foreach ($item['colors'] as $index) {
+                                    $colors_str .= $index['color']."(" . $index['quantity']."), ";
+                                 }
+                                 $colors_str = rtrim($colors_str, ", ");
+                                 ?>
+                                <?= $colors_str?>
                               </td>                                 
                            </tr>
                            <?php

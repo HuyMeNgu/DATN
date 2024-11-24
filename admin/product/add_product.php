@@ -1,5 +1,52 @@
 <?php
+    // Lấy danh sách màu
+    $colors_result = $mysqli->query("SELECT * FROM colors");
+    $colors = [];
+    while ($row = $colors_result->fetch_assoc()) {
+        $colors[] = $row;
+    }
+    // Kiểm tra dữ liệu POST
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $product_name = $_POST['product_name'];
+    $description = $_POST['description'];
+    $price = $_POST['price'];
+    $category_id = $_POST['category_id'];
+    // $rating = $_POST['rating'];
+    // $img = $_FILES['img'];
 
+    // Tải lên hình ảnh chính
+    $targetDir = "uploads/";
+    // $mainImagePath = $targetDir . basename($img['name']);
+    // move_uploaded_file($img['tmp_name'], $mainImagePath);
+
+    // Thêm sản phẩm vào bảng `products`
+    $stmt = $mysqli->prepare("INSERT INTO products (product_name, description, price, category_id, rating, img, is_active) VALUES (?, ?, ?, ?, 1, ?, 1)");
+    $stmt->bind_param("ssdids", $product_name, $description, $price, $category_id, $rating, $mainImagePath);
+    $stmt->execute();
+    $product_id = $stmt->insert_id;
+    $stmt->close();
+
+    // Xử lý màu sắc
+    if (!empty($_POST['colors'])) {
+        foreach ($_POST['colors'] as $color) {
+            $color_id = $color['id'];
+            $quantity = $color['quantity'];
+            $color_img = $_FILES['colors']['name'][$color_id]['img'];
+            $tmp_name = $_FILES['colors']['tmp_name'][$color_id]['img'];
+
+            $colorImagePath = $targetDir . basename($color_img);
+            move_uploaded_file($tmp_name, $colorImagePath);
+
+            // Thêm vào bảng `productcolors`
+            $stmt = $mysqli->prepare("INSERT INTO productcolors (product_id, color_id, img_path, quantity) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("iisi", $product_id, $color_id, $colorImagePath, $quantity);
+            $stmt->execute();
+            $stmt->close();
+        }
+    }
+
+    echo "Sản phẩm đã được thêm thành công!";
+}
 ?>
 
 <div class="midde_cont">
@@ -21,7 +68,7 @@
                </div>
             </div>
          <div class="full price_table padding_infor_info">
-            <form method="post">
+            <form method="POST">
             <div class="row">
                <div class="col-lg-8">
                     <div class="form-group mg-form">
@@ -67,11 +114,12 @@
                     </div>
                     <div class="form-group mg-form">
                         <h4>Màu sắc</h4>
-                        <input id="product_name" name="product_name" class="form-control" placeholder="Nhập tên sản phẩm" value="">
+                        <div id="colorList"></div>
+                        <button type="button" onclick="addColorOption()">Thêm màu</button><br>
                     </div>
                     <div class="form-group">
                         <h4>Hình ảnh</h4>
-                        <input type="file" class="form-control" name="" id="" accept="">
+                        <input type="file" class="form-control" name="" name="img" accept="">
                     </div>
                     <div class="form-group">
                         <img id="previewImage" src="" alt="Demo" style="max-width: 100%; max-height: 100%; margin-top: 20px;">
@@ -87,6 +135,30 @@
    </div>
    <!-- end row -->
    </div>
+   <script>
+        let colorCounter = 0;
+
+        function addColorOption() {
+            const colorList = document.getElementById('colorList');
+            const newColorDiv = document.createElement('div');
+            newColorDiv.setAttribute('class', 'color-entry');
+            newColorDiv.innerHTML = `
+                <select name="colors[${colorCounter}][id]" required>
+                    <?php foreach ($colors as $color) : ?>
+                        <option value="<?= $color['id'] ?>"><?= $color['color_name'] ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <input type="file" name="colors[${colorCounter}][img]" accept="image/*" required>
+                <input type="number" name="colors[${colorCounter}][quantity]" placeholder="Số lượng" min="0" required>
+                <button type="button" onclick="removeColorOption(this)">Xóa</button>`;
+            colorList.appendChild(newColorDiv);
+            colorCounter++;
+        }
+
+        function removeColorOption(button) {
+            button.parentElement.remove();
+        }
+    </script>
    <!-- footer -->
    <div class="container-fluid">
       <div class="row">
