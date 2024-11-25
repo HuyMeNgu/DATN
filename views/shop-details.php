@@ -12,7 +12,7 @@
         $pro_id =$_GET['id'];
       }
 
-
+     
       // $sql= "SELECT * FROM products INNER JOIN productcolors ON products.id = productcolors.product_id WHERE products.id=$pro_id";
       // $getcolor="SELECT * FROM productcolors INNER JOIN colors ON productcolors.color_id = colors.id WHERE productcolors.product_id =$pro_id";
       // $pro_list=query($sql)->fetch_assoc();
@@ -37,8 +37,47 @@
       $querySameCate="SELECT * FROM products WHERE category_id = $cate";
       $sameCate=getRaw($querySameCate);
       
+ 
 
     ?>
+
+
+
+    <script>
+      $(document).ready(function () {
+      
+        $(".add_cart").click(function (e) { 
+          e.preventDefault();
+          var productName=$(".product__details__text").children("h3").text();
+          var productPrice=$(".product__details__price").text();
+          var productQtt=$(".pro-qty").children("input").val();
+          var productImg=$(".product__details__pic__item").children("img").attr("src");
+          var productId=$(".id").text();
+          
+          $.ajax({
+              method: 'POST', // Đảm bảo dùng chữ hoa cho phương thức
+              url:'../ajax/addtocart.php', // Thay bằng đường dẫn file xử lý
+              data: {
+                  action:'addcart',
+                  productId: productId,
+                  productQtt: productQtt,
+
+              },
+              success: function(response) {
+                  alert(response);
+              },
+              error: function(xhr, status, error) {
+                  console.error("Lỗi xảy ra:", status, error);
+                  alert('Có lỗi xảy ra, vui lòng thử lại.');
+              }
+});
+
+          
+        
+        });
+
+      });
+    </script>
 
 
 <!-- Breadcrumb Section Begin -->
@@ -82,6 +121,7 @@
                   data-imgbigurl="../public/img/product/chitiet/<?=$item['img_path'] ?>"
                   src="../public/img/product/chitiet/<?=$item['img_path'] ?>"
                   alt=""
+                  
                 />
               <?php } ?>
                 
@@ -140,10 +180,9 @@
                   </div>
                 </div>
               </div>
-              <a href="#" class="primary-btn">ADD TO CARD</a>
-              <a href="#" class="heart-icon"
-                ><span class="icon_heart_alt"></span
-              ></a>
+              <div class="d-none id"><?=$pro_list['id']?></div>
+              <a href="" class="primary-btn add_cart">Thêm vào giỏ hàng</a>
+
               <ul>
                 <li><b>Availability</b> <span>In Stock</span></li>
                 <li>
@@ -173,34 +212,15 @@
                     href="#tabs-1"
                     role="tab"
                     aria-selected="true"
-                    >Description</a
+                    >Thông tin sản phẩm</a
                   >
                 </li>
-                <li class="nav-item">
-                  <a
-                    class="nav-link"
-                    data-toggle="tab"
-                    href="#tabs-2"
-                    role="tab"
-                    aria-selected="false"
-                    >Information</a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a
-                    class="nav-link"
-                    data-toggle="tab"
-                    href="#tabs-3"
-                    role="tab"
-                    aria-selected="false"
-                    >Reviews <span>(1)</span></a
-                  >
-                </li>
+               
               </ul>
               <div class="tab-content">
                 <div class="tab-pane active" id="tabs-1" role="tabpanel">
                   <div class="product__details__tab__desc">
-                    <h6>Products Infomation</h6>
+                    <h6>Thông tin của <?=$pro_list['product_name'] ?></h6>
                     <p>
                       <?=  $pro_list['description'];  ?>
                     </p>
@@ -208,57 +228,8 @@
                  
                   </div>
                 </div>
-                <div class="tab-pane" id="tabs-2" role="tabpanel">
-                  <div class="product__details__tab__desc">
-                    <h6>Products Infomation</h6>
-                    <p>
-                      Vestibulum ac diam sit amet quam vehicula elementum sed
-                      sit amet dui. Pellentesque in ipsum id orci porta dapibus.
-                      Proin eget tortor risus. Vivamus suscipit tortor eget
-                      felis porttitor volutpat. Vestibulum ac diam sit amet quam
-                      vehicula elementum sed sit amet dui. Donec rutrum congue
-                      leo eget malesuada. Vivamus suscipit tortor eget felis
-                      porttitor volutpat. Curabitur arcu erat, accumsan id
-                      imperdiet et, porttitor at sem. Praesent sapien massa,
-                      convallis a pellentesque nec, egestas non nisi. Vestibulum
-                      ac diam sit amet quam vehicula elementum sed sit amet dui.
-                      Vestibulum ante ipsum primis in faucibus orci luctus et
-                      ultrices posuere cubilia Curae; Donec velit neque, auctor
-                      sit amet aliquam vel, ullamcorper sit amet ligula. Proin
-                      eget tortor risus.
-                    </p>
-                    <p>
-                      Praesent sapien massa, convallis a pellentesque nec,
-                      egestas non nisi. Lorem ipsum dolor sit amet, consectetur
-                      adipiscing elit. Mauris blandit aliquet elit, eget
-                      tincidunt nibh pulvinar a. Cras ultricies ligula sed magna
-                      dictum porta. Cras ultricies ligula sed magna dictum
-                      porta. Sed porttitor lectus nibh. Mauris blandit aliquet
-                      elit, eget tincidunt nibh pulvinar a.
-                    </p>
-                  </div>
-                </div>
-                <div class="tab-pane" id="tabs-3" role="tabpanel">
-                  <div class="product__details__tab__desc">
-                    <h6>Products Infomation</h6>
-                    <p>
-                      Vestibulum ac diam sit amet quam vehicula elementum sed
-                      sit amet dui. Pellentesque in ipsum id orci porta dapibus.
-                      Proin eget tortor risus. Vivamus suscipit tortor eget
-                      felis porttitor volutpat. Vestibulum ac diam sit amet quam
-                      vehicula elementum sed sit amet dui. Donec rutrum congue
-                      leo eget malesuada. Vivamus suscipit tortor eget felis
-                      porttitor volutpat. Curabitur arcu erat, accumsan id
-                      imperdiet et, porttitor at sem. Praesent sapien massa,
-                      convallis a pellentesque nec, egestas non nisi. Vestibulum
-                      ac diam sit amet quam vehicula elementum sed sit amet dui.
-                      Vestibulum ante ipsum primis in faucibus orci luctus et
-                      ultrices posuere cubilia Curae; Donec velit neque, auctor
-                      sit amet aliquam vel, ullamcorper sit amet ligula. Proin
-                      eget tortor risus.
-                    </p>
-                  </div>
-                </div>
+             
+              
               </div>
             </div>
           </div>
@@ -310,7 +281,7 @@
       </div>
     </section>
     <!-- Related Product Section End -->
-<link rel="stylesheet" href="../public/css/mycss.css" type="text/css"  />
+
 <!-- FOOTER -->
 <?php 
   include('footer.php') 

@@ -188,6 +188,7 @@
     /*------------------
 		Single Product
 	--------------------*/
+    
     $('.product__details__pic__slider img').on('click', function () {
 
         var imgurl = $(this).data('imgbigurl');
@@ -197,6 +198,7 @@
                 src: imgurl
             });
         }
+        
     });
 
     /*-------------------
@@ -213,7 +215,7 @@
         } else {
             // Don't allow decrementing below zero
             if (oldValue > 0) {
-                var newVal = parseFloat(oldValue) - 1;
+                var newVal = parseFloat(oldValue) -1;
             } else {
                 newVal = 0;
             }
@@ -221,4 +223,7 @@
         $button.parent().find('input').val(newVal);
     });
 
+    //xu ly gio hang
+ 
 })(jQuery);
+

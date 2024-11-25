@@ -1,5 +1,6 @@
 <!-- HEADER -->
 <?php 
+
     $is_homepage = false;
     require_once('header.php');
     require_once('../models/connectdb.php');
@@ -8,11 +9,15 @@
     require_once('../models/session.php');
 
     //xu ly gio hang
-    
+echo"<pre>";
+print_r($_SESSION['cart']);
+echo"</pre>";
 
-    
+$cart =$_SESSION['cart'];
+
     ?>
     
+
 
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="../public/img/breadcrumb.jpg">
@@ -22,7 +27,7 @@
             <div class="breadcrumb__text">
               <h2>Shopping Cart</h2>
               <div class="breadcrumb__option">
-                <a href="./index.html">Home</a>
+                <a href="./index.php">Home</a>
                 <span>Shopping Cart</span>
               </div>
             </div>
@@ -31,6 +36,10 @@
       </div>
     </section>
     <!-- Breadcrumb Section End -->
+
+    <!-- xu ly gio hang bang js -->
+ 
+    
 
     <!-- Shoping Cart Section Begin -->
     <section class="shoping-cart spad">
@@ -48,61 +57,28 @@
                     <th></th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody class="cart-list" >
+                  <?php foreach($cart as $item): ?>
                   <tr>
                     <td class="shoping__cart__item">
                       <img src="../public/img/cart/cart-1.jpg" alt="" />
-                      <h5>Vegetable’s Package</h5>
+                      <h5><?= $item['name']?></h5>
                     </td>
-                    <td class="shoping__cart__price">$55.00</td>
+                    <td class="shoping__cart__price"><?=$item['price']?></td>
                     <td class="shoping__cart__quantity">
                       <div class="quantity">
                         <div class="pro-qty">
-                          <input type="text" value="1" />
+                          <input class="wantity" type="text" value="<?=$item['quantity']?>" />
                         </div>
                       </div>
                     </td>
-                    <td class="shoping__cart__total">$110.00</td>
+                    <td class="shoping__cart__total"><?=$item['price']*$item['quantity']?></td>
                     <td class="shoping__cart__item__close">
                       <span class="icon_close"></span>
                     </td>
                   </tr>
-                  <tr>
-                    <td class="shoping__cart__item">
-                      <img src="../public//img/cart/cart-2.jpg" alt="" />
-                      <h5>Fresh Garden Vegetable</h5>
-                    </td>
-                    <td class="shoping__cart__price">$39.00</td>
-                    <td class="shoping__cart__quantity">
-                      <div class="quantity">
-                        <div class="pro-qty">
-                          <input type="text" value="1" />
-                        </div>
-                      </div>
-                    </td>
-                    <td class="shoping__cart__total">$39.99</td>
-                    <td class="shoping__cart__item__close">
-                      <span class="icon_close"></span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="shoping__cart__item">
-                      <img src="../public/img/cart/cart-3.jpg" alt="" />
-                      <h5>Organic Bananas</h5>
-                    </td>
-                    <td class="shoping__cart__price">$69.00</td>
-                    <td class="shoping__cart__quantity">
-                      <div class="quantity">
-                        <div class="pro-qty">
-                          <input type="text" value="1" />
-                        </div>
-                      </div>
-                    </td>
-                    <td class="shoping__cart__total">$69.99</td>
-                    <td class="shoping__cart__item__close">
-                      <span class="icon_close"></span>
-                    </td>
-                  </tr>
+                  <?php endforeach; ?>
+           
                 </tbody>
               </table>
             </div>
@@ -130,18 +106,19 @@
           </div>
           <div class="col-lg-6">
             <div class="shoping__checkout">
-              <h5>Cart Total</h5>
-              <ul>
-                <li>Subtotal <span>$454.98</span></li>
-                <li>Total <span>$454.98</span></li>
+              <h5>Thành tiền:</h5>
+              <ul >
+                <li>Phí vận chuyển <span class="deli_cost">30.000</span></li>
+                <li>Tổng tiền <span class="checkout_total">454.98</span></li>
               </ul>
-              <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+              <a href="checkout.php" class="primary-btn">Thanh toán</a>
             </div>
           </div>
         </div>
       </div>
     </section>
     <!-- Shoping Cart Section End -->
+
 
      <!-- //FOOTER -->
      <?php

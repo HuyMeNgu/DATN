@@ -13,6 +13,11 @@
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
       rel="stylesheet"
     />
+    <!-- JQuery -->
+    <script src="../public/js/jquery-3.3.1.min.js"></script>
+    <script src="../public/js/main.js" ></script>
+   
+    
 
     <!-- Css Styles -->
 
@@ -64,37 +69,108 @@
    
   session_start();
 
+  //xu ly gio hang
+  if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = []; // Nếu chưa có giỏ hàng, khởi tạo giỏ hàng
+ }
+  
+  
+
+  
+  
+
 //kiem tra tinh trang dang nhap
-  //  $checklogin=false;
-  // if(getSession('logintoken')){
-  //   $tokenlogin= getSession('logintoken');
+   $checklogin=false;
+  if(getSession('logintoken')){
+    $tokenlogin= getSession('logintoken');
     
-  //   //kiem tra trong database
-  //   $querytoken = oneRaw("SELECT customer_id FROM login_token WHERE token= '$tokenlogin' ");
+    //kiem tra trong database
+    $querytoken = oneRaw("SELECT customer_id FROM login_token WHERE token= '$tokenlogin' ");
     
-  //   if(!empty($querytoken)){
-  //     $checklogin=true;
-  //   }else{
-  //     removeSession('logintoken');
-  //   }
-  // }
+    if(!empty($querytoken)){
+      $checklogin=true;
+    }else{
+      removeSession('logintoken');
+    }
+  }
 
-  // if(!$checklogin){
-  //   redirect('login.php');
-  // }
+  if(!$checklogin){
+    redirect('login.php');
+  }
 
-  // if(getSession('logintoken')){
-  //   $customertoken=getSession('logintoken');
-  //   $sql="SELECT * FROM login_token INNER JOIN customers ON login_token.customer_id = customers.id WHERE token LIKE '$customertoken' ";
-  //   $customerData=query($sql)->fetch_assoc();
-  // }
+  if(getSession('logintoken')){
+    $customertoken=getSession('logintoken');
+    $sql="SELECT * FROM login_token INNER JOIN customers ON login_token.customer_id = customers.id WHERE token LIKE '$customertoken' ";
+    $customerData=query($sql)->fetch_assoc();
+  }
 
-<<<<<<< HEAD
-  // ?>
-=======
   $cartCount=0;
-  ?>
->>>>>>> 068461ff357d5bc384cfac637ca78772bfbaac43
+  // ?>
+
+<!-- xu ly gio hang bang js -->
+    <script>
+      //test something
+    
+      //tinh so luong sp trong gio hang
+      $(document).ready(function () {
+        qttCart();
+        cartTotal();
+      //remove khoi gio hang
+      $(".icon_close").click(function (e) { 
+      e.preventDefault();
+      var tr=$(this).parent().parent();
+      var trName = tr.children().eq(0).children(1);
+      alert('thuc hien xoa'+trName.text());
+      tr.remove();
+
+      // cap nhat lai so luong
+      qttCart();
+      //cap nhat tong tien
+      cartTotal();
+      });
+
+      $(".wantity").change(function (e) { 
+        e.preventDefault();
+        var qtt = $(this).val();
+        var tr = $(this).parent().parent().parent().parent();
+        var price = tr.children().eq(1).text();
+        tr.children("td").eq(3).text(price);
+        var ttal = qtt * price;
+        tr.children("td").eq(3).text(ttal);
+      });
+ //xu ly tang giam so luong
+ 
+ 
+      
+      
+
+  })(jQuery);
+  function qttCart () {
+    var cart= $(".cart-list").children("tr");
+      var cartCount = cart.length;
+      var cartqty = $(".cart-count").eq(0);
+      cartqty.text(cartCount);
+    }
+    function cartTotal () {
+      var endTotal = $(".checkout_total");
+      var cart= $(".cart-list").children("tr");
+      var delicost=eval($(".deli_cost").text());
+      var sum=0;
+      for (let i = 0; i < cart.length; i++) {
+       sum+=eval(cart.eq(i).children("td").eq(3).text());
+      }
+      endTotal.text(sum+delicost);
+      }
+      // function testsmth() {
+      //   var endTotal = $(".shoping__checkout").children("ul").eq(1).text();
+      //   console.log(endTotal);
+      //   }
+
+
+
+    </script>
+
+
 
   <body>
     <!-- Page Preloder -->
@@ -230,7 +306,7 @@
                 </li>
                 <li>
                   <a href="../views/shoping-cart.php"
-                    ><i class="fa fa-shopping-bag"></i> <span><?= $cartCount ?></span></a
+                    ><i class="fa fa-shopping-bag"></i> <span class="cart-count">0</span></a
                   >
                 </li>
               </ul>
