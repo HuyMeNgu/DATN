@@ -26,32 +26,43 @@
 
     // Thêm sản phẩm vào bảng `products`
     $stmt = $mysqli->prepare("INSERT INTO products (product_name, description, price, category_id, brand_id, rating, img, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssdiidis", $product_name, $description, $price, $category_id, $brand_id, $rating, $mainImagePath, $is_active);
+    $stmt->bind_param("ssdiidsi", $product_name, $description, $price, $category_id, $brand_id, $rating, $mainImagePath, $is_active);
     
     $stmt->execute();
     $product_id = $stmt->insert_id;
     $stmt->close();
 
     // Xử lý màu sắc
-    if (!empty($_POST['colors']) && is_array($_POST['colors'])) {
-        foreach ($_POST['colors'] as $color) {
+    if (!empty($_POST['colors']) && is_array($_POST['colors']) && !empty($_FILES['colors'])) {
+        foreach ($_POST['colors'] as $key => $color) {
             $color_id = isset($color['id']) ? $color['id'] : 0;
             $quantity = isset($color['quantity']) ? $color['quantity'] : 0;
-            $color_img = $_FILES['colors']['name'][$color_id]['img'];
-            $tmp_name = $_FILES['colors']['tmp_name'][$color_id]['img'];
-
-            $colorImagePath = $targetDir . basename($color_img);
-            move_uploaded_file($tmp_name, $colorImagePath);
-
-            // Thêm vào bảng `productcolors`
-            $stmt = $mysqli->prepare("INSERT INTO productcolors (product_id, color_id, img_path, quantity) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("iisi", $product_id, $color_id, $colorImagePath, $quantity);
-            $stmt->execute();
-            $stmt->close();
+    
+            // Kiểm tra xem tệp tin có tồn tại trong $_FILES hay không
+            if (isset($_FILES['colors']['name'][$key]['img']) && isset($_FILES['colors']['tmp_name'][$key]['img'])) {
+                $color_img = $_FILES['colors']['name'][$key]['img'];
+                $tmp_name = $_FILES['colors']['tmp_name'][$key]['img'];
+    
+                // Kiểm tra và xử lý đường dẫn lưu file
+                $colorImagePath = $targetDir . basename($color_img);
+                if (move_uploaded_file($tmp_name, $colorImagePath)) {
+                    // Thêm vào bảng `productcolors`
+                    $stmt = $mysqli->prepare("INSERT INTO productcolors (product_id, color_id, img_path, quantity) VALUES (?, ?, ?, ?)");
+                    $stmt->bind_param("iisi", $product_id, $color_id, $colorImagePath, $quantity);
+                    $stmt->execute();
+                    $stmt->close();
+                } else {
+                    echo "Không thể tải lên tệp tin: $color_img.";
+                }
+            } else {
+                echo "Tệp tin hình ảnh chưa được cung cấp hoặc không hợp lệ.";
+            }
         }
+    } else {
+        echo "Dữ liệu màu sắc không hợp lệ.";
     }
 
-    echo "Sản phẩm đã được thêm thành công!";
+    echo '<div class="alert alert-success" role="alert">Thêm sản phẩm thành công!</div>';
 }
 ?>
 
