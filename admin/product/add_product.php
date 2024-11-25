@@ -11,26 +11,32 @@
     $description = $_POST['description'];
     $price = $_POST['price'];
     $category_id = $_POST['category_id'];
-    // $rating = $_POST['rating'];
-    // $img = $_FILES['img'];
+    $brand_id = $_POST['brand_id'];
+    $rating = isset($_POST['rating']) ? $_POST['rating'] : 0;
+    $img = $_FILES['img'];
+    $is_active = isset($_POST['is_active']) ? (int) $_POST['is_active'] : 0;
 
     // Tải lên hình ảnh chính
     $targetDir = "uploads/";
-    // $mainImagePath = $targetDir . basename($img['name']);
-    // move_uploaded_file($img['tmp_name'], $mainImagePath);
+    if (!is_dir($targetDir)) {
+        mkdir($targetDir, 0777, true); // Tạo thư mục nếu chưa tồn tại
+    }
+    $mainImagePath = $targetDir . basename($img['name']);
+    move_uploaded_file($img['tmp_name'], $mainImagePath);
 
     // Thêm sản phẩm vào bảng `products`
-    $stmt = $mysqli->prepare("INSERT INTO products (product_name, description, price, category_id, rating, img, is_active) VALUES (?, ?, ?, ?, 1, ?, 1)");
-    $stmt->bind_param("ssdids", $product_name, $description, $price, $category_id, $rating, $mainImagePath);
+    $stmt = $mysqli->prepare("INSERT INTO products (product_name, description, price, category_id, brand_id, rating, img, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssdiidis", $product_name, $description, $price, $category_id, $brand_id, $rating, $mainImagePath, $is_active);
+    
     $stmt->execute();
     $product_id = $stmt->insert_id;
     $stmt->close();
 
     // Xử lý màu sắc
-    if (!empty($_POST['colors'])) {
+    if (!empty($_POST['colors']) && is_array($_POST['colors'])) {
         foreach ($_POST['colors'] as $color) {
-            $color_id = $color['id'];
-            $quantity = $color['quantity'];
+            $color_id = isset($color['id']) ? $color['id'] : 0;
+            $quantity = isset($color['quantity']) ? $color['quantity'] : 0;
             $color_img = $_FILES['colors']['name'][$color_id]['img'];
             $tmp_name = $_FILES['colors']['tmp_name'][$color_id]['img'];
 
@@ -68,16 +74,16 @@
                </div>
             </div>
          <div class="full price_table padding_infor_info">
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
             <div class="row">
                <div class="col-lg-8">
                     <div class="form-group mg-form">
                         <h4>Tên sản phẩm</h4>
-                        <input id="product_name" name="product_name" class="form-control" placeholder="Nhập tên sản phẩm" value="">
+                        <input id="product_name" name="product_name" class="form-control" placeholder="Nhập tên sản phẩm" required>
                     </div>
                     <div class="form-group mg-form">
                         <h4>Mô tả</h4>
-                        <textarea name="description" id="description" class="form-control" placeholder="Mô tả"></textarea>
+                        <textarea name="description" id="description" class="form-control" placeholder="Mô tả" required></textarea>
                     </div>
                     <div class="form-group mg-form">
                         <h4>Giá bán</h4>
@@ -87,7 +93,7 @@
                <div class="col-lg-4">
                     <div class="form-group mg-form">
                         <h4>Sản phẩm loại</h4>
-                        <select name="category_id" class="form-control">
+                        <select name="category_id" id="category_id" class="form-control">
                             <?php
                                 $listCate = $mysqli->query('SELECT * FROM categories');
                                 foreach($listCate as $item){?>
@@ -100,7 +106,7 @@
                         </select>
                     <div class="form-group mg-form">
                         <h4>Thương hiệu</h4>
-                        <select name="category_id" class="form-control">
+                        <select name="brand_id" class="form-control">
                             <?php
                                 $listCate = $mysqli->query('SELECT * FROM brands');
                                 foreach($listCate as $item){?>
@@ -119,7 +125,7 @@
                     </div>
                     <div class="form-group">
                         <h4>Hình ảnh</h4>
-                        <input type="file" class="form-control" name="" name="img" accept="">
+                        <input type="file" class="form-control" name="img" accept="image/*">
                     </div>
                     <div class="form-group">
                         <img id="previewImage" src="" alt="Demo" style="max-width: 100%; max-height: 100%; margin-top: 20px;">
@@ -168,46 +174,3 @@
       </div>
    </div>
 </div>
-
-<?php
-// Database connection
-$conn = new mysqli("localhost", "root", "", "balostore");
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Collect product details
-    $product_name = $_POST['product_name'];
-    $description = $_POST['description'];
-    $price = $_POST['price'];
-    $category_id = $_POST['category_id'];
-    $brand_id = $_POST['brand_id'];
-    $rating = $_POST['rating'];
-    $is_active = isset($_POST['is_active']) ? 1 : 0;
-
-    // Insert product details
-    $stmt = $conn->prepare("INSERT INTO products (product_name, description, price, category_id, brand_id, rating, is_active, create_at, update_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW())");
-    $stmt->bind_param("ssdiidi", $product_name, $description, $price, $category_id, $brand_id, $rating, $is_active);
-    $stmt->execute();
-    $product_id = $stmt->insert_id;
-    $stmt->close();
-
-    // Insert colors and image paths
-    if (!empty($_POST['color_ids'])) {
-        foreach ($_POST['color_ids'] as $color_id) {
-            if (isset($_FILES['img_paths']['name'][$color_id]) && $_FILES['img_paths']['error'][$color_id] == 0) {
-                $target_dir = "uploads/";
-                $img_path = $target_dir . basename($_FILES['img_paths']['name'][$color_id]);
-                move_uploaded_file($_FILES['img_paths']['tmp_name'][$color_id], $img_path);
-
-                // Insert color and image for the product
-                $quantity = 100; // Default quantity or fetch from form if needed
-                $stmt = $conn->prepare("INSERT INTO productcolors (product_id, color_id, img_path, quantity) VALUES (?, ?, ?, ?)");
-                $stmt->bind_param("iisi", $product_id, $color_id, $img_path, $quantity);
-                $stmt->execute();
-                $stmt->close();
-            }
-        }
-    }
-
-    echo "Product and colors added successfully!";
-}
-?>
