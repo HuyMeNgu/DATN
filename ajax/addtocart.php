@@ -12,13 +12,14 @@ if (!isset($_SESSION['cart'])) {
 
 $productId = $_POST['productId'];
 $productQtt=$_POST['productQtt'];
+$productImg=$_POST['productImg'];
 
 $cart = &$_SESSION['cart']; // Tham chiếu đến giỏ hàng
-
+$proColor=oneRaw("SELECT color_id FROM productcolors WHERE product_id=$productId");
 // Kiểm tra sản phẩm đã tồn tại trong giỏ hàng chưa
 $found = false;
-foreach ($cart as &$item) {
-    if ($item['id'] == $productId) {
+foreach ($cart as &$item ) {
+    if ($item['id'] == $productId && $item['image']===$productImg ) {
         $item['quantity'] += $productQtt; // Cộng dồn số lượng
         $found = true;
         break;
@@ -33,10 +34,9 @@ if (!$found) {
         'name' => $proDetail['product_name'],
         'price' => $proDetail['price'],
         'quantity' => $productQtt,
-        'image' =>$proDetail['img'],
+        'image' =>$productImg,
     ];
-    
 }
-echo $productId;
+echo"them vao gio hang thanh cong!";
 
 

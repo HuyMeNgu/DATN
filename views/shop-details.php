@@ -58,9 +58,10 @@
               method: 'POST', // Đảm bảo dùng chữ hoa cho phương thức
               url:'../ajax/addtocart.php', // Thay bằng đường dẫn file xử lý
               data: {
-                  action:'addcart',
+                  
                   productId: productId,
                   productQtt: productQtt,
+                  productImg:productImg
 
               },
               success: function(response) {

@@ -9,9 +9,9 @@
     require_once('../models/session.php');
 
     //xu ly gio hang
-echo"<pre>";
-print_r($_SESSION['cart']);
-echo"</pre>";
+// echo"<pre>";
+// print_r($_SESSION['cart']);
+// echo"</pre>";
 
 $cart =$_SESSION['cart'];
 
@@ -61,7 +61,7 @@ $cart =$_SESSION['cart'];
                   <?php foreach($cart as $item): ?>
                   <tr>
                     <td class="shoping__cart__item">
-                      <img src="../public/img/cart/cart-1.jpg" alt="" />
+                      <img style="width: 101px; height=100px;" src="<?=$item['image']?>" alt="" />
                       <h5><?= $item['name']?></h5>
                     </td>
                     <td class="shoping__cart__price"><?=$item['price']?></td>
@@ -108,7 +108,8 @@ $cart =$_SESSION['cart'];
             <div class="shoping__checkout">
               <h5>Thành tiền:</h5>
               <ul >
-                <li>Phí vận chuyển <span class="deli_cost">30.000</span></li>
+                <li>Tổng sản phẩm <span class="product_cost">30000</span></li>
+                <li>Phí vận chuyển <span class="deli_cost">30000</span></li>
                 <li>Tổng tiền <span class="checkout_total">454.98</span></li>
               </ul>
               <a href="checkout.php" class="primary-btn">Thanh toán</a>

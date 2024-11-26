@@ -137,6 +137,7 @@
         tr.children("td").eq(3).text(price);
         var ttal = qtt * price;
         tr.children("td").eq(3).text(ttal);
+        cartTotal();
       });
  //xu ly tang giam so luong
  
@@ -153,12 +154,14 @@
     }
     function cartTotal () {
       var endTotal = $(".checkout_total");
+      var proCost=$(".product_cost");
       var cart= $(".cart-list").children("tr");
       var delicost=eval($(".deli_cost").text());
       var sum=0;
       for (let i = 0; i < cart.length; i++) {
        sum+=eval(cart.eq(i).children("td").eq(3).text());
       }
+      proCost.text(sum);
       endTotal.text(sum+delicost);
       }
       // function testsmth() {
