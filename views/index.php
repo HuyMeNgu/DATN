@@ -159,7 +159,7 @@
     </div> -->
     <!-- Banner End -->
 
-    <!-- Latest Product Section Bgin -->
+    <!-- Latest Product Section Bgin
     <section class="latest-producet spad">
       <div class="container">
         <div class="row">
@@ -360,7 +360,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
     <!-- Latest Product Section End -->
 
     <!-- Blog Section Begin -->

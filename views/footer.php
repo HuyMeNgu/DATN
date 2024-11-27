@@ -84,7 +84,7 @@
     <script src="../public/js/jquery.slicknav.js"></script>
     <script src="../public/js/mixitup.min.js"></script>
     <script src="../public/js/owl.carousel.min.js"></script>
-    <script src="../public/js/main.js"></script>
+    <script src="../public/js/main.js?v=<?=rand(10,99)?>"></script>
     
   </body>
 </html>

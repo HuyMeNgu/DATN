@@ -204,42 +204,10 @@
     /*-------------------
 		Quantity change
 	--------------------- */
-    var proQty = $('.pro-qty');
-    proQty.prepend('<span class="dec qtybtn">-</span>');
-    proQty.append('<span class="inc qtybtn">+</span>');
-    proQty.on('click', '.qtybtn', function () {
-        var $button = $(this);
-        var oldValue = $button.parent().find('input').val();
-        if ($button.hasClass('inc')) {
-            var newVal = parseFloat(oldValue) + 1;
-            cartTotal();
-        } else {
-            // Don't allow decrementing below zero
-            if (oldValue > 0) {
-                var newVal = parseFloat(oldValue) -1;
-                cartTotal();
-            } else {
-                newVal = 0;
-                cartTotal();
-            }
-        }
-        $button.parent().find('input').val(newVal);
-        
-    });
+  
 
     //xu ly gio hang
  
-})(jQuery);function cartTotal () {
-    var endTotal = $(".checkout_total");
-    var proCost=$(".product_cost");
-    var cart= $(".cart-list").children("tr");
-    var delicost=eval($(".deli_cost").text());
-    var sum=0;
-    for (let i = 0; i < cart.length; i++) {
-     sum+=eval(cart.eq(i).children("td").eq(3).text());
-    }
-    proCost.text(sum);
-    endTotal.text(sum+delicost);
-    }
+})(jQuery);
 
 

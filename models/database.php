@@ -21,6 +21,7 @@ function query($sql){
 //     return $result;
 // }
 //toi uu ham insert 
+
  function insert($table, $data)
 {
     $keys = array_keys($data);
@@ -32,6 +33,11 @@ function query($sql){
     // die();
     return query($sql);
 }
+
+
+
+
+
 //toi uu ham update
 function update($table,$data,$condition=''){
 $set='';

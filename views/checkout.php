@@ -1,6 +1,14 @@
 <?php
 $is_homepage = false;
 include('header.php');
+require_once('../models/connectdb.php');
+require_once('../models/function.php');
+require_once('../models/database.php');
+require_once('../models/session.php');
+
+
+$cart =$_SESSION['cart'];
+
 ?>
 
     <!-- Breadcrumb Section Begin -->
@@ -9,10 +17,10 @@ include('header.php');
         <div class="row">
           <div class="col-lg-12 text-center">
             <div class="breadcrumb__text">
-              <h2>Checkout</h2>
+              <h2>Thanh toán</h2>
               <div class="breadcrumb__option">
                 <a href="./index.html">Home</a>
-                <span>Checkout</span>
+                <span>Thanh Toán</span>
               </div>
             </div>
           </div>
@@ -33,139 +41,85 @@ include('header.php');
           </div>
         </div>
         <div class="checkout__form">
-          <h4>Billing Details</h4>
-          <form action="#">
+          <h4>Thông tin đơn hàng</h4>
+          <form action="manage-order.php" method="post" name="create_order">
             <div class="row">
               <div class="col-lg-8 col-md-6">
                 <div class="row">
-                  <div class="col-lg-6">
-                    <div class="checkout__input">
-                      <p>Fist Name<span>*</span></p>
-                      <input type="text" />
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="checkout__input">
-                      <p>Last Name<span>*</span></p>
-                      <input type="text" />
-                    </div>
-                  </div>
+                  
+                  
                 </div>
                 <div class="checkout__input">
-                  <p>Country<span>*</span></p>
-                  <input type="text" />
+                  <p>Họ và tên<span>*</span></p>
+                  <input name="customer_name" type="text" placeholder="Nhập họ tên "/>
                 </div>
                 <div class="checkout__input">
-                  <p>Address<span>*</span></p>
+                  <p>Địa chỉ<span>*</span></p>
                   <input
                     type="text"
-                    placeholder="Street Address"
+                    placeholder="Nhập địa chỉ giao hàng"
                     class="checkout__input__add"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Apartment, suite, unite ect (optinal)"
+                    name="address"
                   />
                 </div>
                 <div class="checkout__input">
-                  <p>Town/City<span>*</span></p>
-                  <input type="text" />
+                  <p>Email<span>*</span></p>
+                  <input name="email" type="text" placeholder="Nhập Email" />
                 </div>
                 <div class="checkout__input">
-                  <p>Country/State<span>*</span></p>
-                  <input type="text" />
+                  <p>Số điện thoại<span>*</span></p>
+                  <input name="phone" type="text"  placeholder="Nhập số điện thoại" />
                 </div>
+              
                 <div class="checkout__input">
-                  <p>Postcode / ZIP<span>*</span></p>
-                  <input type="text" />
+                  <p>Ghi chú</p>
+                  <textarea  style="width:100%;height:fit-content" name="note" id="" placeholder="Ghi chú(tuỳ chọn)"></textarea>
                 </div>
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="checkout__input">
-                      <p>Phone<span>*</span></p>
-                      <input type="text" />
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="checkout__input">
-                      <p>Email<span>*</span></p>
-                      <input type="text" />
-                    </div>
-                  </div>
-                </div>
-                <div class="checkout__input__checkbox">
-                  <label for="acc">
-                    Create an account?
-                    <input type="checkbox" id="acc" />
-                    <span class="checkmark"></span>
-                  </label>
-                </div>
-                <p>
-                  Create an account by entering the information below. If you
-                  are a returning customer please login at the top of the page
-                </p>
-                <div class="checkout__input">
-                  <p>Account Password<span>*</span></p>
-                  <input type="text" />
-                </div>
-                <div class="checkout__input__checkbox">
-                  <label for="diff-acc">
-                    Ship to a different address?
-                    <input type="checkbox" id="diff-acc" />
-                    <span class="checkmark"></span>
-                  </label>
-                </div>
-                <div class="checkout__input">
-                  <p>Order notes<span>*</span></p>
-                  <input
-                    type="text"
-                    placeholder="Notes about your order, e.g. special notes for delivery."
-                  />
-                </div>
+             
+               
               </div>
               <div class="col-lg-4 col-md-6">
                 <div class="checkout__order">
-                  <h4>Your Order</h4>
+                  <h4>Đơn hàng của bạn</h4>
                   <div class="checkout__order__products">
-                    Products <span>Total</span>
+                    Sản phẩm <span>Thành Tiền</span>
                   </div>
                   <ul>
-                    <li>Vegetable’s Package <span>$75.99</span></li>
-                    <li>Fresh Vegetable <span>$151.99</span></li>
-                    <li>Organic Bananas <span>$53.99</span></li>
+                    <?php
+                    $sum=0;
+                     foreach($cart as $item):
+                      $sum+=($item['price']*$item['quantity']);
+                     ?>
+                    <li name="proname"> <?= mb_strimwidth($item['name'], 0, 30, '...') ?> <span name="proprice"><?=$item['price']*$item['quantity']?></span></li>
+                    <?php endforeach; ?>
                   </ul>
                   <div class="checkout__order__subtotal">
-                    Subtotal <span>$750.99</span>
+                    Phí vận chuyển <span>30000</span>
                   </div>
                   <div class="checkout__order__total">
-                    Total <span>$750.99</span>
+                    Tổng cộng <span ><?=$sum+30000?></span>
                   </div>
-                  <div class="checkout__input__checkbox">
-                    <label for="acc-or">
-                      Create an account?
-                      <input type="checkbox" id="acc-or" />
-                      <span class="checkmark"></span>
-                    </label>
-                  </div>
+                  
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adip elit, sed do
                     eiusmod tempor incididunt ut labore et dolore magna aliqua.
                   </p>
                   <div class="checkout__input__checkbox">
                     <label for="payment">
-                      Check Payment
-                      <input type="checkbox" id="payment" />
-                      <span class="checkmark"></span>
+                      COD
+                      <input  value="COD" name="payment" class="payment-option" type="checkbox" id="payment" />
+                      <span class="checkmark "></span>
                     </label>
                   </div>
                   <div class="checkout__input__checkbox">
                     <label for="paypal">
-                      Paypal
-                      <input type="checkbox" id="paypal" />
+                      Ví điện tử VN-Pay
+                      <input value="VN-pay" name="payment" class="payment-option" type="checkbox" id="paypal" />
                       <span class="checkmark"></span>
                     </label>
                   </div>
-                  <button type="submit" class="site-btn">PLACE ORDER</button>
+                  
+                  <button name="create_order" type="submit" class="site-btn order-btn">Đặt hàng</button>
                 </div>
               </div>
             </div>
@@ -174,6 +128,11 @@ include('header.php');
       </div>
     </section>
     <!-- Checkout Section End -->
+    <script>
+  $(".payment-option").change(function () {
+    $(".payment-option").not(this).prop("checked", false); // Bỏ chọn các checkbox khác
+  });
+</script>
 
     <!-- Footer Section Begin -->
 <?php

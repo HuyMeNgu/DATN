@@ -54,6 +54,17 @@ function paramRedirect($path,$param=[]){
     header("location: $path");
     exit;
 }
+//ham tao so ngau nhien
+function numberRandom($min,$max){
+    $number=rand($min,$max);
+    $number_same= getRaw("SELECT code FROM orders WHERE code = $number");
+    if(empty($number_same)){
+        return $number;
+    }else{
+        $number=rand($min,$max);
+    }
+    return $number;
+}
 function isGet(){
     if($_SERVER['REQUEST_METHOD']=='GET'){
         return true;

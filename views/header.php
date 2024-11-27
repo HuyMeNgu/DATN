@@ -69,12 +69,12 @@
    
   session_start();
 
-  //xu ly gio hang
+ //xu ly gio hang
   if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = []; // Nếu chưa có giỏ hàng, khởi tạo giỏ hàng
  }
-  
-  
+ 
+  //$_SESSION['cart'] = [];
 
   
   
@@ -114,7 +114,7 @@
       //tinh so luong sp trong gio hang
       $(document).ready(function () {
         qttCart();
-        cartTotal();
+       // cartTotal();
       //remove khoi gio hang
       $(".icon_close").click(function (e) { 
       e.preventDefault();
@@ -152,18 +152,18 @@
       var cartqty = $(".cart-count").eq(0);
       cartqty.text(cartCount);
     }
-    function cartTotal () {
-      var endTotal = $(".checkout_total");
-      var proCost=$(".product_cost");
-      var cart= $(".cart-list").children("tr");
-      var delicost=eval($(".deli_cost").text());
-      var sum=0;
-      for (let i = 0; i < cart.length; i++) {
-       sum+=eval(cart.eq(i).children("td").eq(3).text());
-      }
-      proCost.text(sum);
-      endTotal.text(sum+delicost);
-      }
+    // function cartTotal () {
+    //   var endTotal = $(".checkout_total");
+    //   var proCost=$(".product_cost");
+    //   var cart= $(".cart-list").children("tr");
+    //   var delicost=eval($(".deli_cost").text());
+    //   var sum=0;
+    //   for (let i = 0; i < cart.length; i++) {
+    //    sum+=eval(cart.eq(i).children("td").eq(3).text());
+    //   }
+    //   proCost.text(sum);
+    //   endTotal.text(sum+delicost);
+    //   }
       // function testsmth() {
       //   var endTotal = $(".shoping__checkout").children("ul").eq(1).text();
       //   console.log(endTotal);
@@ -309,7 +309,7 @@
                 </li>
                 <li>
                   <a href="../views/shoping-cart.php"
-                    ><i class="fa fa-shopping-bag"></i> <span class="cart-count">0</span></a
+                    ><i class="fa fa-shopping-bag"></i> <span class="cart-count"><?=sizeof($_SESSION['cart'])?></span></a
                   >
                 </li>
               </ul>
