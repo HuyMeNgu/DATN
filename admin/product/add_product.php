@@ -63,7 +63,8 @@
     }
 
     echo '<div class="alert alert-success" role="alert">Thêm sản phẩm thành công!</div>';
-}
+} 
+
 ?>
 
 <div class="midde_cont">

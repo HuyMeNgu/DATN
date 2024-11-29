@@ -1,6 +1,8 @@
 <?php
-   $sql = "SELECT orders.*, customers.name FROM orders
-   INNER JOIN customers ON orders.customer_id = customers.id";
+   $sql = "SELECT import_orders.*, admin.fullname, suppliers.supp_name FROM import_orders
+   INNER JOIN admin ON import_orders.admin_id = admin.id
+   INNER JOIN suppliers ON import_orders.supplier_id = suppliers.id
+   ";
    $listOrder = $mysqli->query($sql);
 ?>
 
@@ -31,10 +33,11 @@
                            <tr>
                               <th style="width: 1%">STT</th>
                               <th>Mã đơn nhập</th>
-                              <th>Ngày nhập </th>
-                              <th>Nv nhập</th>
-                              <th>Số lượng</th>
+                              <th>Nv nhập </th>
+                              <th>Ngày nhập</th>
+                              <th>Nhà cung cấp</th>
                               <th>Tổng tiền</th>
+                              <th>Tình trạng</th>
                               <th>Chi tiết</th>
                            </tr>
                         </thead>
@@ -43,18 +46,21 @@
                               foreach($listOrder as $item){
                            ?>
                               <tr>
-                                 <td><?= $item['code'] ?></td>
+                                 <td><?= $item['id'] ?></td>
                                  <td>
-                                    <?= $item['name']?>
+                                    <?= $item['code']?>
                                  </td>
                                  <td>
-                                    <?= $item['order_date']?>
+                                    <?= $item['fullname']?>
                                  </td>
                                  <td>
-                                    <?= $item['payment']?>
+                                    <?= $item['create_at']?>
                                  </td>
                                  <td>
-                                    <?= $item['total_price']?>
+                                    <?= $item['supp_name']?>
+                                 </td>
+                                 <td>
+                                    <?= $item['total']?>
                                  </td>
                                  <td>
                                     xac nhan
