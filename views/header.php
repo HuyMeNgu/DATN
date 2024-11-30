@@ -56,7 +56,7 @@
       href="../public/css/slicknav.min.css"
       type="text/css"
     />
-    <link rel="stylesheet" href="../public/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../public/css/style.css?v=<?=rand(10,99)?>" type="text/css" />
   </head>
 
   <?php
@@ -94,9 +94,9 @@
     }
   }
 
-  if(!$checklogin){
-    redirect('login.php');
-  }
+  // if(!$checklogin){
+  //   redirect('login.php');
+  // }
 
   if(getSession('logintoken')){
     $customertoken=getSession('logintoken');
@@ -109,7 +109,7 @@
 
 <!-- xu ly gio hang bang js -->
     <script>
-      //test something
+    
     
       //tinh so luong sp trong gio hang
       $(document).ready(function () {
@@ -122,6 +122,7 @@
       var trName = tr.children().eq(0).children(1);
       alert('thuc hien xoa'+trName.text());
       tr.remove();
+      
 
       // cap nhat lai so luong
       qttCart();
@@ -139,12 +140,15 @@
         tr.children("td").eq(3).text(ttal);
         cartTotal();
       });
- //xu ly tang giam so luong
- 
- 
-      
-      
 
+      var checklogin = <?php echo json_encode($checklogin); ?>;
+    
+      if(checklogin){
+        $('.usname').attr('href','profile.php');
+      }else{
+        $('.usname').attr('href','login.php');
+      }
+ 
   })(jQuery);
   function qttCart () {
     var cart= $(".cart-list").children("tr");
@@ -152,25 +156,6 @@
       var cartqty = $(".cart-count").eq(0);
       cartqty.text(cartCount);
     }
-    // function cartTotal () {
-    //   var endTotal = $(".checkout_total");
-    //   var proCost=$(".product_cost");
-    //   var cart= $(".cart-list").children("tr");
-    //   var delicost=eval($(".deli_cost").text());
-    //   var sum=0;
-    //   for (let i = 0; i < cart.length; i++) {
-    //    sum+=eval(cart.eq(i).children("td").eq(3).text());
-    //   }
-    //   proCost.text(sum);
-    //   endTotal.text(sum+delicost);
-    //   }
-      // function testsmth() {
-      //   var endTotal = $(".shoping__checkout").children("ul").eq(1).text();
-      //   console.log(endTotal);
-      //   }
-
-
-
     </script>
 
 
@@ -266,8 +251,11 @@
                   <a href="#"><i class="fa fa-pinterest-p"></i></a>
                 </div>
                 <div class="header__top__right__auth">
-                  <a href="#"><i class="fa fa-user"></i><?=$customerData['name'] ?></a>
+                  <a href="" class="usname ">
+                  <i class="fa fa-user"></i><?php if($checklogin){echo $customerData['name'];}else{echo'Đăng nhập/Đăng ký';} ?></a>
+
                 </div>
+
               </div>
             </div>
           </div>
@@ -308,9 +296,11 @@
                   <h5>Giỏ hàng</h5>
                 </li>
                 <li>
-                  <a href="../views/shoping-cart.php"
+                  <a href="../views/shoping-cart.php" 
                     ><i class="fa fa-shopping-bag"></i> <span class="cart-count"><?=sizeof($_SESSION['cart'])?></span></a
                   >
+                  
+
                 </li>
               </ul>
             </div>
@@ -340,26 +330,16 @@
                 <i class="fa fa-bars"></i>
                 <span>Danh mục</span>
               </div>
-              <!-- <ul>
-                <li><a href="#">Fresh Meat</a></li>
-                <li><a href="#">Vegetables</a></li>
-                <li><a href="#">Fruit & Nut Gifts</a></li>
-                <li><a href="#">Fresh Berries</a></li>
-                <li><a href="#">Ocean Foods</a></li>
-                <li><a href="#">Butter & Eggs</a></li>
-                <li><a href="#">Fastfood</a></li>
-                <li><a href="#">Fresh Onion</a></li>
-                <li><a href="#">Papayaya & Crisps</a></li>
-                <li><a href="#">Oatmeal</a></li>
-                <li><a href="#">Fresh Bananas</a></li>
-              </ul> -->
+              <ul>
+                <li><a href="#">Tra cứu sản phẩm đã mua</a></li>
+              </ul>
             </div>
           </div>
           <div class="col-lg-9">
             <div class="hero__search">
               <div class="hero__search__form">
-                <form action="#">
-                  <input type="text" placeholder="Nhập từ khóa tìm kiếm?" />
+                <form action="search.php?">
+                  <input name="search" type="text" placeholder="Nhập từ khóa tìm kiếm?" />
                   <button type="submit" class="site-btn">Tìm</button>
                 </form>
               </div>

@@ -82,7 +82,7 @@
 
 
 <!-- Breadcrumb Section Begin -->
-<section
+<!-- <section
       class="breadcrumb-section set-bg"
       data-setbg="../public/img/breadcrumb.jpg"
     >
@@ -100,7 +100,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
     <!-- Breadcrumb Section End -->
 
     <!-- Product Details Section Begin -->
@@ -271,7 +271,7 @@
                 </ul>
               </div>
               <div class="product__item__text">
-                <h6><a href="#"><?= $item['product_name'] ?></a></h6>
+                <h6><a href="shop-details.php?id=<?= $item['id'] ?>"><?= $item['product_name'] ?></a></h6>
                 <h5><?= number_format($item['price'],0,',','.' ).' VND';?></h5>
               </div>
               

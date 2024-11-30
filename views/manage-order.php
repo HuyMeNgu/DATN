@@ -17,37 +17,42 @@
             'customer_name'=>$_POST['customer_name'],
             'address'=>$_POST['address'],
             'phone'=>$_POST['phone'],
-           ' email'=>$_POST['email'],
-           ' note'=>$_POST['note'],
-            'payment'=>$_POST['payment']
+           'email'=>$_POST['email'],
+           'note'=>$_POST['note'],
+            'payment'=>$_POST['payment'],
+            'create_at'=>date('Y-m-d H:i:s')
         ];
 
-        $code=$randum;
-        $customer_name=$_POST['customer_name'];
-        $address=$_POST['address'];
-        $phone=$_POST['phone'];
-        $email=$_POST['email'];
-        $note=$_POST['note'];
-        $payment=$_POST['payment'];
-
-       //print_r($orderData) ;
-       $sql="INSERT INTO `orders` ( `code`,`customer_name`,`address`,`phone`,`email`,`payment`,`note`) 
-             VALUES ($code,'$customer_name','$address','$phone','$email','$payment','$note')";
-        $orderInsert=query($sql);
+    $orderInsert=insert('orders',$orderData);
         if($orderInsert){
             echo"tao don hang thanh cong ";
+            $orderID=oneRaw("SELECT id FROM orders WHERE code=$randum")['id'];
+            foreach($cart_on_order as $item){
+                $orderDetail=[
+                    'order_id'=>$orderID,
+                    'product_id'=>$item['id'],
+                    //'productcolor_id'=>$item['productcolor_id'],
+                    'quantity'=>$item['quantity'],
+                    'price'=>$item['price'],
+                    //'review_id'=>''
+                    
+                ];
+                insert('order_details',$orderDetail);
+            }
+
+           $_SESSION['cart']=[];
+        }else{
+            echo"dat hang that bai";
         }
         
 
         
 
-        //lay thong tin gio hang tu session + id don hang vua tao
-        //insert vao database
-        //remove session gio hang hien tai
-        
+  
     }
-
 ?>
+
+
 
 <?php
     require_once("footer.php");

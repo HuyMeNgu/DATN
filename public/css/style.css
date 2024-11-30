@@ -30,6 +30,40 @@
 /* Template default CSS
 /*----------------------------------------*/
 
+/*boxcolor*/
+.box-color{
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: red;
+  color: #fff;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 3px;
+  border:1px solid grey ;
+}
+
+.box-color:hover .box-border{
+  border: 1px solid black !important;
+
+}
+.check-icon{
+  display: none;
+}
+.box-color:hover .check-icon{
+  display: inline-block !important;
+  color: #fff;
+}
+.box-color.hovered .check-icon{
+  display: inline-block;
+}
+.box-color.hovered .box-border {
+  border: 2px solid black;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
 
 /*CSS for register page*/
 .error {
