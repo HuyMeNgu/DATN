@@ -17,6 +17,7 @@
             'id' => $row['id'],
             'product_name' => $row['product_name'],  
             'cate_name' => $row['cate_name'],
+            'img' => $row['img'],
             'colors' => [],
          ];
       }
@@ -68,7 +69,7 @@
                            <tr>
                               <td><?= $item['id'] ?></td>
                               <td>
-                                 <img width="40" src="images/layout_img/msg2.png" class="rounded-circle" alt="#">
+                                 <img width="40" src="<?= $item['img']?>"  alt="#">
                               </td>
                               <td>
                                 <?= $item['product_name'] ?>

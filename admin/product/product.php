@@ -3,7 +3,7 @@
    INNER JOIN categories ON products.category_id = categories.id
    INNER JOIN productcolors ON products.id = productcolors.product_id
    INNER JOIN colors ON productcolors.color_id = colors.id
-  
+   order by products.id
    ";
    $listPro = $mysqli->query($sql);
    $products = [];

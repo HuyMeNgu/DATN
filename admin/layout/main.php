@@ -58,7 +58,7 @@
             require_once('../supplier/edit_supplier.php');
             break;
         default: 
-        require_once('body.php');
+        require_once('home.php');
     }
 ?>
 
