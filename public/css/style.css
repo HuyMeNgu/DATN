@@ -29,6 +29,9 @@
 /*----------------------------------------*/
 /* Template default CSS
 /*----------------------------------------*/
+.p-cursor:hover {
+  cursor: pointer;
+}
 
 /*boxcolor*/
 .box-color{
@@ -192,8 +195,8 @@ textarea:focus {
 a:hover,
 a:focus {
   text-decoration: none;
-  outline: none;
-  color: #ffffff;
+  outline:invert;
+  
 }
 
 ul,
@@ -2230,7 +2233,8 @@ ol {
   color: #dd2222;
 }
 
-.checkout__input input {
+.checkout__input input,
+.checkout__input textarea{
   width: 100%;
   height: 46px;
   border: 1px solid #ebebeb;

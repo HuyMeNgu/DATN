@@ -110,9 +110,12 @@ $listpro = $mysqli->query($sql);
 
             <div style="justify-content: space-evenly;" class="d-flex align-items-center my-3 ">
               <?php
-              $colorArray = explode(",", $item['colors']);
+              //$colorArray = explode(",", $item['colors']);
+              $proid=$item['id'];
+              $colorArray= getRaw("SELECT * FROM productcolors WHERE product_id=$proid");
               foreach ($colorArray as $color):
-                $color = oneRaw("SELECT * FROM colors WHERE id=$color");
+                $colorid=$color['color_id'];
+                $color = oneRaw("SELECT * FROM colors WHERE id=$colorid");
               ?>
                 <div data-product-id="<?= $item['id'] ?>" data-id="<?= $color['id'] ?>" style="background-color:<?= $color['code'] ?>;" class="box-color">
                   <i class="fa fa-check check-icon"></i>

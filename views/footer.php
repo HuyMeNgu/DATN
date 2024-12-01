@@ -88,3 +88,7 @@
     
   </body>
 </html>
+<?php
+include('../models/connectdb.php');
+$conn->close();
+?>

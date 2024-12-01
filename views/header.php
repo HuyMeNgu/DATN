@@ -331,7 +331,7 @@
                 <span>Danh mục</span>
               </div>
               <ul>
-                <li><a href="#">Tra cứu sản phẩm đã mua</a></li>
+                <li><a href="searchorder.php">Tra cứu sản phẩm đã mua</a></li>
               </ul>
             </div>
           </div>

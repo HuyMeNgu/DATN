@@ -117,6 +117,8 @@ if($checklogin){
             <!-- Nút Đăng Nhập -->
             <button type="submit" class="btn btn-primary btn-block">Đăng Nhập</button>
         </form>
+        <span class="text-center">Bạn không có tài khoản? <a href="register.php">Đăng ký</a> </span>
+        <span class="text-right"><a href="">Quên mật khẩu.</a></span>
     </div>
 </div>
 

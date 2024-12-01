@@ -204,7 +204,20 @@
     /*-------------------
 		Quantity change
 	--------------------- */
-  
+    //tang 
+    $(".decr").click(function () {
+        var input = $(this).siblings("input"); // Lấy input cùng cấp
+        var currentValue = parseInt(input.val()) || 0; // Lấy giá trị hiện tại
+        if (currentValue > 1) {
+          input.val(currentValue - 1); // Giảm 1
+        }
+      });
+      //giam
+      $(".incr").click(function () {
+        var input = $(this).siblings("input"); // Lấy input cùng cấp
+        var currentValue = parseInt(input.val()) || 0; // Lấy giá trị hiện tại
+        input.val(currentValue + 1); // Tăng 1
+      });
 
     //xu ly gio hang
  
