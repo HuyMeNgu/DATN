@@ -33,6 +33,32 @@ function query($sql){
     // die();
     return query($sql);
 }
+//multiple insert
+function multiple_insert($table, $data)
+{
+    // Nếu $data là mảng đa chiều (nhiều bản ghi)
+    if (isset($data[0]) && is_array($data[0])) {
+        $keys = array_keys($data[0]);
+        $fields = implode("`,`", $keys);
+
+        $values = [];
+        foreach ($data as $row) {
+            $rowValues = "'" . implode("','", array_values($row)) . "'";
+            $values[] = "(" . $rowValues . ")";
+        }
+
+        $valuesString = implode(",", $values);
+        $sql = "INSERT INTO `" . $table . "` (`" . $fields . "`) VALUES " . $valuesString;
+    } else {
+        // Xử lý chèn một bản ghi
+        $keys = array_keys($data);
+        $fields = implode("`,`", $keys);
+        $values = "'" . implode("','", array_values($data)) . "'";
+        $sql = "INSERT INTO `" . $table . "` (`" . $fields . "`) VALUES (" . $values . ")";
+    }
+
+    return query($sql);
+}
 
 
 

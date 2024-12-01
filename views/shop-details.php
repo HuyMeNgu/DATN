@@ -27,9 +27,9 @@
       $test2="SELECT * from productcolors where product_id=$pro_id";
       $pro_image=getRaw($test2);
       //LAY  MAU theo san pham
-      $colors =$pro_list['colors'];
+   
       
-      $pro_color=explode(",", $colors);
+      $pro_color= getRaw("SELECT * FROM productcolors WHERE product_id=$pro_id");
 
       $cate = $pro_list['category_id'];
      
@@ -153,8 +153,8 @@
 
                 <div class="container ">
                 <?php foreach($pro_color as $item):
-                  
-                  $color_item=oneRaw("SELECT * FROM colors WHERE id = $item ");
+                  $colorid=$item['color_id'];
+                  $color_item=oneRaw("SELECT * FROM colors WHERE id = $colorid ");
 
                   ?>
                  
@@ -177,7 +177,9 @@
               <div class="product__details__quantity">
                 <div class="quantity">
                   <div class="pro-qty">
-                    <input type="text" value=<?=$quantity?> />
+                    <span style="font-size: 25px;" class="decr p-cursor">-</span>
+                    <input type="text" value=1 />
+                    <span style="font-size: 25px;" class="incr p-cursor">+</span>
                   </div>
                 </div>
               </div>
@@ -282,6 +284,8 @@
       </div>
     </section>
     <!-- Related Product Section End -->
+
+
 
 <!-- FOOTER -->
 <?php 

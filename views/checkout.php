@@ -99,7 +99,7 @@ $cart =$_SESSION['cart'];
                   <div class="checkout__order__total">
                     Tổng cộng <span ><?=$sum+30000?></span>
                   </div>
-                  
+                  <input name="totalprice" type="hidden" value="<?=$sum?>">
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adip elit, sed do
                     eiusmod tempor incididunt ut labore et dolore magna aliqua.
