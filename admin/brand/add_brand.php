@@ -1,20 +1,15 @@
 <?php
-// Lấy dữ liệu thuong hieu hiện tại
-$brand_id = $_GET['id']; // ID thuong hieu cần chỉnh sửa
-$brand_query = $mysqli->prepare("SELECT * FROM brands WHERE id = ?");
-$brand_query->bind_param("i", $brand_id);
-$brand_query->execute();
-$brand = $brand_query->get_result()->fetch_assoc();
-$brand_query->close();
-// Cập nhật sản phẩm
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $brand_name = $_POST['brand_name'];
-    $stmt = $mysqli->prepare("UPDATE brands SET brand_name = ? WHERE id = ?");
-    $stmt->bind_param("si", $brand_name, $brand_id);
-    $stmt->execute();
-    $stmt->close();
+    // Thêm sản phẩm vào bảng `colors`
+    $stmt = $mysqli->prepare("INSERT INTO brands (brand_name) VALUES (?)");
+    $stmt->bind_param("s", $brand_name);
 
-    echo '<div class="alert alert-success" role="alert">Cập nhật thương hiệu thành công!</div>';
+    $stmt->execute();
+    $product_id = $stmt->insert_id;
+    $stmt->close();
+    //Thông báo
+    echo '<div class="alert alert-success" role="alert">Thêm thương hiệu thành công!</div>';
 }
 ?>
 <div class="midde_cont">
@@ -22,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="row column_title">
             <div class="col-md-12">
                 <div class="page_title">
-                    <h2>CHỈNH SỬA THƯƠNG HIỆU</h2>
+                    <h2>THÊM THƯƠNG HIỆU</h2>
                 </div>
             </div>
         </div>
@@ -41,11 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <div class="col-lg-10">
                                     <div class="form-group mg-form">
                                         <h4>Thương hiệu</h4>
-                                        <input id="brand_name" name="brand_name" class="form-control" placeholder="Nhập thương hiệu" value=" <?= $brand['brand_name'] ?>" required>
+                                        <input id="brand_name" name="brand_name" class="form-control" placeholder="Nhập thương hiệu" required>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-success btn-block mg-btn" style="margin-top: 40px">
-                                    Cập nhật
+                                    Thêm
                                 </button>
                         </form>
                     </div>

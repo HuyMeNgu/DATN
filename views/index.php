@@ -153,52 +153,50 @@ $listpro = $mysqli->query($sql);
 
 
 <script>
-$(document).ready(function() {
-  // Khi hover vào thẻ màu
-  $('.box-color').hover(function() {
-    var colorId = $(this).data('id'); // Lấy id màu
-    var productId = $(this).data('product-id'); // Lấy id sản phẩm
+  $(document).ready(function() {
+    // Khi hover vào thẻ màu
+    $('.box-color').hover(function() {
+      var colorId = $(this).data('id'); // Lấy id màu
+      var productId = $(this).data('product-id'); // Lấy id sản phẩm
 
-    // Thêm class hovered khi hover vào màu (chỉ hiển thị dấu check và viền)
-    $(this).addClass('hovered');
+      // Thêm class hovered khi hover vào màu (chỉ hiển thị dấu check và viền)
+      $(this).addClass('hovered');
 
-    // Gửi yêu cầu AJAX để lấy hình ảnh sản phẩm theo màu
-    $.ajax({
-      url: '../ajax/productcolor.php', // Tệp PHP xử lý AJAX
-      method: 'POST',
-      data: {
-        color_id: colorId,
-        product_id: productId
-      },
-      success: function(response) {
-        // Cập nhật hình ảnh sản phẩm với màu mới
-        $('#product_img_' + productId).attr('src', response);
-      },
-      error: function() {
-        alert("Có lỗi xảy ra khi tải hình ảnh.");
+      // Gửi yêu cầu AJAX để lấy hình ảnh sản phẩm theo màu
+      $.ajax({
+        url: '../ajax/productcolor.php', // Tệp PHP xử lý AJAX
+        method: 'POST',
+        data: {
+          color_id: colorId,
+          product_id: productId
+        },
+        success: function(response) {
+          // Cập nhật hình ảnh sản phẩm với màu mới
+          $('#product_img_' + productId).attr('src', response);
+        },
+        error: function() {
+          alert("Có lỗi xảy ra khi tải hình ảnh.");
+        }
+      });
+    }, function() {
+      // Khi bỏ hover ra ngoài, không xóa class hovered nếu màu đã được chọn
+      if (!$(this).hasClass('selected')) {
+        $(this).removeClass('hovered');
       }
     });
-  }, function() {
-    // Khi bỏ hover ra ngoài, không xóa class hovered nếu màu đã được chọn
-    if (!$(this).hasClass('selected')) {
-      $(this).removeClass('hovered');
-    }
+
+    // Khi click vào màu, màu đó sẽ được "chọn" và class selected sẽ được thêm vào
+    $('.box-color').click(function() {
+      // Loại bỏ class selected từ các thẻ màu khác
+      $('.box-color').removeClass('selected');
+      $('.box-color').removeClass('hovered'); // Đảm bảo không còn dấu check trên các màu khác
+
+      // Thêm class selected vào màu được chọn
+      $(this).addClass('selected');
+      $(this).find('.check-icon').show(); // Hiển thị dấu check khi chọn màu
+      $(this).addClass('box-border'); // Hiển thị viền bao quanh khi chọn màu
+    });
   });
-
-  // Khi click vào màu, màu đó sẽ được "chọn" và class selected sẽ được thêm vào
-  $('.box-color').click(function() {
-    // Loại bỏ class selected từ các thẻ màu khác
-    $('.box-color').removeClass('selected');
-    $('.box-color').removeClass('hovered'); // Đảm bảo không còn dấu check trên các màu khác
-
-    // Thêm class selected vào màu được chọn
-    $(this).addClass('selected');
-    $(this).find('.check-icon').show(); // Hiển thị dấu check khi chọn màu
-    $(this).addClass('box-border'); // Hiển thị viền bao quanh khi chọn màu
-  });
-});
-
-
 </script>
 
 <!-- //FOOTER -->

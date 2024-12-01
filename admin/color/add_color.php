@@ -1,20 +1,16 @@
 <?php
-// Lấy dữ liệu thuong hieu hiện tại
-$brand_id = $_GET['id']; // ID thuong hieu cần chỉnh sửa
-$brand_query = $mysqli->prepare("SELECT * FROM brands WHERE id = ?");
-$brand_query->bind_param("i", $brand_id);
-$brand_query->execute();
-$brand = $brand_query->get_result()->fetch_assoc();
-$brand_query->close();
-// Cập nhật sản phẩm
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $brand_name = $_POST['brand_name'];
-    $stmt = $mysqli->prepare("UPDATE brands SET brand_name = ? WHERE id = ?");
-    $stmt->bind_param("si", $brand_name, $brand_id);
-    $stmt->execute();
-    $stmt->close();
+    $color_name = $_POST['color_name'];
+    $code = $_POST['code'];
+    // Thêm sản phẩm vào bảng `colors`
+    $stmt = $mysqli->prepare("INSERT INTO colors (color_name, code) VALUES (?, ?)");
+    $stmt->bind_param("ss", $color_name, $code);
 
-    echo '<div class="alert alert-success" role="alert">Cập nhật thương hiệu thành công!</div>';
+    $stmt->execute();
+    $product_id = $stmt->insert_id;
+    $stmt->close();
+    //Thông báo
+    echo '<div class="alert alert-success" role="alert">Thêm màu sắc thành công!</div>';
 }
 ?>
 <div class="midde_cont">
@@ -22,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="row column_title">
             <div class="col-md-12">
                 <div class="page_title">
-                    <h2>CHỈNH SỬA THƯƠNG HIỆU</h2>
+                    <h2>THÊM MÀU SẮC</h2>
                 </div>
             </div>
         </div>
@@ -32,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="white_shd full margin_bottom_30">
                     <div class="full graph_head">
                         <div class="heading1 margin_0">
-                            <h4>Nhập thông tin thương hiệu</h4>
+                            <h4>Nhập thông tin màu sắc</h4>
                         </div>
                     </div>
                     <div class="full price_table padding_infor_info">
@@ -40,12 +36,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="row">
                                 <div class="col-lg-10">
                                     <div class="form-group mg-form">
-                                        <h4>Thương hiệu</h4>
-                                        <input id="brand_name" name="brand_name" class="form-control" placeholder="Nhập thương hiệu" value=" <?= $brand['brand_name'] ?>" required>
+                                        <h4>Màu sắc</h4>
+                                        <input id="color_name" name="color_name" class="form-control" placeholder="Nhập màu sắc" required>
+                                    </div>
+                                    <div class="form-group mg-form">
+                                        <h4>Mã màu</h4>
+                                        <input id="code" name="code" class="form-control" placeholder="Nhập mã màu" value="" require>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-success btn-block mg-btn" style="margin-top: 40px">
-                                    Cập nhật
+                                    Thêm
                                 </button>
                         </form>
                     </div>

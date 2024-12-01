@@ -1,12 +1,12 @@
 <?php
-    // Lấy danh sách màu
-    $colors_result = $mysqli->query("SELECT * FROM colors");
-    $colors = [];
-    while ($row = $colors_result->fetch_assoc()) {
-        $colors[] = $row;
-    }
-    // Kiểm tra dữ liệu POST
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// Lấy danh sách màu
+$colors_result = $mysqli->query("SELECT * FROM colors");
+$colors = [];
+while ($row = $colors_result->fetch_assoc()) {
+    $colors[] = $row;
+}
+// Kiểm tra dữ liệu POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $product_name = $_POST['product_name'];
     $description = $_POST['description'];
     $price = $_POST['price'];
@@ -27,7 +27,7 @@
     // Thêm sản phẩm vào bảng `products`
     $stmt = $mysqli->prepare("INSERT INTO products (product_name, description, price, category_id, brand_id, rating, img, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssdiidsi", $product_name, $description, $price, $category_id, $brand_id, $rating, $mainImagePath, $is_active);
-    
+
     $stmt->execute();
     $product_id = $stmt->insert_id;
     $stmt->close();
@@ -37,12 +37,12 @@
         foreach ($_POST['colors'] as $key => $color) {
             $color_id = isset($color['id']) ? $color['id'] : 0;
             $quantity = isset($color['quantity']) ? $color['quantity'] : 0;
-    
+
             // Kiểm tra xem tệp tin có tồn tại trong $_FILES hay không
             if (isset($_FILES['colors']['name'][$key]['img']) && isset($_FILES['colors']['tmp_name'][$key]['img'])) {
                 $color_img = $_FILES['colors']['name'][$key]['img'];
                 $tmp_name = $_FILES['colors']['tmp_name'][$key]['img'];
-    
+
                 // Kiểm tra và xử lý đường dẫn lưu file
                 $colorImagePath = $targetDir . basename($color_img);
                 if (move_uploaded_file($tmp_name, $colorImagePath)) {
@@ -63,104 +63,104 @@
     }
 
     echo '<div class="alert alert-success" role="alert">Thêm sản phẩm thành công!</div>';
-} 
+}
 
 ?>
 
 <div class="midde_cont">
-   <div class="container-fluid">
-      <div class="row column_title">
-         <div class="col-md-12">
-            <div class="page_title">
-               <h2>THÊM SẢN PHẨM</h2>
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>THÊM SẢN PHẨM</h2>
+                </div>
             </div>
-         </div>
-      </div>
-   <!-- row -->
-   <div class="row column1">
-      <div class="col-md-12">
-         <div class="white_shd full margin_bottom_30">
-            <div class="full graph_head">
-               <div class="heading1 margin_0">
-                  <h4>Nhập thông tin sản phẩm</h4>
-               </div>
+        </div>
+        <!-- row -->
+        <div class="row column1">
+            <div class="col-md-12">
+                <div class="white_shd full margin_bottom_30">
+                    <div class="full graph_head">
+                        <div class="heading1 margin_0">
+                            <h4>Nhập thông tin sản phẩm</h4>
+                        </div>
+                    </div>
+                    <div class="full price_table padding_infor_info">
+                        <form method="POST" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="form-group mg-form">
+                                        <h4>Tên sản phẩm</h4>
+                                        <input id="product_name" name="product_name" class="form-control" placeholder="Nhập tên sản phẩm" required>
+                                    </div>
+                                    <div class="form-group mg-form">
+                                        <h4>Mô tả</h4>
+                                        <textarea name="description" id="description" class="form-control" placeholder="Mô tả" required></textarea>
+                                    </div>
+                                    <div class="form-group mg-form">
+                                        <h4>Giá bán</h4>
+                                        <input id="price" name="price" class="form-control" placeholder="Nhập giá tiền" value="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group mg-form">
+                                        <h4>Sản phẩm loại</h4>
+                                        <select name="category_id" id="category_id" class="form-control">
+                                            <?php
+                                            $listCate = $mysqli->query('SELECT * FROM categories');
+                                            foreach ($listCate as $item) { ?>
+                                                <option value="<?= $item['id'] ?>">
+                                                    <?= $item['cate_name'] ?>
+                                                </option>
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
+                                        <div class="form-group mg-form">
+                                            <h4>Thương hiệu</h4>
+                                            <select name="brand_id" class="form-control">
+                                                <?php
+                                                $listCate = $mysqli->query('SELECT * FROM brands');
+                                                foreach ($listCate as $item) { ?>
+                                                    <option value="<?= $item['id'] ?>">
+                                                        <?= $item['brand_name'] ?>
+                                                    </option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group mg-form">
+                                            <h4>Màu sắc</h4>
+                                            <div id="colorList"></div>
+                                            <button type="button" onclick="addColorOption()">Thêm màu</button><br>
+                                        </div>
+                                        <div class="form-group">
+                                            <h4>Hình ảnh</h4>
+                                            <input type="file" class="form-control" name="img" id="imageUpload" accept="image/*">
+                                        </div>
+                                        <div class="form-group">
+                                            <img id="previewImage" src="" alt="Ảnh xem trước" style="max-width: 100%; max-height: 100%; margin-top: 20px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-success btn-block mg-btn" style="margin-top: 40px">
+                                    Thêm
+                                </button>
+                        </form>
+                    </div>
+                </div>
             </div>
-         <div class="full price_table padding_infor_info">
-            <form method="POST" enctype="multipart/form-data">
-            <div class="row">
-               <div class="col-lg-8">
-                    <div class="form-group mg-form">
-                        <h4>Tên sản phẩm</h4>
-                        <input id="product_name" name="product_name" class="form-control" placeholder="Nhập tên sản phẩm" required>
-                    </div>
-                    <div class="form-group mg-form">
-                        <h4>Mô tả</h4>
-                        <textarea name="description" id="description" class="form-control" placeholder="Mô tả" required></textarea>
-                    </div>
-                    <div class="form-group mg-form">
-                        <h4>Giá bán</h4>
-                        <input id="price" name="price" class="form-control" placeholder="Nhập giá tiền" value="">
-                    </div>
-               </div>
-               <div class="col-lg-4">
-                    <div class="form-group mg-form">
-                        <h4>Sản phẩm loại</h4>
-                        <select name="category_id" id="category_id" class="form-control">
-                            <?php
-                                $listCate = $mysqli->query('SELECT * FROM categories');
-                                foreach($listCate as $item){?>
-                                    <option value="<?=$item['id']?>">
-                                        <?= $item['cate_name']?>
-                                    </option>
-                                <?php
-                                }
-                            ?> 
-                        </select>
-                    <div class="form-group mg-form">
-                        <h4>Thương hiệu</h4>
-                        <select name="brand_id" class="form-control">
-                            <?php
-                                $listCate = $mysqli->query('SELECT * FROM brands');
-                                foreach($listCate as $item){?>
-                                    <option value="<?=$item['id']?>">
-                                        <?= $item['brand_name']?>
-                                    </option>
-                                <?php
-                                }
-                            ?> 
-                        </select>
-                    </div>
-                    <div class="form-group mg-form">
-                        <h4>Màu sắc</h4>
-                        <div id="colorList"></div>
-                        <button type="button" onclick="addColorOption()">Thêm màu</button><br>
-                    </div>
-                    <div class="form-group">
-                        <h4>Hình ảnh</h4>
-                        <input type="file" class="form-control" name="img" accept="image/*">
-                    </div>
-                    <div class="form-group">
-                        <img id="previewImage" src="" alt="Demo" style="max-width: 100%; max-height: 100%; margin-top: 20px;">
-                    </div>
-               </div>
-            </div>
-            <button type="submit" class="btn btn-success btn-block mg-btn" style="margin-top: 40px">
-                Thêm
-            </button>
-            </form>
-         </div>
-      </div>
-   </div>
-   <!-- end row -->
-   </div>
-   <script>
-        let colorCounter = 0;
+            <!-- end row -->
+        </div>
+        <script>
+            let colorCounter = 0;
 
-        function addColorOption() {
-            const colorList = document.getElementById('colorList');
-            const newColorDiv = document.createElement('div');
-            newColorDiv.setAttribute('class', 'color-entry');
-            newColorDiv.innerHTML = `
+            function addColorOption() {
+                const colorList = document.getElementById('colorList');
+                const newColorDiv = document.createElement('div');
+                newColorDiv.setAttribute('class', 'color-entry');
+                newColorDiv.innerHTML = `
                 <select name="colors[${colorCounter}][id]" required>
                     <?php foreach ($colors as $color) : ?>
                         <option value="<?= $color['id'] ?>"><?= $color['color_name'] ?></option>
@@ -169,20 +169,38 @@
                 <input type="file" name="colors[${colorCounter}][img]" accept="image/*" required>
                 <input type="number" name="colors[${colorCounter}][quantity]" placeholder="Số lượng" min="0" required>
                 <button type="button" onclick="removeColorOption(this)">Xóa</button>`;
-            colorList.appendChild(newColorDiv);
-            colorCounter++;
-        }
+                colorList.appendChild(newColorDiv);
+                colorCounter++;
+            }
 
-        function removeColorOption(button) {
-            button.parentElement.remove();
-        }
-    </script>
-   <!-- footer -->
-   <div class="container-fluid">
-      <div class="row">
-         <div class="footer">
-            <p>Copyright © 2018 Designed by html.design. All rights reserved.</p>
-         </div>
-      </div>
-   </div>
+            function removeColorOption(button) {
+                button.parentElement.remove();
+            }
+            $(document).ready(function() {
+                // Lắng nghe sự kiện change trên input file
+                $("#imageUpload").on("change", function(event) {
+                    // Kiểm tra xem có file được chọn hay không
+                    if (this.files && this.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            // Cập nhật nguồn ảnh cho thẻ img
+                            $("#previewImage").attr("src", e.target.result);
+                            // Hiển thị thẻ img
+                            // $('#previewImage').css('display', 'block');
+                        };
+                        // Đọc dữ liệu của file được chọn
+                        reader.readAsDataURL(this.files[0]);
+                    }
+                });
+            });
+        </script>
+        <!-- footer -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="footer">
+                    <p>BALO STORE</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
