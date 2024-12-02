@@ -115,12 +115,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     placeholder="______________"
                     require />
                 </div>
-                <div class="field">
+                <!-- <div class="field">
                   <label class="label_field hidden">hidden label</label>
                   <label class="form-check-label"><input type="checkbox" class="form-check-input" />
                     Remember Me</label>
                   <a class="forgot" href="">Forgotten Password?</a>
-                </div>
+                </div> -->
                 <div class="field margin_0">
                   <label class="label_field hidden">hidden label</label>
                   <button type="submit" class="main_bt">Đăng nhập</button>

@@ -66,7 +66,7 @@
               <div class="user_img">
                 <img
                   class="img-responsive"
-                  src="template/images/layout_img/user_img.jpg"
+                  src="template/images/layout_img/admin.jpg"
                   alt="#" />
               </div>
               <div class="user_info">
@@ -125,10 +125,10 @@
                 <i class="fa fa-file red_color"></i>
                 <span>Đơn hàng</span></a>
             </li>
-            <li>
+            <!-- <li>
               <a href="charts.html"><i class="fa fa-bar-chart-o green_color"></i>
                 <span>Charts</span></a>
-            </li>
+            </li> -->
           </ul>
         </div>
       </nav>
@@ -157,7 +157,7 @@
                     <li>
                       <a class="dropdown-toggle" data-toggle="dropdown"><img
                           class="img-responsive rounded-circle"
-                          src="images/layout_img/user_img.jpg"
+                          src="template/images/layout_img/admin.jpg"
                           alt="#" /><span class="name_user"><?= "Hi, " . htmlspecialchars($_SESSION['full']) . "!" ?></span></a>
                       <div class="dropdown-menu">
                         <!-- <a class="dropdown-item" href="profile.html"
