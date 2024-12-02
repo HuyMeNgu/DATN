@@ -17,6 +17,6 @@ if ($color_id && $product_id) {
     $img = oneRaw("SELECT * FROM productcolors WHERE color_id=$color_id AND product_id=$product_id");
 
 
-    echo "../public/img/product/chitiet/" . $img['img_path']; // Trả về đường dẫn hình ảnh
+    echo "../admin/" . $img['img_path']; // Trả về đường dẫn hình ảnh
 
 }

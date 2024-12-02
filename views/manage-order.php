@@ -8,12 +8,13 @@ require_once('../models/session.php');
 require_once('../config.php');
 
 
-$cart_on_order = $_SESSION['cart'];
+
 
 if (isset($_POST['create_order'])) {
     $randum = numberRandom(100000, 999999);
     if (isset($_POST['payment']) && $_POST['payment'] == 'COD') {
         require_once('header.php');
+        $cart_on_order = $_SESSION['cart'];
         //lay thong tin tu form
         $orderData = [
             'code' => $randum,
@@ -28,7 +29,7 @@ if (isset($_POST['create_order'])) {
 
         $orderInsert = insert('orders', $orderData);
         if ($orderInsert) {
-            echo "tao don hang thanh cong ";
+            echo '<div class="alert alert-success text-center " role="alert">Đặt hàng thành công!</div>';
             $orderID = oneRaw("SELECT id FROM orders WHERE code=$randum")['id'];
             foreach ($cart_on_order as $item) {
                 $orderDetail = [

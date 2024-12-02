@@ -81,27 +81,7 @@
     </script>
 
 
-<!-- Breadcrumb Section Begin -->
-<!-- <section
-      class="breadcrumb-section set-bg"
-      data-setbg="../public/img/breadcrumb.jpg"
-    >
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <div class="breadcrumb__text">
-              <h2>Vegetable’s Package</h2>
-              <div class="breadcrumb__option">
-                <a href="./index.php">Home</a>
-                <a href="./index.php">Vegetables</a>
-                <span>Vegetable’s Package</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section> -->
-    <!-- Breadcrumb Section End -->
+
 
     <!-- Product Details Section Begin -->
     <section class="product-details spad">
@@ -112,17 +92,18 @@
               <div class="product__details__pic__item">
                 <img
                   class="product__details__pic__item--large"
-                  src="../public/img/product/hinhanh/<?=$pro_list['img'] ?>"
+                  src="../admin/<?=$pro_list['img'] ?>"
                   alt="hinh anh san pham"
                 />
               </div>
               <div class="product__details__pic__slider owl-carousel">
-               <?php foreach($pro_image as $item){ ?>
+               <?php
+               
+               foreach($pro_image as $item){ ?>
                 <img
-                  data-imgbigurl="../public/img/product/chitiet/<?=$item['img_path'] ?>"
-                  src="../public/img/product/chitiet/<?=$item['img_path'] ?>"
+                  data-imgbigurl="../admin/<?=$item['img_path']?>"
+                  src="../admin/<?=$item['img_path']?>"
                   alt=""
-                  
                 />
               <?php } ?>
                 
@@ -259,7 +240,7 @@
               <div
                 class="product__item__pic set-bg "
               >
-                <img src="../public/img/product/hinhanh/<?= $item['img']?>"alt="">
+                <img src="../admin/<?= $item['img']?>"alt="">
                 <ul class="product__item__pic__hover">
                   <li>
                     <a href="#"><i class="fa fa-heart"></i></a>

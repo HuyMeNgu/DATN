@@ -76,8 +76,7 @@ $listpro = $mysqli->query($sql);
             <li class="active" data-filter="*">Tất cả</li>
             <li data-filter=".oranges">Balo</li>
             <li data-filter=".fresh-meat">Túi xách</li>
-            <li data-filter=".vegetables">Vegetables</li>
-            <li data-filter=".fastfood">Fastfood</li>
+
           </ul>
         </div>
       </div>
@@ -99,7 +98,7 @@ $listpro = $mysqli->query($sql);
             <div
               class="featured__item__pic set-bg">
 
-              <img id="product_img_<?= $item['id'] ?>" class="product_img" src="../public/img/product/hinhanh/<?= $item['img'] ?>" alt="">
+              <img id="product_img_<?= $item['id'] ?>" class="product_img" src="../admin/<?= $item['img'] ?>" alt="">
 
               <ul class="featured__item__pic__hover">
                 <li>

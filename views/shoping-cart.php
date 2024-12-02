@@ -9,9 +9,9 @@
     require_once('../models/session.php');
 
     //xu ly gio hang
-echo"<pre>";
-print_r($_SESSION['cart']);
-echo"</pre>";
+// echo"<pre>";
+// print_r($_SESSION['cart']);
+// echo"</pre>";
 
 $cart =$_SESSION['cart'];
 
