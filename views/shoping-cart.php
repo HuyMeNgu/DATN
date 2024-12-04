@@ -9,9 +9,9 @@
     require_once('../models/session.php');
 
     //xu ly gio hang
-// echo"<pre>";
-// print_r($_SESSION['cart']);
-// echo"</pre>";
+echo"<pre>";
+print_r($_SESSION['cart']);
+echo"</pre>";
 
 $cart =$_SESSION['cart'];
 
@@ -96,12 +96,12 @@ $cart =$_SESSION['cart'];
         </div>
         <div class="row">
           <div class="col-lg-12">
-            <div class="shoping__cart__btns">
+            <!-- <div class="shoping__cart__btns">
               <a href="#" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
               <a href="#" class="primary-btn cart-btn cart-btn-right"
                 ><span class="icon_loading"></span> Upadate Cart</a
               >
-            </div>
+            </div> -->
           </div>
           <div class="col-lg-6">
             <div class="shoping__continue">

@@ -8,6 +8,7 @@
     require_once('../models/session.php');
     $keyword=$_GET['search'];
     $sql="SELECT * FROM products WHERE product_name LIKE '%$keyword%'";
+
     $pro_list=getRaw($sql);
 
 ?>
@@ -23,7 +24,7 @@
                 class="featured__item__pic set-bg"
               >
               
-              <img  src="../public/img/product/hinhanh/<?= $item['img']?>" alt="">
+              <img  src="../admin/<?= $item['img']?>" alt="">
 
                 <ul class="featured__item__pic__hover">
                   <li>

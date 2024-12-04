@@ -99,11 +99,11 @@ $cart =$_SESSION['cart'];
                   <div class="checkout__order__total">
                     Tổng cộng <span ><?=$sum+30000?></span>
                   </div>
-                  <input name="totalprice" type="hidden" value="<?=$sum?>">
-                  <p>
+                  <input name="totalprice" type="hidden" value="<?=$sum+30000?>">
+                  <!-- <p>
                     Lorem ipsum dolor sit amet, consectetur adip elit, sed do
                     eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  </p>
+                  </p> -->
                   <div class="checkout__input__checkbox">
                     <label for="payment">
                       COD
@@ -118,7 +118,6 @@ $cart =$_SESSION['cart'];
                       <span class="checkmark"></span>
                     </label>
                   </div>
-                  
                   <button name="create_order" type="submit" class="site-btn order-btn">Đặt hàng</button>
                 </div>
               </div>

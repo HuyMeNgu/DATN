@@ -15,6 +15,7 @@ if (isset($_POST['create_order'])) {
     if (isset($_POST['payment']) && $_POST['payment'] == 'COD') {
         require_once('header.php');
         $cart_on_order = $_SESSION['cart'];
+        
         //lay thong tin tu form
         $orderData = [
             'code' => $randum,
@@ -22,6 +23,7 @@ if (isset($_POST['create_order'])) {
             'address' => $_POST['address'],
             'phone' => $_POST['phone'],
             'email' => $_POST['email'],
+            'total_price'=>$_POST['totalprice'],
             'note' => $_POST['note'],
             'payment' => $_POST['payment'],
             'create_at' => date('Y-m-d H:i:s')
@@ -32,18 +34,22 @@ if (isset($_POST['create_order'])) {
             echo '<div class="alert alert-success text-center " role="alert">Đặt hàng thành công!</div>';
             $orderID = oneRaw("SELECT id FROM orders WHERE code=$randum")['id'];
             foreach ($cart_on_order as $item) {
+                $qtt=$item['quantity'];
+                $p_id=$item['id'];
+                $p_color=$item['color'];
                 $orderDetail = [
                     'order_id' => $orderID,
                     'product_id' => $item['id'],
-                    //'productcolor_id'=>$item['productcolor_id'],
+                    'productcolor_id'=>$item['color'],
                     'quantity' => $item['quantity'],
                     'price' => $item['price'],
-                    //'review_id'=>''
-
                 ];
+                $up_qtt ="UPDATE productcolors SET quantity = quantity - $qtt WHERE product_id = $p_id AND color_id = $p_color";
+                query($up_qtt); 
                 insert('order_details', $orderDetail);
             }
 
+            
             $_SESSION['cart'] = [];
         } else {
             echo "dat hang that bai";
@@ -66,6 +72,7 @@ if (isset($_POST['create_order'])) {
             'address' => $_POST['address'],
             'phone' => $_POST['phone'],
             'email' => $_POST['email'],
+            'total_price'=>$_POST['totalprice'],
             'note' => $_POST['note'],
             'payment' => $_POST['payment'],
             'create_at' => date('Y-m-d H:i:s')
@@ -77,21 +84,14 @@ if (isset($_POST['create_order'])) {
             $orderDetail[] = [
                 'order_id' => 1,
                 'product_id' => $item['id'],
-                //'productcolor_id'=>$item['productcolor_id'],
+                'productcolor_id'=>$item['color'],
                 'quantity' => $item['quantity'],
                 'price' => $item['price'],
-                //'review_id'=>''
             ];
         };
         $_SESSION['orderData'] = $orderData;
         $_SESSION['orderDetail'] = $orderDetail;
        
-
-        
-
-       
-
-
         $inputData = array(
             "vnp_Version" => "2.1.0",
             "vnp_TmnCode" => $vnp_TmnCode,
@@ -106,7 +106,6 @@ if (isset($_POST['create_order'])) {
             "vnp_ReturnUrl" => $vnp_Returnurl,
             "vnp_TxnRef" => $vnp_TxnRef,
             "vnp_ExpireDate" => $expire,
-
         );
 
         if (isset($vnp_BankCode) && $vnp_BankCode != "") {

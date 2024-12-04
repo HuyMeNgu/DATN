@@ -27,7 +27,7 @@
       $test2="SELECT * from productcolors where product_id=$pro_id";
       $pro_image=getRaw($test2);
       //LAY  MAU theo san pham
-   
+      $pro_color2=getRaw("SELECT * from productcolors INNER JOIN colors ON productcolors.color_id = colors.id WHERE productcolors.product_id = $pro_id");
       
       $pro_color= getRaw("SELECT * FROM productcolors WHERE product_id=$pro_id");
 
@@ -45,6 +45,14 @@
 
     <script>
       $(document).ready(function () {
+
+        $('input[name="color"]').on('change', function () {
+            // Lấy đường dẫn ảnh từ thuộc tính data-image
+            const selectedImage = $(this).data('image');
+
+            // Cập nhật ảnh chính
+            $('#product-main-image').attr('src', selectedImage);
+        });
       
         $(".add_cart").click(function (e) { 
           e.preventDefault();
@@ -53,16 +61,16 @@
           var productQtt=$(".pro-qty").children("input").val();
           var productImg=$(".product__details__pic__item").children("img").attr("src");
           var productId=$(".id").text();
+          var productColor=$('input[name="color"]:checked').val();
           
           $.ajax({
               method: 'POST', // Đảm bảo dùng chữ hoa cho phương thức
               url:'../ajax/addtocart.php', // Thay bằng đường dẫn file xử lý
               data: {
-                  
                   productId: productId,
                   productQtt: productQtt,
-                  productImg:productImg
-
+                  productImg:productImg,
+                  productColor:productColor
               },
               success: function(response) {
                   alert(response);
@@ -91,6 +99,7 @@
             <div class="product__details__pic">
               <div class="product__details__pic__item">
                 <img
+                  id="product-main-image"
                   class="product__details__pic__item--large"
                   src="../admin/<?=$pro_list['img'] ?>"
                   alt="hinh anh san pham"
@@ -98,7 +107,6 @@
               </div>
               <div class="product__details__pic__slider owl-carousel">
                <?php
-               
                foreach($pro_image as $item){ ?>
                 <img
                   data-imgbigurl="../admin/<?=$item['img_path']?>"
@@ -106,9 +114,6 @@
                   alt=""
                 />
               <?php } ?>
-                
-                
-                
               </div>
             </div>
           </div>
@@ -128,20 +133,20 @@
                 
                 ?>
           
-                <span>(18 reviews)</span>
+                <!-- <span>(18 reviews)</span> -->
               </div>
               <div class="product__details__price"><?= number_format($pro_list['price'],0,',','.' ).' VND';?></div>
 
                 <div class="container ">
-                <?php foreach($pro_color as $item):
+                <?php foreach($pro_color2 as $item):
                   $colorid=$item['color_id'];
                   $color_item=oneRaw("SELECT * FROM colors WHERE id = $colorid ");
+                  $img_path="../admin/".$item['img_path'];
 
                   ?>
                  
-
-                <div class="form-check">
-                <input class="form-check-input" type="radio" name="color" id="<?= $color_item['id'] ?>" value="<?= $color_item['id'] ?>" >
+                <div class="form-check select-color">
+                <input class="form-check-input" type="radio" name="color" id="<?= $color_item['id'] ?>" value="<?= $color_item['id']?>" data-image="<?=$img_path?>" >
                 <label class="form-check-label" for="<?= $color_item['id'] ?>">
                   <?=
                     $color_item['color_name'];
@@ -168,20 +173,20 @@
               <a href="" class="primary-btn add_cart">Thêm vào giỏ hàng</a>
 
               <ul>
-                <li><b>Availability</b> <span>In Stock</span></li>
-                <li>
+                <li><b>Tình trạng: </b> <span> Còn hàng </span></li>
+                <!-- <li>
                   <b>Shipping</b>
                   <span>01 day shipping. <samp>Free pickup today</samp></span>
                 </li>
                 <li><b>Weight</b> <span>0.5 kg</span></li>
                 <li>
-                  <b>Share on</b>
-                  <div class="share">
+                  <b>Share on</b> -->
+                  <!-- <div class="share">
                     <a href="#"><i class="fa fa-facebook"></i></a>
                     <a href="#"><i class="fa fa-twitter"></i></a>
                     <a href="#"><i class="fa fa-instagram"></i></a>
                     <a href="#"><i class="fa fa-pinterest"></i></a>
-                  </div>
+                  </div> -->
                 </li>
               </ul>
             </div>

@@ -120,8 +120,28 @@
       e.preventDefault();
       var tr=$(this).parent().parent();
       var trName = tr.children().eq(0).children(1);
-      alert('thuc hien xoa'+trName.text());
-      tr.remove();
+      var productId=tr.data("id");
+      $.ajax({
+        url:'../ajax/deletecart.php',
+        method:'POST',
+        data:{
+          id:productId
+        },
+        dataType:'json',
+        success:function(response){
+          if(response.success){
+            alert('Thực hiện xoá '+trName.text());
+            tr.remove();
+          }else{
+             alert("Không thể xóa sản phẩm.");
+            
+          }
+        },
+        error:function(){
+          alert("Có lỗi xảy ra. Vui lòng thử lại.");
+        }
+      })
+
       
 
       // cap nhat lai so luong
@@ -256,7 +276,7 @@
                   <?php $brand=getRaw("SELECT * FROM brands");
                   foreach($brand as $item):
                   ?>
-                    <li><a href="#"><?=$item['brand_name']?></a></li>
+                    <li><a href="search.php?search=<?=urldecode($item['brand_name'])?>"><?=$item['brand_name']?></a></li>
                     <?php endforeach; ?>
                 </li>
                 <!-- <li><a href="./blog.php">Blog</a></li>

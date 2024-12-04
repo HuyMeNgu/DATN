@@ -94,8 +94,14 @@ require_once('../views/header.php');
                                 unset($item);
                                 
                                 $orderDetail=$_SESSION['orderDetail'];
-                                print_r($orderDetail);
-
+                               // print_r($orderDetail);
+                                // foreach($orderDetail as $item){
+                                //     $qtt=$item['quantity'];
+                                //     $p_id=$item['product_id'];
+                                //     $p_color=$item['productcolor_id'];
+                                //     $up_qtt ="UPDATE productcolors SET quantity = quantity - $qtt WHERE product_id = $p_id AND color_id = $p_color";
+                                //     query($up_qtt); 
+                                // }
                                 multiple_insert('order_details',$orderDetail);
                                 
 

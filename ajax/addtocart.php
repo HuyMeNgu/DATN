@@ -13,6 +13,7 @@ if (!isset($_SESSION['cart'])) {
 $productId = $_POST['productId'];
 $productQtt=$_POST['productQtt'];
 $productImg=$_POST['productImg'];
+$productColor=$_POST['productColor'];
 
 $cart = &$_SESSION['cart']; // Tham chiếu đến giỏ hàng
 $proColor=oneRaw("SELECT color_id FROM productcolors WHERE product_id=$productId");
@@ -35,6 +36,7 @@ if (!$found) {
         'price' => $proDetail['price'],
         'quantity' => $productQtt,
         'image' =>$productImg,
+        'color'=>$productColor
     ];
 }
 echo"them vao gio hang thanh cong!";

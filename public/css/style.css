@@ -29,6 +29,19 @@
 /*----------------------------------------*/
 /* Template default CSS
 /*----------------------------------------*/
+
+/*form color*/
+.select-color{
+display: inline-block;
+margin-right: 5px;
+
+}
+
+
+
+
+/*end form color*/
+
 .p-cursor:hover {
   cursor: pointer;
 }
