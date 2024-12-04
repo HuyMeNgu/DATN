@@ -11,6 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
     //Thông báo
     echo '<div class="alert alert-success" role="alert">Thêm màu sắc thành công!</div>';
+    header("Location: ?action=color");
+    exit;
 }
 ?>
 <div class="midde_cont">

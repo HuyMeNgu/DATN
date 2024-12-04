@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
 
     echo '<div class="alert alert-success" role="alert">Cập nhật loại sản phẩm thành công!</div>';
+    header("Location: category.php");
 }
 ?>
 <div class="midde_cont">

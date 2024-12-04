@@ -1,3 +1,7 @@
+<?php session_start();
+require_once('../config.php')
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,13 +43,11 @@
 
 <body class="dashboard dashboard_1">
   <?php
-  session_start();
   // Kiểm tra nếu admin chưa đăng nhập, chuyển hướng về trang login
   if (!isset($_SESSION['admin_id'])) {
     header("Location: auth/login.php");
     exit;
   }
-  require_once('../config.php')
   ?>
   <div class="full_container">
     <div class="inner_container">

@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="login_section">
           <div class="logo_login">
             <div class="center">
-              <img width="210" src="../layout/images/logo/logo.png" alt="#" />
+              <img width="210" src="../template/images/logo/logo.png" alt="#" />
             </div>
           </div>
           <div class="login_form">
