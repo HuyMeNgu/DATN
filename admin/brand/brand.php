@@ -72,3 +72,32 @@ $listbrand = $mysqli->query($sql)
          </div>
       </div>
    </div>
+</div>
+<script>
+   $(document).ready(function() {
+      $('.btn-delete').click(function(e) {
+         e.preventDefault(); // Ngăn chặn hành động mặc định (không load lại trang)
+
+         var itemId = $(this).data('id'); // Lấy ID của item từ data-id
+
+         if (confirm('Bạn có chắc chắn muốn xóa không?')) {
+            $.ajax({
+               url: './ajax/delete_category.php', // URL của file xử lý xóa
+               type: 'POST',
+               data: {
+                  id: itemId
+               }, // Gửi ID item qua POST
+               success: function(response) {
+
+                  alert('Xóa thành công!'); // Hiển thị thông báo thành công
+                  location.reload(); // Tải lại trang
+
+               },
+               error: function() {
+                  alert('Có lỗi xảy ra khi gửi yêu cầu!');
+               }
+            });
+         }
+      });
+   });
+</script>

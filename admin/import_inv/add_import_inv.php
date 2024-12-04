@@ -21,7 +21,7 @@
    </style>
 </head>
 <?php
-$conn = new mysqli('localhost', 'username', 'password', 'database_name');
+$conn = new mysqli('localhost', 'root', '', 'balostore');
 if ($conn->connect_error) {
    die('Connection failed: ' . $conn->connect_error);
 }

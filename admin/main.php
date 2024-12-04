@@ -33,9 +33,6 @@ switch ($page) {
     case 'edit_color':
         require_once('color/edit_color.php');
         break;
-    case 'delete_color':
-        require_once('color/delete_color.php');
-        break;
     case 'add_color':
         require_once('color/add_color.php');
         break;
@@ -62,6 +59,9 @@ switch ($page) {
         break;
     case 'edit_order':
         require_once('order/edit_order.php');
+        break;
+    case 'approve_order':
+        require_once('order/approve_order.php');
         break;
     case 'supplier':
         require_once('supplier/supplier.php');

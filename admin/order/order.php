@@ -1,4 +1,5 @@
 <?php
+// Lấy danh sách đơn hàng
 $sql = "SELECT * FROM orders";
 $listOrder = $mysqli->query($sql);
 ?>
@@ -35,31 +36,58 @@ $listOrder = $mysqli->query($sql);
                                     <th>Tổng tiền</th>
                                     <th>Tình trạng</th>
                                     <th>Sửa</th>
+                                    <th>Duyệt</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <?php
+                                 // Lặp qua danh sách đơn hàng và hiển thị
                                  foreach ($listOrder as $item) {
                                  ?>
                                     <tr>
                                        <td><?= $item['code'] ?></td>
+                                       <td><?= $item['customer_name'] ?></td>
+                                       <td><?= $item['create_at'] ?></td>
+                                       <td><?= $item['payment'] ?></td>
+                                       <td><?= $item['total_price'] ?></td>
                                        <td>
-                                          <?= $item['customer_name'] ?>
+                                          <!-- Hiển thị trạng thái dựa trên giá trị số -->
+                                          <?php
+                                          switch ($item['status']) {
+                                             case 0:
+                                                echo 'Chờ xác nhận';
+                                                break;
+                                             case 1:
+                                                echo 'Đã duyệt';
+                                                break;
+                                             case 2:
+                                                echo 'Đã vận chuyển';
+                                                break;
+                                             case 3:
+                                                echo 'Đã giao';
+                                                break;
+                                             case 4:
+                                                echo 'Đã hủy';
+                                                break;
+                                             default:
+                                                echo 'Chưa xác định';
+                                          }
+                                          ?>
                                        </td>
                                        <td>
-                                          <?= $item['create_at'] ?>
+                                          <a href="?action=edit_order&id=<?= $item['id'] ?>" class="btn btn-info btn-sm">
+                                             <i class="fa fa-pencil"></i> Sửa
+                                          </a>
                                        </td>
                                        <td>
-                                          <?= $item['payment'] ?>
-                                       </td>
-                                       <td>
-                                          <?= $item['total_price'] ?>
-                                       </td>
-                                       <td>
-                                          xac nhan
-                                       </td>
-                                       <td>
-                                          <a href="?action=edit_order" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>
+                                          <!-- Nút duyệt đơn hàng -->
+                                          <?php if ($item['status'] == 1) { ?>
+                                             <a href="?action=approve_order&order_id=<?= $item['id'] ?>" class="btn btn-success btn-sm">
+                                                <i class="fa fa-check"></i> Duyệt
+                                             </a>
+                                          <?php } else { ?>
+                                             <span class="badge badge-success">Đã duyệt</span>
+                                          <?php } ?>
                                        </td>
                                     </tr>
                                  <?php
@@ -84,3 +112,32 @@ $listOrder = $mysqli->query($sql);
          </div>
       </div>
    </div>
+</div>
+<script>
+   $(document).ready(function() {
+      $('.btn-delete').click(function(e) {
+         e.preventDefault(); // Ngăn chặn hành động mặc định (không load lại trang)
+
+         var itemId = $(this).data('id'); // Lấy ID của item từ data-id
+
+         if (confirm('Bạn có chắc chắn muốn xóa không?')) {
+            $.ajax({
+               url: './ajax/delete_category.php', // URL của file xử lý xóa
+               type: 'POST',
+               data: {
+                  id: itemId
+               }, // Gửi ID item qua POST
+               success: function(response) {
+
+                  alert('Xóa thành công!'); // Hiển thị thông báo thành công
+                  location.reload(); // Tải lại trang
+
+               },
+               error: function() {
+                  alert('Có lỗi xảy ra khi gửi yêu cầu!');
+               }
+            });
+         }
+      });
+   });
+</script>
