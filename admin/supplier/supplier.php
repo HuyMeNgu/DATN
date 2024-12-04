@@ -59,7 +59,7 @@ $listSupplier = $mysqli->query($sql);
                                           <a href="?action=edit_supplier&id=<?= $item['id'] ?>" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>
                                        </td>
                                        <td>
-                                          <a href="" onclick=" return confirm('Bạn chắc chắn muốn xóa?')" class="btn btn-danger  btn-sm"><i class="fa fa-trash"></i></a>
+                                          <a href="" data-id="<?= $item['id'] ?>" class="btn btn-danger  btn-sm btn-delete"><i class="fa fa-trash"></i></a>
                                        </td>
                                     </tr>
                                  <?php
@@ -84,3 +84,32 @@ $listSupplier = $mysqli->query($sql);
          </div>
       </div>
    </div>
+</div>
+<script>
+   $(document).ready(function() {
+      $('.btn-delete').click(function(e) {
+         e.preventDefault(); // Ngăn chặn hành động mặc định (không load lại trang)
+
+         var itemId = $(this).data('id'); // Lấy ID của item từ data-id
+
+         if (confirm('Bạn có chắc chắn muốn xóa không?')) {
+            $.ajax({
+               url: './ajax/delete_supplier.php', // URL của file xử lý xóa
+               type: 'POST',
+               data: {
+                  id: itemId
+               }, // Gửi ID item qua POST
+               success: function(response) {
+
+                  alert('Xóa thành công!'); // Hiển thị thông báo thành công
+                  location.reload(); // Tải lại trang
+
+               },
+               error: function() {
+                  alert('Có lỗi xảy ra khi gửi yêu cầu!');
+               }
+            });
+         }
+      });
+   });
+</script>

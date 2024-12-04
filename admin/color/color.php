@@ -1,17 +1,6 @@
 <?php
 $sql = "SELECT * FROM colors";
 $listColor = $mysqli->query($sql);
-
-// Xử lý xóa màu
-if (isset($_GET['action']) && $_GET['action'] == 'delete_color' && isset($_GET['id'])) {
-   $id = intval($_GET['id']); // Lấy ID màu để xóa
-   $deleteSql = "DELETE FROM colors WHERE id = $id";
-   if ($mysqli->query($deleteSql)) {
-      echo "<script>alert('Xóa thành công!'); window.location.href = 'color.php';</script>";
-   } else {
-      echo "<script>alert('Xóa thất bại!'); window.location.href = 'color.php';</script>";
-   }
-}
 ?>
 
 <div class="midde_cont">
@@ -63,8 +52,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete_color' && isset($_GET['
                                        </td>
                                        <td>
                                           <a href="?action=delete_color&id=<?= $item['id'] ?>"
-                                             onclick="return confirm('Bạn chắc chắn muốn xóa?')"
-                                             class="btn btn-danger btn-sm">
+                                             data-id="<?= $item['id'] ?>"
+                                             class="btn btn-danger btn-sm btn-delete">
                                              <i class="fa fa-trash"></i>
                                           </a>
                                        </td>
@@ -92,3 +81,31 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete_color' && isset($_GET['
       </div>
    </div>
 </div>
+<script>
+   $(document).ready(function() {
+      $('.btn-delete').click(function(e) {
+         e.preventDefault(); // Ngăn chặn hành động mặc định (không load lại trang)
+
+         var itemId = $(this).data('id'); // Lấy ID của item từ data-id
+
+         if (confirm('Bạn có chắc chắn muốn xóa không?')) {
+            $.ajax({
+               url: './ajax/delete_color.php', // URL của file xử lý xóa
+               type: 'POST',
+               data: {
+                  id: itemId
+               }, // Gửi ID item qua POST
+               success: function(response) {
+
+                  alert('Xóa thành công!'); // Hiển thị thông báo thành công
+                  location.reload(); // Tải lại trang
+
+               },
+               error: function() {
+                  alert('Có lỗi xảy ra khi gửi yêu cầu!');
+               }
+            });
+         }
+      });
+   });
+</script>

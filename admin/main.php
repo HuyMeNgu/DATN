@@ -33,6 +33,9 @@ switch ($page) {
     case 'edit_color':
         require_once('color/edit_color.php');
         break;
+    case 'delete_color':
+        require_once('color/delete_color.php');
+        break;
     case 'add_color':
         require_once('color/add_color.php');
         break;
@@ -71,6 +74,7 @@ switch ($page) {
         break;
     default:
         require_once('home/home.php');
+        break;
 }
 ?>
 
