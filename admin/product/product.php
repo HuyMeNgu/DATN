@@ -52,7 +52,7 @@ while ($row = mysqli_fetch_assoc($listPro)) {
                                     <th>Tên sản phẩm</th>
                                     <th>Loại</th>
                                     <th>Màu sắc</th>
-                                    <th>Trạng thái</th>
+                                    <!-- <th>Trạng thái</th> -->
                                     <th>Sửa</th>
                                     <th>Xóa</th>
                                  </tr>
@@ -73,9 +73,9 @@ while ($row = mysqli_fetch_assoc($listPro)) {
                                           <?= $item['cate_name'] ?>
                                        </td>
                                        <td> <?= implode(", ", $item['colors']) ?></td>
-                                       <td>
+                                       <!-- <td>
                                           <button type="button" class="btn btn-success btn-xs">Mở</button>
-                                       </td>
+                                       </td> -->
                                        <td>
                                           <a href="?action=edit_product&id=<?= $item['id'] ?>" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>
                                        </td>

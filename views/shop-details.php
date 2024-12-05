@@ -146,7 +146,8 @@
                   ?>
                  
                 <div class="form-check select-color">
-                <input class="form-check-input" type="radio" name="color" id="<?= $color_item['id'] ?>" value="<?= $color_item['id']?>" data-image="<?=$img_path?>" >
+                <input class="form-check-input" type="radio" name="color" id="<?= $color_item['id'] ?>" value="<?= $color_item['id']?>" data-image="<?=$img_path?>"
+                 data-qtt="<?=$item['quantity']?>" data-colorname="<?=$color_item['color_name']?>">
                 <label class="form-check-label" for="<?= $color_item['id'] ?>">
                   <?=
                     $color_item['color_name'];
@@ -172,23 +173,7 @@
               <div class="d-none id"><?=$pro_list['id']?></div>
               <a href="" class="primary-btn add_cart">Thêm vào giỏ hàng</a>
 
-              <ul>
-                <li><b>Tình trạng: </b> <span> Còn hàng </span></li>
-                <!-- <li>
-                  <b>Shipping</b>
-                  <span>01 day shipping. <samp>Free pickup today</samp></span>
-                </li>
-                <li><b>Weight</b> <span>0.5 kg</span></li>
-                <li>
-                  <b>Share on</b> -->
-                  <!-- <div class="share">
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-instagram"></i></a>
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                  </div> -->
-                </li>
-              </ul>
+              <div id="product-status"></div>
             </div>
           </div>
           <div class="col-lg-12">

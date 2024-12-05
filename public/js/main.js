@@ -219,7 +219,21 @@
         input.val(currentValue + 1); // Tăng 1
       });
 
-    //xu ly gio hang
+    //validate check-out form
+
+    $('input[name="color"]').change(function() {
+        // Lấy thông tin từ radio button đã chọn
+        var selectedColorName = $(this).data('colorname');
+        var selectedQuantity = $(this).data('qtt');
+        
+        // Kiểm tra số lượng
+        if (selectedQuantity > 0) {
+            $('#product-status').html('<b> Màu ' + selectedColorName + '</b> còn hàng: ' + selectedQuantity + ' sản phẩm.');
+        } else {
+            $('#product-status').html('<b> Màu ' + selectedColorName + '</b> đã hết hàng.');
+        }
+    });
+
  
 })(jQuery);
 

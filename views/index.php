@@ -1,14 +1,17 @@
 <!-- HEADER -->
 <?php
 $is_homepage = true;
+
 require_once('header.php');
 require_once('../config.php');
 require_once('../models/connectdb.php');
 require_once('../models/function.php');
 require_once('../models/database.php');
 require_once('../models/session.php');
-$sql = "SELECT * FROM products";
+$sql = "SELECT * FROM products Where product_name LIKE '%balo%' ORDER BY create_at DESC";
+$sql2="SELECT * FROM products Where product_name LIKE '%tui%' ORDER BY create_at DESC";
 $listpro = $mysqli->query($sql);
+$listpro2=query($sql2);
 ?>
 
 
@@ -17,47 +20,11 @@ $listpro = $mysqli->query($sql);
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
-        <div class="section-title">
+        <!-- <div class="section-title">
           <h2>SẢN PHẨM MỚI NHẤT</h2>
-        </div>
+        </div> -->
       </div>
-      <div class="categories__slider owl-carousel">
-        <div class="col-lg-3">
-          <div
-            class="categories__item set-bg"
-            data-setbg="../public/img/categories/cat-1.jpg">
-            <h5><a href="#">Fresh Fruit</a></h5>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div
-            class="categories__item set-bg"
-            data-setbg="../public/img/categories/cat-2.jpg">
-            <h5><a href="#">Dried Fruit</a></h5>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div
-            class="categories__item set-bg"
-            data-setbg="../public/img/categories/cat-3.jpg">
-            <h5><a href="#">Vegetables</a></h5>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div
-            class="categories__item set-bg"
-            data-setbg="../public/img/categories/cat-4.jpg">
-            <h5><a href="#">drink fruits</a></h5>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div
-            class="categories__item set-bg"
-            data-setbg="../public/img/categories/cat-5.jpg">
-            <h5><a href="#">drink fruits</a></h5>
-          </div>
-        </div>
-      </div>
+
     </div>
   </div>
 </section>
@@ -69,16 +36,15 @@ $listpro = $mysqli->query($sql);
     <div class="row">
       <div class="col-lg-12">
         <div class="section-title">
-          <h2>Balo & Túi xách</h2>
+          <h2>Balo</h2>
         </div>
-        <div class="featured__controls">
+        <!-- <div class="featured__controls">
           <ul>
             <li class="active" data-filter="*">Tất cả</li>
             <li data-filter=".oranges">Balo</li>
             <li data-filter=".fresh-meat">Túi xách</li>
-
           </ul>
-        </div>
+        </div> -->
       </div>
     </div>
     <script>
@@ -147,6 +113,90 @@ $listpro = $mysqli->query($sql);
       ?>
     </div>
   </div>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-title">
+          <h2>Túi Xách</h2>
+        </div>
+        <!-- <div class="featured__controls">
+          <ul>
+            <li class="active" data-filter="*">Tất cả</li>
+            <li data-filter=".oranges">Balo</li>
+            <li data-filter=".fresh-meat">Túi xách</li>
+          </ul>
+        </div> -->
+      </div>
+    </div>
+    <script>
+      $(document).ready(function() {
+        $('[data-setbg]').each(function() {
+          var bg = $(this).data('setbg');
+          $(this).css('background-image', 'url(' + bg + ')');
+        });
+      });
+    </script>
+    <div class="row featured__filter">
+      <?php
+      foreach ($listpro2 as $item) {
+      ?>
+        <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+          <div class="featured__item">
+            <div
+              class="featured__item__pic set-bg">
+
+              <img id="product_img_<?= $item['id'] ?>" class="product_img" src="../admin/<?= $item['img'] ?>" alt="">
+
+              <ul class="featured__item__pic__hover">
+                <li>
+                  <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                </li>
+              </ul>
+            </div>
+
+            <div style="justify-content: space-evenly;" class="d-flex align-items-center my-3 ">
+              <?php
+              //$colorArray = explode(",", $item['colors']);
+              $proid=$item['id'];
+              $colorArray= getRaw("SELECT * FROM productcolors WHERE product_id=$proid");
+              foreach ($colorArray as $color):
+                $colorid=$color['color_id'];
+                $color = oneRaw("SELECT * FROM colors WHERE id=$colorid");
+              ?>
+                <div data-product-id="<?= $item['id'] ?>" data-id="<?= $color['id'] ?>" style="background-color:<?= $color['code'] ?>;" class="box-color">
+                  <i class="fa fa-check check-icon"></i>
+                </div>
+              <?php endforeach; ?>
+            </div>
+
+
+            <div class="featured__item__text">
+              <h6><a href="shop-details.php?id=<?= $item['id'] ?>"><?= $item['product_name'] ?></a></h6>
+              <h5><?= $item['price'] ?></h5>
+            </div>
+            <?php
+            // Hiển thị lượt đánh giá bằng sao
+            echo "<div  style='text-align:center;' class='product-rating'>";
+            for ($i = 1; $i <= 5; $i++) {
+              if ($i <= $item['rating']) {
+                echo "<span class='text-warning'>&#9733;</span>"; // Sao đã đánh giá
+              } else {
+                echo "<span class='text-muted'>&#9733;</span>"; // Sao trống
+              }
+            }
+            echo "</div>"; // Đóng thẻ đánh giá
+            ?>
+
+          </div>
+        </div>
+      <?php
+      }
+      ?>
+    </div>
+  </div>
+  
 </section>
 <!-- Featured Section End -->
 

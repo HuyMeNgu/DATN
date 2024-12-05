@@ -141,9 +141,6 @@
           alert("Có lỗi xảy ra. Vui lòng thử lại.");
         }
       })
-
-      
-
       // cap nhat lai so luong
       qttCart();
       //cap nhat tong tien
@@ -174,7 +171,7 @@
     var cart= $(".cart-list").children("tr");
       var cartCount = cart.length;
       var cartqty = $(".cart-count").eq(0);
-      cartqty.text(cartCount);
+      cartqty.text(<?=sizeof($_SESSION['cart'])?>);
     }
     </script>
 

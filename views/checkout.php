@@ -40,9 +40,9 @@ $cart =$_SESSION['cart'];
             </h6>
           </div>
         </div>
-        <div class="checkout__form">
+        <div  class="checkout__form">
           <h4>Thông tin đơn hàng</h4>
-          <form action="manage-order.php" method="post" name="create_order">
+          <form id="checkout-form" action="manage-order.php" method="post" name="create_order">
             <div class="row">
               <div class="col-lg-8 col-md-6">
                 <div class="row">
@@ -51,7 +51,8 @@ $cart =$_SESSION['cart'];
                 </div>
                 <div class="checkout__input">
                   <p>Họ và tên<span>*</span></p>
-                  <input name="customer_name" type="text" placeholder="Nhập họ tên "/>
+                  <input name="customer_name" type="text" placeholder="Nhập họ tên " required  />
+                  <span id="customername_Error" style="color: red;"></span><br>
                 </div>
                 <div class="checkout__input">
                   <p>Địa chỉ<span>*</span></p>
@@ -60,15 +61,22 @@ $cart =$_SESSION['cart'];
                     placeholder="Nhập địa chỉ giao hàng"
                     class="checkout__input__add"
                     name="address"
+                    required
                   />
+                  <span id="address_Error" style="color: red;"></span><br>
+
                 </div>
                 <div class="checkout__input">
                   <p>Email<span>*</span></p>
-                  <input name="email" type="text" placeholder="Nhập Email" />
+                  <input name="email" type="email" placeholder="Nhập Email" required/>
+                  <span id="email_Error" style="color: red;"></span><br>
+
                 </div>
                 <div class="checkout__input">
                   <p>Số điện thoại<span>*</span></p>
-                  <input name="phone" type="text"  placeholder="Nhập số điện thoại" />
+                  <input name="phone" type="text"  placeholder="Nhập số điện thoại" required/>
+                  <span id="phone_Error" style="color: red;"></span><br>
+
                 </div>
               
                 <div class="checkout__input">
@@ -131,6 +139,8 @@ $cart =$_SESSION['cart'];
   $(".payment-option").change(function () {
     $(".payment-option").not(this).prop("checked", false); // Bỏ chọn các checkbox khác
   });
+
+  
 </script>
 
     <!-- Footer Section Begin -->
