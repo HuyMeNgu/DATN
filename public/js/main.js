@@ -229,8 +229,10 @@
         // Kiểm tra số lượng
         if (selectedQuantity > 0) {
             $('#product-status').html('<b> Màu ' + selectedColorName + '</b> còn hàng: ' + selectedQuantity + ' sản phẩm.');
+            $('.add_cart').removeClass('disabled').attr('href', '#'); // Kích hoạt nút
         } else {
             $('#product-status').html('<b> Màu ' + selectedColorName + '</b> đã hết hàng.');
+            $('.add_cart').addClass('disabled').removeAttr('href'); // Vô hiệu hóa nút
         }
     });
 
